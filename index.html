@@ -93,18 +93,88 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        // --- Firebase Setup (Compat Mode) ---
-        // 修正重點：改用 Compat 模式，直接使用 window.firebase 全域變數，解決無法載入模組的問題
-        const firebaseConfig = JSON.parse(window.__firebase_config || '{}');
+        // --- System Initialization ---
+        
+        // 【老師請注意】請將您從 Google Apps Script 取得的網址貼在下方引號中：
+        const GOOGLE_SCRIPT_URL = ''; 
+        // 例如： const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx.../exec';
+
+        let auth, db;
+        let isOfflineMode = false;
         const appId = typeof window.__app_id !== 'undefined' ? window.__app_id : 'default-app-id';
         const initialAuthToken = window.__initial_auth_token;
 
-        // Initialize Firebase
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
+        // 檢查是否有 Firebase 設定
+        const hasFirebaseConfig = window.__firebase_config && window.__firebase_config.length > 0;
+
+        if (hasFirebaseConfig) {
+            try {
+                const firebaseConfig = JSON.parse(window.__firebase_config);
+                if (!firebase.apps.length) {
+                    firebase.initializeApp(firebaseConfig);
+                }
+                auth = firebase.auth();
+                db = firebase.firestore();
+            } catch (e) {
+                console.error("Firebase Init Failed, falling back to offline mode", e);
+                isOfflineMode = true;
+            }
+        } else {
+            console.warn("No Firebase config found. Running in Offline Mode.");
+            isOfflineMode = true;
         }
-        const auth = firebase.auth();
-        const db = firebase.firestore();
+
+        // --- Mock Objects for Offline Mode (Local Storage Logic) ---
+        if (isOfflineMode) {
+            // 模擬 Auth
+            auth = {
+                signInAnonymously: async () => ({ user: { uid: 'offline_user_' + Date.now() } }),
+                signInWithCustomToken: async () => ({ user: { uid: 'offline_user' } }),
+                onAuthStateChanged: (callback) => {
+                    callback({ uid: 'offline_guest', isAnonymous: true });
+                    return () => {};
+                },
+                currentUser: { uid: 'offline_guest' }
+            };
+
+            // 模擬 Firestore (使用 LocalStorage)
+            const LOCAL_STORAGE_KEY = 'history_learning_scores';
+            
+            const createMockChain = () => {
+                return {
+                    collection: () => createMockChain(),
+                    doc: () => createMockChain(),
+                    add: async (data) => {
+                        const existingData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
+                        const newDoc = {
+                            ...data,
+                            id: 'local_' + Date.now(),
+                            date: { seconds: Date.now() / 1000 }
+                        };
+                        existingData.push(newDoc);
+                        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(existingData));
+                        return { id: newDoc.id };
+                    },
+                    orderBy: (field, direction) => {
+                        return {
+                            onSnapshot: (callback) => {
+                                const existingData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
+                                existingData.sort((a, b) => b[field] - a[field]);
+                                const snapshot = {
+                                    docs: existingData.map(d => ({
+                                        id: d.id,
+                                        data: () => d
+                                    }))
+                                };
+                                callback(snapshot);
+                                return () => {};
+                            }
+                        };
+                    }
+                };
+            };
+            db = createMockChain();
+        }
 
         // --- Utils: Sound Effect ---
         const playAudio = (type) => {
@@ -120,7 +190,6 @@
                 gainNode.connect(ctx.destination);
                 
                 if (type === 'correct') {
-                    // High pitch ding-dong
                     oscillator.type = 'sine';
                     oscillator.frequency.setValueAtTime(660, ctx.currentTime);
                     oscillator.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.1);
@@ -129,7 +198,6 @@
                     oscillator.start();
                     oscillator.stop(ctx.currentTime + 0.5);
                 } else {
-                    // Low pitch buzz
                     oscillator.type = 'sawtooth';
                     oscillator.frequency.setValueAtTime(150, ctx.currentTime);
                     oscillator.frequency.linearRampToValueAtTime(100, ctx.currentTime + 0.3);
@@ -145,7 +213,6 @@
 
         // --- Data ---
         const quizQuestions = [
-            // True/False
             { id: 1, type: 'tf', q: '西元 1895 年，清帝國與日本簽訂馬關條約，將臺灣割讓給日本。', a: true, expl: '正確！這是日治時期的開始。' },
             { id: 2, type: 'tf', q: '日治時期，警察只負責抓壞人，不參與衛生與行政管理。', a: false, expl: '錯誤！當時警察「無所不管」，連衛生檢查、戶口調查都要管。' },
             { id: 3, type: 'tf', q: '「第一憨，種甘蔗給糖廠磅」是形容當時糖廠收購甘蔗的制度不公平。', a: true, expl: '正確！因為秤重權在糖廠，農民常覺得被偷斤減兩。' },
@@ -156,7 +223,6 @@
             { id: 8, type: 'tf', q: '「皇民化運動」是鼓勵臺灣人保留原本的傳統習俗，不需學日語。', a: false, expl: '錯誤！皇民化運動要求說日語、改日本姓名、拜日本神社。' },
             { id: 9, type: 'tf', q: '西元 1935 年，臺灣舉行了史上第一次部分民意代表的選舉。', a: true, expl: '正確！這是臺灣選舉史的開端。' },
             { id: 10, type: 'tf', q: '透過建立公共衛生系統與自來水，日治時期人們的壽命有顯著延長。', a: true, expl: '正確！乾淨的水源減少了傳染病。' },
-            // Multiple Choice
             { id: 11, type: 'mc', q: '日本在臺灣設立的最高統治機關為何？', options: ['總統府', '臺灣總督府', '臺灣巡撫衙門'], a: 1, expl: '就是現在位於臺北凱達格蘭大道上的總統府建築喔！' },
             { id: 12, type: 'mc', q: '下列何者不是當時的專賣品？', options: ['鹽', '酒', '稻米'], a: 2, expl: '稻米不是專賣品，但菸、酒、鹽、樟腦、鴉片是。' },
             { id: 13, type: 'mc', q: '由莫那．魯道領導的武裝抗日事件是？', options: ['霧社事件', '噍吧哖事件', '牡丹社事件'], a: 0, expl: '發生在南投霧社，是原住民反抗日本統治的重要事件。' },
@@ -168,8 +234,6 @@
             { id: 19, type: 'mc', q: '臺灣第一位原住民族西醫，且在臺東開辦醫院的人是？', options: ['南志信', '蔣渭水', '蔡培火'], a: 0, expl: '南志信醫師是卑南族人，致力於改善原鄉醫療。' },
             { id: 20, type: 'mc', q: '臺灣文化協會透過哪一份報紙作為傳播新知的主要工具？', options: ['聯合報', '臺灣民報', '中國時報'], a: 1, expl: '《臺灣民報》是當時臺灣人唯一的言論機關，被稱為「臺灣人的喉舌」。' }
         ];
-
-        const icons = window.lucide;
 
         // --- Components ---
 
@@ -207,6 +271,11 @@
                         ))}
                     </nav>
                 </div>
+                {isOfflineMode && (
+                    <div className="bg-gray-800 text-white text-xs text-center py-1">
+                        ⚠️ 目前為本機模式：成績儲存在這台電腦，若有設定下方 Google Script 網址則會同步至試算表。
+                    </div>
+                )}
             </header>
         );
 
@@ -561,11 +630,11 @@
 
             const finishQuiz = async () => {
                 setQuizFinished(true);
-                // Save to Firestore (Compat API)
+                const finalScore = score + (isCorrect ? 5 : 0); 
+                
+                // 1. Save to Local Machine / Firebase
                 if (user) {
                     try {
-                        const finalScore = score + (isCorrect ? 5 : 0); 
-                        
                         await db.collection('artifacts')
                             .doc(appId)
                             .collection('public')
@@ -579,7 +648,38 @@
                                 totalQuestions: quizQuestions.length
                             });
                     } catch (e) {
-                        console.error("Error saving score:", e);
+                        console.error("Error saving score locally:", e);
+                    }
+                }
+
+                // 2. Save to Google Sheet (if URL is configured)
+                if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL.startsWith('https')) {
+                    try {
+                        console.log('Sending to Google Sheet...');
+                        
+                        // Prepare form data for Google Apps Script
+                        // Note: Apps Script doPost(e) reads parameters
+                        // We construct a simple representation of history
+                        const detailsString = history.map((h, i) => 
+                            `${i+1}.${h.question.substring(0,10)}...[${h.correct ? 'O' : 'X'}]`
+                        ).join('; ');
+
+                        // Use FormData to send as POST body, compatible with simple doPost
+                        const formData = new FormData();
+                        formData.append('name', user);
+                        formData.append('score', finalScore);
+                        formData.append('date', new Date().toLocaleString());
+                        formData.append('details', detailsString);
+
+                        // Use no-cors mode to avoid CORS errors from Google Script
+                        await fetch(GOOGLE_SCRIPT_URL, {
+                            method: 'POST',
+                            body: formData,
+                            mode: 'no-cors'
+                        });
+                        console.log('Sent to Google Sheet successfully');
+                    } catch (err) {
+                        console.error('Failed to send to Google Sheet', err);
                     }
                 }
             };
@@ -594,6 +694,15 @@
                             <div className="text-6xl font-black text-red-500 mb-8 font-mono">
                                 {score} <span className="text-2xl text-gray-400">/ 100</span>
                             </div>
+                            
+                            {/* Google Sheet Status Indicator */}
+                            {GOOGLE_SCRIPT_URL && (
+                                <p className="text-xs text-green-600 mb-4 animate-pulse">
+                                    <i className="inline-block w-3 h-3 mr-1 align-middle" data-lucide="cloud-upload"></i>
+                                    正在同步至雲端成績單...
+                                </p>
+                            )}
+
                             <div className="space-y-3">
                                 <button onClick={() => setView('dashboard')} className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold retro-btn">
                                     查看排行榜
