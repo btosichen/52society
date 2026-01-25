@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日治臺灣：時光探險隊</title>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Zen+Maru+Gothic:wght@500;900&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Firebase SDKs removed from global scope to use ES modules below -->
+
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f0f4f8;
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .title-font {
+            font-family: 'Zen Maru Gothic', sans-serif;
+        }
+        .flip-card {
+            background-color: transparent;
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+        .retro-btn {
+            box-shadow: 4px 4px 0px 0px #1e293b;
+            transition: all 0.1s;
+        }
+        .retro-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px #1e293b;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel" data-type="module">
+        // Firebase Setup using ES Modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Access global variables
+        const firebaseConfig = JSON.parse(window.__firebase_config);
+        const appId = typeof window.__app_id !== 'undefined' ? window.__app_id : 'default-app-id';
+        const initialAuthToken = window.__initial_auth_token;
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // --- Data ---
+        const quizQuestions = [
+            // True/False
+            { id: 1, type: 'tf', q: '西元 1895 年，清帝國與日本簽訂馬關條約，將臺灣割讓給日本。', a: true, expl: '正確！這是日治時期的開始。' },
+            { id: 2, type: 'tf', q: '日治時期，警察只負責抓壞人，不參與衛生與行政管理。', a: false, expl: '錯誤！當時警察「無所不管」，連衛生檢查、戶口調查都要管。' },
+            { id: 3, type: 'tf', q: '「第一憨，種甘蔗給糖廠磅」是形容當時糖廠收購甘蔗的制度不公平。', a: true, expl: '正確！因為秤重權在糖廠，農民常覺得被偷斤減兩。' },
+            { id: 4, type: 'tf', q: '八田與一被譽為「嘉南大圳之父」，對臺灣農業貢獻很大。', a: true, expl: '正確！嘉南大圳讓許多旱田變成了良田。' },
+            { id: 5, type: 'tf', q: '當時臺灣兒童與日本兒童在同一種學校讀書，完全沒有差別待遇。', a: false, expl: '錯誤！日本人讀「小學校」，臺灣人讀「公學校」，資源有差。' },
+            { id: 6, type: 'tf', q: '日治時期引入了星期制，讓民眾開始有了「週休」的概念。', a: true, expl: '正確！這是現代時間觀念的建立。' },
+            { id: 7, type: 'tf', q: '蔣渭水醫師創立大安醫院，除了醫病，更想透過社會運動「醫國」。', a: true, expl: '正確！他是臺灣文化協會的重要推手。' },
+            { id: 8, type: 'tf', q: '「皇民化運動」是鼓勵臺灣人保留原本的傳統習俗，不需學日語。', a: false, expl: '錯誤！皇民化運動要求說日語、改日本姓名、拜日本神社。' },
+            { id: 9, type: 'tf', q: '西元 1935 年，臺灣舉行了史上第一次部分民意代表的選舉。', a: true, expl: '正確！這是臺灣選舉史的開端。' },
+            { id: 10, type: 'tf', q: '透過建立公共衛生系統與自來水，日治時期人們的壽命有顯著延長。', a: true, expl: '正確！乾淨的水源減少了傳染病。' },
+            // Multiple Choice
+            { id: 11, type: 'mc', q: '日本在臺灣設立的最高統治機關為何？', options: ['總統府', '臺灣總督府', '臺灣巡撫衙門'], a: 1, expl: '就是現在位於臺北凱達格蘭大道上的總統府建築喔！' },
+            { id: 12, type: 'mc', q: '下列何者不是當時的專賣品？', options: ['鹽', '酒', '稻米'], a: 2, expl: '稻米不是專賣品，但菸、酒、鹽、樟腦、鴉片是。' },
+            { id: 13, type: 'mc', q: '由莫那．魯道領導的武裝抗日事件是？', options: ['霧社事件', '噍吧哖事件', '牡丹社事件'], a: 0, expl: '發生在南投霧社，是原住民反抗日本統治的重要事件。' },
+            { id: 14, type: 'mc', q: '日治時期為了運送阿里山木材而興建的鐵路是？', options: ['西部縱貫鐵路', '阿里山森林鐵路', '糖業鐵路'], a: 1, expl: '現在是知名的觀光鐵路，當時是為了運送珍貴檜木。' },
+            { id: 15, type: 'mc', q: '蔣渭水成立的哪一個組織，被視為啟蒙臺灣文化的關鍵？', options: ['臺灣民主國', '專賣局', '臺灣文化協會'], a: 2, expl: '文協透過演講、辦報紙來啟發民眾智慧。' },
+            { id: 16, type: 'mc', q: '下列哪一項是日治時期引進的現代文明事物？', options: ['一天 24 小時制', '農曆新年', '纏足習俗'], a: 0, expl: '以前算時辰，日治時期開始使用手錶和24小時制。' },
+            { id: 17, type: 'mc', q: '在皇民化運動中，被認定為「國語家庭」的人可以享有什麼優待？', options: ['免繳稅', '分配較多物資', '不必工作'], a: 1, expl: '因為物資缺乏，成為國語(日語)家庭可以有配給優待。' },
+            { id: 18, type: 'mc', q: '關於基隆港與高雄港的敘述，何者正確？', options: ['是為了開發東部', '主要是為了觀光', '奠定了日後航運與貿易的基礎'], a: 2, expl: '一北一南的港口，打通了臺灣對外的運輸動脈。' },
+            { id: 19, type: 'mc', q: '臺灣第一位原住民族西醫，且在臺東開辦醫院的人是？', options: ['南志信', '蔣渭水', '蔡培火'], a: 0, expl: '南志信醫師是卑南族人，致力於改善原鄉醫療。' },
+            { id: 20, type: 'mc', q: '臺灣文化協會透過哪一份報紙作為傳播新知的主要工具？', options: ['聯合報', '臺灣民報', '中國時報'], a: 1, expl: '《臺灣民報》是當時臺灣人唯一的言論機關，被稱為「臺灣人的喉舌」。' }
+        ];
+
+        // Icons are loaded globally via script tag, but accessed via window
+        const icons = window.lucide;
+
+        // --- Components ---
+
+        const Header = ({ currentView, setView, user }) => (
+            <header className="bg-yellow-400 border-b-4 border-yellow-600 sticky top-0 z-50">
+                <div className="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center">
+                    <div className="flex items-center gap-2 cursor-pointer" onClick={() => setView('home')}>
+                        <div className="bg-blue-800 text-white p-2 rounded-full border-2 border-white">
+                            <i data-lucide="compass" className="w-6 h-6"></i>
+                        </div>
+                        <h1 className="text-xl md:text-2xl font-bold text-blue-900 title-font">日治臺灣：時光探險隊</h1>
+                    </div>
+                    <nav className="flex gap-2 flex-wrap mt-2 md:mt-0">
+                        {['home', 'learn', 'game', 'quiz', 'dashboard'].map(view => (
+                            <button
+                                key={view}
+                                onClick={() => setView(view)}
+                                className={`px-3 py-1 rounded-lg font-bold text-sm transition-colors ${
+                                    currentView === view 
+                                    ? 'bg-blue-800 text-white shadow-inner' 
+                                    : 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200'
+                                }`}
+                            >
+                                {view === 'home' ? '首頁' : 
+                                 view === 'learn' ? '知識寶庫' : 
+                                 view === 'game' ? '第一憨遊戲' : 
+                                 view === 'quiz' ? '知識挑戰' : '成績紀錄'}
+                            </button>
+                        ))}
+                    </nav>
+                </div>
+            </header>
+        );
+
+        const Login = ({ onJoin }) => {
+            const [name, setName] = React.useState('');
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                if (name.trim()) onJoin(name);
+            };
+
+            return (
+                <div className="min-h-screen flex items-center justify-center bg-blue-900 p-4">
+                    <div className="bg-white rounded-2xl p-8 max-w-md w-full border-4 border-yellow-400 shadow-[8px_8px_0px_0px_rgba(250,204,21,1)]">
+                        <div className="text-center mb-6">
+                            <div className="w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-blue-900">
+                                <i data-lucide="user-plus" className="w-10 h-10 text-blue-900"></i>
+                            </div>
+                            <h2 className="text-3xl font-bold text-blue-900 title-font mb-2">歡迎加入探險隊！</h2>
+                            <p className="text-gray-600">請輸入你的名字，開始這趟時光旅程。</p>
+                        </div>
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <input
+                                type="text"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                placeholder="王小明"
+                                className="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-lg"
+                                required
+                            />
+                            <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl retro-btn text-xl">
+                                出發！
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            );
+        };
+
+        const Home = ({ setView }) => (
+            <div className="max-w-4xl mx-auto p-6 space-y-8 animate-fade-in">
+                <div className="bg-white p-8 rounded-3xl border-b-8 border-r-8 border-blue-900 shadow-xl text-center">
+                    <h2 className="text-4xl font-bold text-blue-900 mb-4 title-font">穿越 1895 - 1945</h2>
+                    <p className="text-xl text-gray-700 mb-8 leading-relaxed">
+                        歡迎來到日治時期的臺灣！<br/>
+                        在這裡，你會發現現代生活的許多習慣，原來都是那時候建立的。<br/>
+                        準備好探索這段改變臺灣深遠的 50 年歷史了嗎？
+                    </p>
+                    <div className="grid md:grid-cols-2 gap-4">
+                        <button onClick={() => setView('learn')} className="bg-yellow-400 hover:bg-yellow-300 text-blue-900 px-6 py-4 rounded-xl font-bold text-xl retro-btn flex items-center justify-center gap-2">
+                            <i data-lucide="book-open"></i> 開始學習
+                        </button>
+                        <button onClick={() => setView('quiz')} className="bg-red-400 hover:bg-red-300 text-white px-6 py-4 rounded-xl font-bold text-xl retro-btn flex items-center justify-center gap-2">
+                            <i data-lucide="trophy"></i> 挑戰測驗
+                        </button>
+                    </div>
+                </div>
+
+                {/* Time Tunnel Section */}
+                <div className="space-y-6">
+                    <h3 className="text-2xl font-bold text-center text-blue-800 bg-yellow-200 inline-block px-6 py-2 rounded-full mx-auto block title-font">
+                        🕰️ 時光隧道：今昔大對比
+                    </h3>
+                    
+                    {[
+                        { title: '👮 警察大人', past: '無所不管！管治安、管衛生、還要管你家有沒有打掃乾淨，甚至指揮交通。', now: '主要負責治安與交通，衛生由衛生局負責。', icon: 'shield' },
+                        { title: '⏰ 時間觀念', past: '引進 24 小時制與星期制，規定星期日休息。大家開始看手錶準時赴約。', now: '週休二日是常態，守時是基本禮貌。', icon: 'clock' },
+                        { title: '💧 衛生習慣', past: '建設自來水廠（水道水），不再喝河水、井水。大幅減少傳染病。', now: '打開水龍頭就有乾淨的水，洗手是日常習慣。', icon: 'droplet' }
+                    ].map((item, idx) => (
+                        <div key={idx} className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col md:flex-row border-2 border-blue-100 hover:shadow-lg transition-all">
+                            <div className="bg-blue-100 p-6 flex items-center justify-center md:w-1/4">
+                                <div className="text-center">
+                                    <div className="bg-white p-3 rounded-full mb-2 inline-block">
+                                        <i data-lucide={item.icon} className="w-8 h-8 text-blue-600"></i>
+                                    </div>
+                                    <h4 className="font-bold text-lg text-blue-900">{item.title}</h4>
+                                </div>
+                            </div>
+                            <div className="flex-1 p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="border-l-4 border-gray-400 pl-4">
+                                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">日治時期</span>
+                                    <p className="text-gray-700 mt-1 font-medium">{item.past}</p>
+                                </div>
+                                <div className="border-l-4 border-yellow-400 pl-4">
+                                    <span className="text-xs font-bold text-yellow-600 uppercase tracking-wider">現在</span>
+                                    <p className="text-gray-700 mt-1 font-medium">{item.now}</p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+
+        const Learn = () => {
+            const [flipped, setFlipped] = React.useState({});
+
+            const toggleFlip = (id) => {
+                setFlipped(prev => ({ ...prev, [id]: !prev[id] }));
+            };
+
+            const cards = [
+                { id: 1, title: '統治中心', subtitle: '臺灣總督府', content: '就是現在的總統府！這是日本統治臺灣的最高權力機關，總督擁有行政、立法、司法與軍事大權。', mnemonic: '💡 記憶口訣：總督權力大無邊，就在現在總統府。', color: 'bg-red-100 text-red-800' },
+                { id: 2, title: '警察制度', subtitle: '大人來了', content: '建立了嚴密的警察網，警察被稱為「大人」，除了抓小偷，還要檢查環境衛生、戶口調查，真的管很大！', mnemonic: '💡 記憶口訣：萬能警察管很大，衛生交通都靠他。', color: 'bg-orange-100 text-orange-800' },
+                { id: 3, title: '農業發展', subtitle: '嘉南大圳', content: '日本技師八田與一設計了當時亞洲最大的水利工程，讓嘉南平原的旱田變成大穀倉。', mnemonic: '💡 記憶口訣：八田水庫種稻米，嘉南平原大豐收。', color: 'bg-yellow-100 text-yellow-800' },
+                { id: 4, title: '專賣制度', subtitle: '政府獨佔', content: '為了賺錢，總督府規定菸、酒、鹽、樟腦、鴉片只能由政府賣。這也是政府重要的收入來源。', mnemonic: '💡 記憶口訣：專賣菸酒鹽樟鴉，政府賺錢笑哈哈。', color: 'bg-green-100 text-green-800' },
+                { id: 5, title: '新式教育', subtitle: '公學校', content: '開始普及教育，雖然臺灣人念「公學校」、日本人念「小學校」有差別待遇，但也大大提高了識字率。', mnemonic: '💡 記憶口訣：日讀小學臺讀公，雖然不公也識字。', color: 'bg-teal-100 text-teal-800' },
+                { id: 6, title: '社會運動', subtitle: '文化協會', content: '蔣渭水、林獻堂等人成立「臺灣文化協會」，辦報紙、演講，啟發臺灣人的民族意識與權利爭取。', mnemonic: '💡 記憶口訣：林蔣文化爭議會，啟發民智爭權利。', color: 'bg-blue-100 text-blue-800' },
+                { id: 7, title: '現代文明', subtitle: '守時衛生', content: '引入標準時間（24小時制）、星期制（週日休假），還有自來水、電影院、百貨公司等現代設施。', mnemonic: '💡 記憶口訣：守時守法喝自來水，週末放假看電影。', color: 'bg-indigo-100 text-indigo-800' },
+                { id: 8, title: '抗日事件', subtitle: '流血衝突', content: '初期有武裝抗日，後期有原住民的霧社事件（莫那魯道）與漢人的噍吧哖事件（余清芳）。', mnemonic: '💡 記憶口訣：霧社莫那噍余清，抗日精神永不滅。', color: 'bg-purple-100 text-purple-800' },
+                { id: 9, title: '皇民化', subtitle: '變日本人', content: '二戰期間，為了讓臺灣人效忠日本，鼓勵說日語、改日本姓名、參拜神社。', mnemonic: '💡 記憶口訣：皇民運動改姓名，強迫說日語拜神。', color: 'bg-pink-100 text-pink-800' }
+            ];
+
+            return (
+                <div className="max-w-6xl mx-auto p-6">
+                    <h2 className="text-3xl font-bold text-center text-blue-900 mb-8 title-font">重點九宮格：點擊翻牌學知識</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {cards.map(card => (
+                            <div key={card.id} className="h-64 cursor-pointer flip-card" onClick={() => toggleFlip(card.id)}>
+                                <div className={`flip-card-inner rounded-xl ${flipped[card.id] ? 'rotate-y-180' : ''}`} style={{ transform: flipped[card.id] ? 'rotateY(180deg)' : 'rotateY(0deg)' }}>
+                                    {/* Front */}
+                                    <div className={`flip-card-front ${card.color} border-4 border-white`}>
+                                        <h3 className="text-2xl font-black mb-2">{card.title}</h3>
+                                        <p className="text-lg font-medium opacity-75">{card.subtitle}</p>
+                                        <div className="mt-4 bg-white/50 p-2 rounded-full animate-bounce">
+                                            <i data-lucide="hand-pointer" className="w-6 h-6 opacity-50"></i>
+                                        </div>
+                                    </div>
+                                    {/* Back */}
+                                    <div className="flip-card-back bg-white border-4 border-blue-900 p-6">
+                                        <h3 className="text-xl font-bold text-blue-900 mb-2">{card.subtitle}</h3>
+                                        <p className="text-gray-700 text-sm leading-relaxed mb-3">{card.content}</p>
+                                        <div className="bg-yellow-100 p-2 rounded-lg text-xs font-bold text-yellow-800 border border-yellow-300 w-full">
+                                            {card.mnemonic}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        const Game = () => {
+            const [caneWeight, setCaneWeight] = React.useState(100);
+            const [companyWeight, setCompanyWeight] = React.useState(null);
+            const [message, setMessage] = React.useState('');
+
+            const weigh = () => {
+                // The company scale is always rigged to be 70-80% of actual weight
+                const rigged = Math.floor(caneWeight * (0.7 + Math.random() * 0.1));
+                setCompanyWeight(rigged);
+                setMessage('😱 哎呀！糖廠的磅秤好像有問題？');
+            };
+
+            return (
+                <div className="max-w-2xl mx-auto p-6">
+                    <div className="bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-yellow-500">
+                        <div className="bg-yellow-500 p-4 text-center">
+                            <h2 className="text-2xl font-bold text-white title-font">第一憨：種甘蔗給糖廠磅</h2>
+                        </div>
+                        <div className="p-8 text-center space-y-8">
+                            <p className="text-gray-600">
+                                日治時期，甘蔗只能賣給指定的糖廠，價格和重量都是糖廠說了算。
+                                農民常常覺得辛辛苦苦種的甘蔗，被糖廠「偷斤減兩」。
+                                快來體驗看看當時蔗農的心酸吧！
+                            </p>
+
+                            <div className="flex justify-center items-end gap-8 h-40">
+                                {/* Actual Weight Visualization */}
+                                <div className="flex flex-col items-center gap-2">
+                                    <div className="w-24 bg-green-200 border-2 border-green-600 rounded-lg flex items-center justify-center transition-all duration-500" style={{ height: `${caneWeight}px` }}>
+                                        <span className="font-bold text-green-800">{caneWeight}kg</span>
+                                    </div>
+                                    <span className="font-bold text-gray-500">實際重量</span>
+                                </div>
+
+                                {/* Scale Icon */}
+                                <i data-lucide="scale" className="w-12 h-12 text-gray-400 mb-4"></i>
+
+                                {/* Company Weight Visualization */}
+                                <div className="flex flex-col items-center gap-2">
+                                    <div className={`w-24 bg-red-200 border-2 border-red-600 rounded-lg flex items-center justify-center transition-all duration-500 ${companyWeight ? 'opacity-100' : 'opacity-20'}`} style={{ height: companyWeight ? `${companyWeight}px` : '10px' }}>
+                                        {companyWeight && <span className="font-bold text-red-800">{companyWeight}kg</span>}
+                                    </div>
+                                    <span className="font-bold text-gray-500">糖廠秤重</span>
+                                </div>
+                            </div>
+
+                            <button 
+                                onClick={weigh}
+                                className="bg-blue-600 hover:bg-blue-700 text-white text-xl font-bold px-8 py-3 rounded-full retro-btn"
+                            >
+                                放上磅秤
+                            </button>
+
+                            {companyWeight && (
+                                <div className="bg-gray-100 p-4 rounded-xl animate-fade-in">
+                                    <p className="text-lg font-bold text-red-600 mb-2">{message}</p>
+                                    <p className="text-sm text-gray-600">
+                                        這就是為什麼當時會流傳：「第一憨，種甘蔗給糖廠磅」。
+                                        意思是種甘蔗最笨，因為重量都被糖廠操控了，農民只能吃虧！
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const Quiz = ({ user, setView }) => {
+            const [currentQ, setCurrentQ] = React.useState(0);
+            const [score, setScore] = React.useState(0);
+            const [showFeedback, setShowFeedback] = React.useState(false);
+            const [isCorrect, setIsCorrect] = React.useState(false);
+            const [quizFinished, setQuizFinished] = React.useState(false);
+            const [history, setHistory] = React.useState([]); // Store each answer detail
+
+            const handleAnswer = (answerIndexOrBool) => {
+                const q = quizQuestions[currentQ];
+                let correct = false;
+
+                if (q.type === 'tf') {
+                    correct = (answerIndexOrBool === q.a);
+                } else {
+                    correct = (answerIndexOrBool === q.a);
+                }
+
+                setIsCorrect(correct);
+                setShowFeedback(true);
+                if (correct) setScore(s => s + 5); // 20 questions * 5 = 100
+
+                // Record history
+                setHistory(prev => [...prev, {
+                    qId: q.id,
+                    question: q.q,
+                    correct: correct,
+                    userAnswer: q.type === 'tf' ? (answerIndexOrBool ? 'O' : 'X') : q.options[answerIndexOrBool]
+                }]);
+            };
+
+            const nextQuestion = () => {
+                setShowFeedback(false);
+                if (currentQ < quizQuestions.length - 1) {
+                    setCurrentQ(c => c + 1);
+                } else {
+                    finishQuiz();
+                }
+            };
+
+            const finishQuiz = async () => {
+                setQuizFinished(true);
+                // Save to Firestore
+                if (user) {
+                    try {
+                        // Calculate final score based on state might be tricky due to closure, recalculate from history + last answer
+                        // Actually score state is accurate enough for display, but let's be safe
+                        const finalScore = score + (isCorrect ? 5 : 0); 
+                        
+                        await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'scores'), {
+                            name: user,
+                            score: finalScore,
+                            date: serverTimestamp(),
+                            details: history,
+                            totalQuestions: quizQuestions.length
+                        });
+                    } catch (e) {
+                        console.error("Error saving score:", e);
+                    }
+                }
+            };
+
+            if (quizFinished) {
+                return (
+                    <div className="max-w-md mx-auto p-6 text-center">
+                        <div className="bg-white rounded-3xl p-8 shadow-xl border-4 border-yellow-400">
+                            <i data-lucide="medal" className="w-20 h-20 mx-auto text-yellow-500 mb-4"></i>
+                            <h2 className="text-3xl font-bold text-blue-900 mb-2">測驗完成！</h2>
+                            <p className="text-gray-600 mb-6">{user}，你的成績是...</p>
+                            <div className="text-6xl font-black text-red-500 mb-8 font-mono">
+                                {score} <span className="text-2xl text-gray-400">/ 100</span>
+                            </div>
+                            <div className="space-y-3">
+                                <button onClick={() => setView('dashboard')} className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold retro-btn">
+                                    查看排行榜
+                                </button>
+                                <button onClick={() => setView('home')} className="w-full bg-gray-100 text-gray-700 py-3 rounded-xl font-bold retro-btn">
+                                    回首頁
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            const q = quizQuestions[currentQ];
+
+            return (
+                <div className="max-w-2xl mx-auto p-4 md:p-6">
+                    <div className="flex justify-between items-center mb-4">
+                        <span className="font-bold text-blue-900 bg-blue-100 px-3 py-1 rounded-full">
+                            第 {currentQ + 1} / {quizQuestions.length} 題
+                        </span>
+                        <span className="font-bold text-red-600">目前得分: {score}</span>
+                    </div>
+
+                    <div className="bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-blue-100">
+                        <div className="p-6 md:p-8">
+                            <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-8 leading-relaxed">
+                                {q.type === 'tf' ? <span className="text-blue-500 mr-2">[是非題]</span> : <span className="text-green-500 mr-2">[選擇題]</span>}
+                                {q.q}
+                            </h3>
+
+                            {!showFeedback ? (
+                                <div className="grid gap-4">
+                                    {q.type === 'tf' ? (
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <button onClick={() => handleAnswer(true)} className="h-32 rounded-xl border-4 border-gray-100 hover:border-green-400 hover:bg-green-50 text-6xl font-black text-green-500 transition-all flex items-center justify-center">O</button>
+                                            <button onClick={() => handleAnswer(false)} className="h-32 rounded-xl border-4 border-gray-100 hover:border-red-400 hover:bg-red-50 text-6xl font-black text-red-500 transition-all flex items-center justify-center">X</button>
+                                        </div>
+                                    ) : (
+                                        q.options.map((opt, idx) => (
+                                            <button key={idx} onClick={() => handleAnswer(idx)} className="p-4 rounded-xl border-2 border-gray-200 hover:border-blue-500 hover:bg-blue-50 text-left font-bold text-lg text-gray-700 transition-all">
+                                                {idx + 1}. {opt}
+                                            </button>
+                                        ))
+                                    )}
+                                </div>
+                            ) : (
+                                <div className={`p-6 rounded-xl text-center animate-fade-in ${isCorrect ? 'bg-green-100' : 'bg-red-100'}`}>
+                                    <div className="mb-4">
+                                        {isCorrect ? (
+                                            <i data-lucide="check-circle" className="w-16 h-16 text-green-600 mx-auto"></i>
+                                        ) : (
+                                            <i data-lucide="x-circle" className="w-16 h-16 text-red-600 mx-auto"></i>
+                                        )}
+                                    </div>
+                                    <h4 className={`text-2xl font-black mb-2 ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
+                                        {isCorrect ? '答對了！' : '答錯囉！'}
+                                    </h4>
+                                    <p className="text-gray-700 font-medium mb-6">{q.expl}</p>
+                                    <button onClick={nextQuestion} className="bg-blue-900 text-white px-8 py-3 rounded-full font-bold retro-btn hover:bg-blue-800">
+                                        下一題
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const Dashboard = ({ user }) => {
+            const [scores, setScores] = React.useState([]);
+
+            React.useEffect(() => {
+                if (!user) return;
+                
+                const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'scores'), orderBy('score', 'desc'));
+                const unsubscribe = onSnapshot(q, (snapshot) => {
+                    const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    setScores(data);
+                }, (error) => {
+                    console.error("Error fetching scores:", error);
+                });
+
+                return () => unsubscribe();
+            }, [user]);
+
+            const exportCSV = () => {
+                let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; // BOM for Chinese characters
+                csvContent += "姓名,分數,作答時間\n";
+                scores.forEach(row => {
+                    const date = row.date ? new Date(row.date.seconds * 1000).toLocaleString() : 'N/A';
+                    csvContent += `${row.name},${row.score},${date}\n`;
+                });
+                
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "日治時期學習成績.csv");
+                document.body.appendChild(link);
+                link.click();
+            };
+
+            return (
+                <div className="max-w-4xl mx-auto p-6">
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-2xl font-bold text-blue-900 title-font flex items-center gap-2">
+                            <i data-lucide="bar-chart-2"></i> 學習英雄榜
+                        </h2>
+                        <button onClick={exportCSV} className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2 text-sm shadow-md">
+                            <i data-lucide="download"></i> 匯出老師用成績表
+                        </button>
+                    </div>
+
+                    <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left">
+                                <thead className="bg-blue-50 border-b border-blue-100">
+                                    <tr>
+                                        <th className="p-4 font-bold text-blue-900">排名</th>
+                                        <th className="p-4 font-bold text-blue-900">姓名</th>
+                                        <th className="p-4 font-bold text-blue-900">分數</th>
+                                        <th className="p-4 font-bold text-blue-900 hidden md:table-cell">作答時間</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-100">
+                                    {scores.map((row, idx) => (
+                                        <tr key={row.id} className={row.name === user ? "bg-yellow-50" : "hover:bg-gray-50"}>
+                                            <td className="p-4 font-bold text-gray-500">
+                                                {idx < 3 ? ['🥇', '🥈', '🥉'][idx] : idx + 1}
+                                            </td>
+                                            <td className="p-4 font-medium text-gray-800">
+                                                {row.name} {row.name === user && <span className="text-xs bg-blue-600 text-white px-2 py-0.5 rounded-full ml-2">我</span>}
+                                            </td>
+                                            <td className="p-4 font-bold text-blue-600">{row.score}</td>
+                                            <td className="p-4 text-sm text-gray-500 hidden md:table-cell">
+                                                {row.date ? new Date(row.date.seconds * 1000).toLocaleString() : '剛剛'}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    {scores.length === 0 && (
+                                        <tr>
+                                            <td colSpan="4" className="p-8 text-center text-gray-500">目前還沒有人參加測驗喔！</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const App = () => {
+            const [user, setUser] = React.useState(null);
+            const [view, setView] = React.useState('home');
+
+            // Firebase Auth
+            React.useEffect(() => {
+                const initAuth = async () => {
+                    if (typeof initialAuthToken !== 'undefined' && initialAuthToken) {
+                        await signInWithCustomToken(auth, initialAuthToken);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                };
+                initAuth();
+                
+                // Initialize icons
+                if (window.lucide) window.lucide.createIcons();
+            }, []);
+
+            React.useEffect(() => {
+                if (window.lucide) window.lucide.createIcons();
+            }, [view]);
+
+            if (!user) {
+                return <Login onJoin={setUser} />;
+            }
+
+            return (
+                <div className="min-h-screen pb-12">
+                    <Header currentView={view} setView={setView} user={user} />
+                    <main className="mt-6">
+                        {view === 'home' && <Home setView={setView} />}
+                        {view === 'learn' && <Learn />}
+                        {view === 'game' && <Game />}
+                        {view === 'quiz' && <Quiz user={user} setView={setView} />}
+                        {view === 'dashboard' && <Dashboard user={user} />}
+                    </main>
+                    <footer className="text-center text-gray-400 py-6 mt-8 border-t border-gray-200">
+                        <p className="text-sm">五年級社會科輔助教材 © 2024</p>
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
