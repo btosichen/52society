@@ -135,6 +135,12 @@
 
         // --- Components ---
 
+        const Highlight = ({ children }) => (
+            <span className="inline-block bg-yellow-300 text-blue-900 px-1 rounded font-black border-b-4 border-yellow-500 mx-0.5 transform -skew-x-6 text-base">
+                {children}
+            </span>
+        );
+
         const Header = ({ currentView, setView, user }) => (
             <header className="bg-yellow-400 border-b-4 border-yellow-600 sticky top-0 z-50">
                 <div className="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center">
@@ -211,13 +217,16 @@
                         在這裡，你會發現現代生活的許多習慣，原來都是那時候建立的。<br/>
                         準備好探索這段改變臺灣深遠的 50 年歷史了嗎？
                     </p>
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-3 gap-4">
                         <button onClick={() => setView('learn')} className="bg-yellow-400 hover:bg-yellow-300 text-blue-900 px-6 py-4 rounded-xl font-bold text-xl retro-btn flex items-center justify-center gap-2">
                             <i data-lucide="book-open"></i> 開始學習
                         </button>
                         <button onClick={() => setView('quiz')} className="bg-red-400 hover:bg-red-300 text-white px-6 py-4 rounded-xl font-bold text-xl retro-btn flex items-center justify-center gap-2">
                             <i data-lucide="trophy"></i> 挑戰測驗
                         </button>
+                         <a href="https://drive.google.com/file/d/1xuU3EaQ042r0vqaLAUHNNA1TwfUYh2uT/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="bg-purple-500 hover:bg-purple-400 text-white px-6 py-4 rounded-xl font-bold text-xl retro-btn flex items-center justify-center gap-2 no-underline">
+                           <i data-lucide="headphones"></i> 聆聽 Podcast
+                        </a>
                     </div>
                 </div>
 
@@ -265,15 +274,87 @@
             };
 
             const cards = [
-                { id: 1, title: '統治中心', subtitle: '臺灣總督府', content: '就是現在的總統府！這是日本統治臺灣的最高權力機關，總督擁有行政、立法、司法與軍事大權。', mnemonic: '💡 記憶口訣：總督權力大無邊，就在現在總統府。', color: 'bg-red-100 text-red-800' },
-                { id: 2, title: '警察制度', subtitle: '大人來了', content: '建立了嚴密的警察網，警察被稱為「大人」，除了抓小偷，還要檢查環境衛生、戶口調查，真的管很大！', mnemonic: '💡 記憶口訣：萬能警察管很大，衛生交通都靠他。', color: 'bg-orange-100 text-orange-800' },
-                { id: 3, title: '農業發展', subtitle: '嘉南大圳', content: '日本技師八田與一設計了當時亞洲最大的水利工程，讓嘉南平原的旱田變成大穀倉。', mnemonic: '💡 記憶口訣：八田水庫種稻米，嘉南平原大豐收。', color: 'bg-yellow-100 text-yellow-800' },
-                { id: 4, title: '專賣制度', subtitle: '政府獨佔', content: '為了賺錢，總督府規定菸、酒、鹽、樟腦、鴉片只能由政府賣。這也是政府重要的收入來源。', mnemonic: '💡 記憶口訣：專賣菸酒鹽樟鴉，政府賺錢笑哈哈。', color: 'bg-green-100 text-green-800' },
-                { id: 5, title: '新式教育', subtitle: '公學校', content: '開始普及教育，雖然臺灣人念「公學校」、日本人念「小學校」有差別待遇，但也大大提高了識字率。', mnemonic: '💡 記憶口訣：日讀小學臺讀公，雖然不公也識字。', color: 'bg-teal-100 text-teal-800' },
-                { id: 6, title: '社會運動', subtitle: '文化協會', content: '蔣渭水、林獻堂等人成立「臺灣文化協會」，辦報紙、演講，啟發臺灣人的民族意識與權利爭取。', mnemonic: '💡 記憶口訣：林蔣文化爭議會，啟發民智爭權利。', color: 'bg-blue-100 text-blue-800' },
-                { id: 7, title: '現代文明', subtitle: '守時衛生', content: '引入標準時間（24小時制）、星期制（週日休假），還有自來水、電影院、百貨公司等現代設施。', mnemonic: '💡 記憶口訣：守時守法喝自來水，週末放假看電影。', color: 'bg-indigo-100 text-indigo-800' },
-                { id: 8, title: '抗日事件', subtitle: '流血衝突', content: '初期有武裝抗日，後期有原住民的霧社事件（莫那魯道）與漢人的噍吧哖事件（余清芳）。', mnemonic: '💡 記憶口訣：霧社莫那噍余清，抗日精神永不滅。', color: 'bg-purple-100 text-purple-800' },
-                { id: 9, title: '皇民化', subtitle: '變日本人', content: '二戰期間，為了讓臺灣人效忠日本，鼓勵說日語、改日本姓名、參拜神社。', mnemonic: '💡 記憶口訣：皇民運動改姓名，強迫說日語拜神。', color: 'bg-pink-100 text-pink-800' }
+                { 
+                    id: 1, 
+                    title: '統治中心', 
+                    subtitle: '臺灣總督府', 
+                    img: '🏛️',
+                    content: <>就是現在的總統府！這是日本統治臺灣的最高權力機關，總督擁有 <Highlight>行政</Highlight>、<Highlight>立法</Highlight>、<Highlight>司法</Highlight> 與 <Highlight>軍事大權</Highlight>。</>, 
+                    mnemonic: '💡 記憶口訣：總督權力大無邊，就在現在總統府。', 
+                    color: 'bg-red-100 text-red-800' 
+                },
+                { 
+                    id: 2, 
+                    title: '警察制度', 
+                    subtitle: '大人來了', 
+                    img: '👮',
+                    content: <>建立了嚴密的警察網，警察被稱為「大人」，除了抓小偷，還要檢查 <Highlight>環境衛生</Highlight>、<Highlight>戶口調查</Highlight>，真的管很大！</>, 
+                    mnemonic: '💡 記憶口訣：萬能警察管很大，衛生交通都靠他。', 
+                    color: 'bg-orange-100 text-orange-800' 
+                },
+                { 
+                    id: 3, 
+                    title: '農業發展', 
+                    subtitle: '嘉南大圳', 
+                    img: '🌾',
+                    content: <>日本技師 <Highlight>八田與一</Highlight> 設計了當時亞洲最大的 <Highlight>水利工程</Highlight>，讓 <Highlight>嘉南平原</Highlight> 的旱田變成大穀倉。</>, 
+                    mnemonic: '💡 記憶口訣：八田水庫種稻米，嘉南平原大豐收。', 
+                    color: 'bg-yellow-100 text-yellow-800' 
+                },
+                { 
+                    id: 4, 
+                    title: '專賣制度', 
+                    subtitle: '政府獨佔', 
+                    img: '💰',
+                    content: <>為了賺錢，總督府規定 <Highlight>菸</Highlight>、<Highlight>酒</Highlight>、<Highlight>鹽</Highlight>、<Highlight>樟腦</Highlight>、<Highlight>鴉片</Highlight> 只能由政府賣。這也是政府重要的收入來源。</>, 
+                    mnemonic: '💡 記憶口訣：專賣菸酒鹽樟鴉，政府賺錢笑哈哈。', 
+                    color: 'bg-green-100 text-green-800' 
+                },
+                { 
+                    id: 5, 
+                    title: '新式教育', 
+                    subtitle: '公學校', 
+                    img: '🏫',
+                    content: <>開始普及教育，雖然臺灣人念 <Highlight>公學校</Highlight>、日本人念 <Highlight>小學校</Highlight> 有 <Highlight>差別待遇</Highlight>，但也大大提高了 <Highlight>識字率</Highlight>。</>, 
+                    mnemonic: '💡 記憶口訣：日讀小學臺讀公，雖然不公也識字。', 
+                    color: 'bg-teal-100 text-teal-800' 
+                },
+                { 
+                    id: 6, 
+                    title: '社會運動', 
+                    subtitle: '文化協會', 
+                    img: '📢',
+                    content: <><Highlight>蔣渭水</Highlight>、<Highlight>林獻堂</Highlight> 等人成立 <Highlight>臺灣文化協會</Highlight>，辦報紙、演講，啟發臺灣人的民族意識與權利爭取。</>, 
+                    mnemonic: '💡 記憶口訣：林蔣文化爭議會，啟發民智爭權利。', 
+                    color: 'bg-blue-100 text-blue-800' 
+                },
+                { 
+                    id: 7, 
+                    title: '現代文明', 
+                    subtitle: '守時衛生', 
+                    img: '⏰',
+                    content: <>引入 <Highlight>標準時間</Highlight>（24小時制）、<Highlight>星期制</Highlight>（週日休假），還有 <Highlight>自來水</Highlight>、電影院、百貨公司等現代設施。</>, 
+                    mnemonic: '💡 記憶口訣：守時守法喝自來水，週末放假看電影。', 
+                    color: 'bg-indigo-100 text-indigo-800' 
+                },
+                { 
+                    id: 8, 
+                    title: '抗日事件', 
+                    subtitle: '流血衝突', 
+                    img: '⚔️',
+                    content: <>初期有武裝抗日，後期有原住民的 <Highlight>霧社事件</Highlight>（<Highlight>莫那魯道</Highlight>）與漢人的 <Highlight>噍吧哖事件</Highlight>（<Highlight>余清芳</Highlight>）。</>, 
+                    mnemonic: '💡 記憶口訣：霧社莫那噍余清，抗日精神永不滅。', 
+                    color: 'bg-purple-100 text-purple-800' 
+                },
+                { 
+                    id: 9, 
+                    title: '皇民化', 
+                    subtitle: '變日本人', 
+                    img: '⛩️',
+                    content: <>二戰期間，為了讓臺灣人效忠日本，鼓勵 <Highlight>說日語</Highlight>、<Highlight>改日本姓名</Highlight>、<Highlight>參拜神社</Highlight>。</>, 
+                    mnemonic: '💡 記憶口訣：皇民運動改姓名，強迫說日語拜神。', 
+                    color: 'bg-pink-100 text-pink-800' 
+                }
             ];
 
             return (
@@ -285,16 +366,23 @@
                                 <div className={`flip-card-inner rounded-xl ${flipped[card.id] ? 'rotate-y-180' : ''}`} style={{ transform: flipped[card.id] ? 'rotateY(180deg)' : 'rotateY(0deg)' }}>
                                     {/* Front */}
                                     <div className={`flip-card-front ${card.color} border-4 border-white`}>
-                                        <h3 className="text-2xl font-black mb-2">{card.title}</h3>
+                                        <div className="bg-white/40 rounded-full w-28 h-28 flex items-center justify-center mb-2 shadow-sm border-2 border-white/50">
+                                            <span className="text-6xl filter drop-shadow-sm transform hover:scale-110 transition-transform duration-300 cursor-pointer">{card.img}</span>
+                                        </div>
+                                        <h3 className="text-2xl font-black mb-1">{card.title}</h3>
                                         <p className="text-lg font-medium opacity-75">{card.subtitle}</p>
-                                        <div className="mt-4 bg-white/50 p-2 rounded-full animate-bounce">
-                                            <i data-lucide="hand-pointer" className="w-6 h-6 opacity-50"></i>
+                                        <div className="absolute bottom-3 right-3 bg-white/50 p-1.5 rounded-full animate-bounce">
+                                            <i data-lucide="hand-pointer" className="w-5 h-5 opacity-60"></i>
                                         </div>
                                     </div>
                                     {/* Back */}
                                     <div className="flip-card-back bg-white border-4 border-blue-900 p-6">
-                                        <h3 className="text-xl font-bold text-blue-900 mb-2">{card.subtitle}</h3>
-                                        <p className="text-gray-700 text-sm leading-relaxed mb-3">{card.content}</p>
+                                        <h3 className="text-xl font-bold text-blue-900 mb-2 flex items-center gap-2">
+                                            <span>{card.img}</span> {card.subtitle}
+                                        </h3>
+                                        <div className="text-gray-700 text-sm leading-relaxed mb-3">
+                                            {card.content}
+                                        </div>
                                         <div className="bg-yellow-100 p-2 rounded-lg text-xs font-bold text-yellow-800 border border-yellow-300 w-full">
                                             {card.mnemonic}
                                         </div>
