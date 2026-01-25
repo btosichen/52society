@@ -104,6 +104,43 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
+        // --- Utils: Sound Effect ---
+        const playAudio = (type) => {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return;
+                
+                const ctx = new AudioContext();
+                const oscillator = ctx.createOscillator();
+                const gainNode = ctx.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(ctx.destination);
+                
+                if (type === 'correct') {
+                    // High pitch ding-dong
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(660, ctx.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.1);
+                    gainNode.gain.setValueAtTime(0.1, ctx.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+                    oscillator.start();
+                    oscillator.stop(ctx.currentTime + 0.5);
+                } else {
+                    // Low pitch buzz
+                    oscillator.type = 'sawtooth';
+                    oscillator.frequency.setValueAtTime(150, ctx.currentTime);
+                    oscillator.frequency.linearRampToValueAtTime(100, ctx.currentTime + 0.3);
+                    gainNode.gain.setValueAtTime(0.1, ctx.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                    oscillator.start();
+                    oscillator.stop(ctx.currentTime + 0.3);
+                }
+            } catch (e) {
+                console.error("Audio play failed", e);
+            }
+        };
+
         // --- Data ---
         const quizQuestions = [
             // True/False
@@ -237,9 +274,24 @@
                     </h3>
                     
                     {[
-                        { title: '👮 警察大人', past: '無所不管！管治安、管衛生、還要管你家有沒有打掃乾淨，甚至指揮交通。', now: '主要負責治安與交通，衛生由衛生局負責。', icon: 'shield' },
-                        { title: '⏰ 時間觀念', past: '引進 24 小時制與星期制，規定星期日休息。大家開始看手錶準時赴約。', now: '週休二日是常態，守時是基本禮貌。', icon: 'clock' },
-                        { title: '💧 衛生習慣', past: '建設自來水廠（水道水），不再喝河水、井水。大幅減少傳染病。', now: '打開水龍頭就有乾淨的水，洗手是日常習慣。', icon: 'droplet' }
+                        { 
+                            title: '👮 警察大人', 
+                            past: <>無所不管！管 <Highlight>治安</Highlight>、管 <Highlight>衛生</Highlight>、還要管你家有沒有打掃乾淨，甚至 <Highlight>指揮交通</Highlight>。</>, 
+                            now: <>主要負責 <Highlight>治安</Highlight> 與 <Highlight>交通</Highlight>，衛生由 <Highlight>衛生局</Highlight> 負責。</>, 
+                            icon: 'shield' 
+                        },
+                        { 
+                            title: '⏰ 時間觀念', 
+                            past: <>引進 <Highlight>24 小時制</Highlight> 與 <Highlight>星期制</Highlight>，規定星期日休息。大家開始看手錶準時赴約。</>, 
+                            now: <><Highlight>週休二日</Highlight> 是常態，<Highlight>守時</Highlight> 是基本禮貌。</>, 
+                            icon: 'clock' 
+                        },
+                        { 
+                            title: '💧 衛生習慣', 
+                            past: <>建設 <Highlight>自來水廠</Highlight>（水道水），不再喝河水、井水。大幅減少 <Highlight>傳染病</Highlight>。</>, 
+                            now: <>打開 <Highlight>水龍頭</Highlight> 就有乾淨的水，<Highlight>洗手</Highlight> 是日常習慣。</>, 
+                            icon: 'droplet' 
+                        }
                     ].map((item, idx) => (
                         <div key={idx} className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col md:flex-row border-2 border-blue-100 hover:shadow-lg transition-all">
                             <div className="bg-blue-100 p-6 flex items-center justify-center md:w-1/4">
@@ -253,11 +305,11 @@
                             <div className="flex-1 p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="border-l-4 border-gray-400 pl-4">
                                     <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">日治時期</span>
-                                    <p className="text-gray-700 mt-1 font-medium">{item.past}</p>
+                                    <div className="text-gray-700 mt-1 font-medium">{item.past}</div>
                                 </div>
                                 <div className="border-l-4 border-yellow-400 pl-4">
                                     <span className="text-xs font-bold text-yellow-600 uppercase tracking-wider">現在</span>
-                                    <p className="text-gray-700 mt-1 font-medium">{item.now}</p>
+                                    <div className="text-gray-700 mt-1 font-medium">{item.now}</div>
                                 </div>
                             </div>
                         </div>
@@ -480,6 +532,9 @@
                 } else {
                     correct = (answerIndexOrBool === q.a);
                 }
+
+                // Play sound
+                playAudio(correct ? 'correct' : 'wrong');
 
                 setIsCorrect(correct);
                 setShowFeedback(true);
