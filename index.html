@@ -19,7 +19,10 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Firebase SDKs removed from global scope to use ES modules below -->
+    <!-- Firebase SDKs (Compat version for better browser compatibility) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
     <style>
         body {
@@ -89,20 +92,19 @@
 <body>
     <div id="root"></div>
 
-    <script type="text/babel" data-type="module">
-        // Firebase Setup using ES Modules
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // Access global variables
-        const firebaseConfig = JSON.parse(window.__firebase_config);
+    <script type="text/babel">
+        // --- Firebase Setup (Compat Mode) ---
+        // 修正重點：改用 Compat 模式，直接使用 window.firebase 全域變數，解決無法載入模組的問題
+        const firebaseConfig = JSON.parse(window.__firebase_config || '{}');
         const appId = typeof window.__app_id !== 'undefined' ? window.__app_id : 'default-app-id';
         const initialAuthToken = window.__initial_auth_token;
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+        // Initialize Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const auth = firebase.auth();
+        const db = firebase.firestore();
 
         // --- Utils: Sound Effect ---
         const playAudio = (type) => {
@@ -167,7 +169,6 @@
             { id: 20, type: 'mc', q: '臺灣文化協會透過哪一份報紙作為傳播新知的主要工具？', options: ['聯合報', '臺灣民報', '中國時報'], a: 1, expl: '《臺灣民報》是當時臺灣人唯一的言論機關，被稱為「臺灣人的喉舌」。' }
         ];
 
-        // Icons are loaded globally via script tag, but accessed via window
         const icons = window.lucide;
 
         // --- Components ---
@@ -560,20 +561,23 @@
 
             const finishQuiz = async () => {
                 setQuizFinished(true);
-                // Save to Firestore
+                // Save to Firestore (Compat API)
                 if (user) {
                     try {
-                        // Calculate final score based on state might be tricky due to closure, recalculate from history + last answer
-                        // Actually score state is accurate enough for display, but let's be safe
                         const finalScore = score + (isCorrect ? 5 : 0); 
                         
-                        await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'scores'), {
-                            name: user,
-                            score: finalScore,
-                            date: serverTimestamp(),
-                            details: history,
-                            totalQuestions: quizQuestions.length
-                        });
+                        await db.collection('artifacts')
+                            .doc(appId)
+                            .collection('public')
+                            .doc('data')
+                            .collection('scores')
+                            .add({
+                                name: user,
+                                score: finalScore,
+                                date: firebase.firestore.FieldValue.serverTimestamp(),
+                                details: history,
+                                totalQuestions: quizQuestions.length
+                            });
                     } catch (e) {
                         console.error("Error saving score:", e);
                     }
@@ -666,8 +670,16 @@
             React.useEffect(() => {
                 if (!user) return;
                 
-                const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'scores'), orderBy('score', 'desc'));
-                const unsubscribe = onSnapshot(q, (snapshot) => {
+                // Firestore Compat Query
+                const scoresRef = db.collection('artifacts')
+                    .doc(appId)
+                    .collection('public')
+                    .doc('data')
+                    .collection('scores');
+                
+                const q = scoresRef.orderBy('score', 'desc');
+
+                const unsubscribe = q.onSnapshot((snapshot) => {
                     const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                     setScores(data);
                 }, (error) => {
@@ -750,10 +762,11 @@
             // Firebase Auth
             React.useEffect(() => {
                 const initAuth = async () => {
+                    // Compat Auth
                     if (typeof initialAuthToken !== 'undefined' && initialAuthToken) {
-                        await signInWithCustomToken(auth, initialAuthToken);
+                        await auth.signInWithCustomToken(initialAuthToken);
                     } else {
-                        await signInAnonymously(auth);
+                        await auth.signInAnonymously();
                     }
                 };
                 initAuth();
