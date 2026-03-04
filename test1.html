@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>力與運動大冒險 - 小小科學探險家</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 2rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .btn-bounce:active { transform: scale(0.95); }
+        .progress-bar { transition: width 0.5s ease-out; }
+        .map-node { transition: all 0.3s ease; }
+        .map-node.active { transform: scale(1.2); box-shadow: 0 0 20px #fbbf24; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div id="app" class="max-w-4xl mx-auto">
+        <!-- 歡迎首頁 -->
+        <div id="screen-home" class="glass-card p-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-blue-600 mb-6">🌍 力與運動大冒險</h1>
+            <div class="mb-8 flex justify-center">
+                <div class="w-48 h-48 bg-yellow-200 rounded-full flex items-center justify-center text-8xl shadow-inner">🧑‍🚀</div>
+            </div>
+            <p class="text-xl text-gray-700 mb-8">哈囉！我是小小科學探險家。<br>準備好要拯救科學世界，完成 40 個挑戰了嗎？</p>
+            <button onclick="showScreen('screen-login')" class="btn-bounce bg-orange-500 hover:bg-orange-600 text-white text-2xl font-bold py-4 px-12 rounded-full shadow-lg transition-all">
+                開始冒險 🚀
+            </button>
+        </div>
+
+        <!-- 登入資料輸入 -->
+        <div id="screen-login" class="glass-card p-8 hidden">
+            <h2 class="text-3xl font-bold text-center text-blue-500 mb-6">探險家報到</h2>
+            <div class="space-y-6">
+                <div class="max-w-md mx-auto">
+                    <label class="block text-gray-700 font-bold mb-3 text-lg text-center">請輸入你的姓名</label>
+                    <input type="text" id="user-name" placeholder="例如：小明" class="w-full p-4 border-2 border-blue-200 rounded-2xl text-center text-xl focus:border-blue-500 outline-none transition-all">
+                </div>
+                <button onclick="startAdventure()" class="w-full bg-green-500 hover:bg-green-600 text-white text-xl font-bold py-5 rounded-2xl shadow-md transition-all">
+                    準備好了！出發！
+                </button>
+            </div>
+        </div>
+
+        <!-- 闖關地圖 -->
+        <div id="screen-map" class="glass-card p-8 hidden text-center">
+            <h2 class="text-3xl font-bold text-blue-600 mb-8">🗺 冒險地圖</h2>
+            <div class="relative flex flex-col items-center space-y-8">
+                <div id="node-1" class="map-node w-32 h-32 bg-blue-400 rounded-full flex flex-col items-center justify-center text-white font-bold border-4 border-white shadow-lg cursor-pointer" onclick="enterLevel(0)">
+                    <span class="text-3xl">🧲</span>
+                    <span>1. 力的世界</span>
+                </div>
+                <div class="w-1 h-8 bg-gray-300"></div>
+                <div id="node-2" class="map-node w-32 h-32 bg-gray-300 rounded-full flex flex-col items-center justify-center text-white font-bold border-4 border-white shadow-lg opacity-50">
+                    <span class="text-3xl">🧪</span>
+                    <span>2. 彈簧實驗室</span>
+                </div>
+                <div class="w-1 h-8 bg-gray-300"></div>
+                <div id="node-3" class="map-node w-32 h-32 bg-gray-300 rounded-full flex flex-col items-center justify-center text-white font-bold border-4 border-white shadow-lg opacity-50">
+                    <span class="text-3xl">🌲</span>
+                    <span>3. 摩擦力森林</span>
+                </div>
+                <div class="w-1 h-8 bg-gray-300"></div>
+                <div id="node-4" class="map-node w-32 h-32 bg-gray-300 rounded-full flex flex-col items-center justify-center text-white font-bold border-4 border-white shadow-lg opacity-50">
+                    <span class="text-3xl">🏃</span>
+                    <span>4. 速度競技場</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 遊戲主畫面 -->
+        <div id="screen-game" class="glass-card p-6 hidden">
+            <div class="flex justify-between items-center mb-4">
+                <div class="text-lg font-bold text-blue-600" id="level-title">關卡：力的世界</div>
+                <div class="text-lg font-bold text-orange-500" id="score-display">⭐ 分數：0</div>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-4 mb-6">
+                <div id="level-progress" class="progress-bar bg-green-400 h-4 rounded-full" style="width: 0%"></div>
+            </div>
+            
+            <div class="bg-white p-6 rounded-2xl shadow-inner border-2 border-blue-50 mb-6">
+                <div id="question-text" class="text-2xl font-bold text-gray-800 mb-6">問題載入中...</div>
+                <div id="options-container" class="grid grid-cols-1 gap-4"></div>
+            </div>
+
+            <div id="feedback" class="hidden p-4 rounded-xl text-center font-bold text-lg mb-4"></div>
+        </div>
+
+        <!-- 結果與排行榜 -->
+        <div id="screen-result" class="glass-card p-8 hidden text-center">
+            <h2 class="text-4xl font-bold text-green-600 mb-4">🎉 恭喜完成冒險！</h2>
+            <div id="final-stats" class="text-xl space-y-2 mb-8 text-left bg-green-50 p-6 rounded-2xl"></div>
+            
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-blue-500 mb-4">🏆 科學英雄排行榜</h3>
+                <div id="leaderboard" class="text-left bg-white rounded-xl shadow p-4 max-h-48 overflow-y-auto">
+                    載入排行榜中...
+                </div>
+            </div>
+
+            <button onclick="location.reload()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full">
+                再玩一次 🔄
+            </button>
+        </div>
+    </div>
+
+    <audio id="audio-correct" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3"></audio>
+
+    <script>
+        const API_URL = "https://script.google.com/macros/s/AKfycbxRq_2F8kP5CELwKBbkPZQGS0N7d6VdVE2TYKzFuZCa6sqAjRiRPF84f-xJKBRj1MG_-w/exec"; 
+        
+        const levels = [
+            { name: "力的世界", start: 0, end: 9, emoji: "🧲" },
+            { name: "彈簧實驗室", start: 10, end: 19, emoji: "🧪" },
+            { name: "摩擦力森林", start: 20, end: 29, emoji: "🌲" },
+            { name: "速度競技場", start: 30, end: 39, emoji: "🏃" }
+        ];
+
+        const questions = [
+            // 題庫維持不變 (共 40 題)
+            { q: "力雖然看不見，但可以改變物體的運動或形狀。", type: "是非", a: "O", info: "正確！力的作用會改變物體狀態。" },
+            { q: "磁力是一種接觸力。", type: "是非", a: "X", info: "不對喔！磁力屬於「超距力」，不需要接觸就能作用。" },
+            { q: "地球引力不需要接觸就能作用。", type: "是非", a: "O", info: "是的！這也是一種超距力。" },
+            { q: "風力讓風車轉動屬於接觸力。", type: "是非", a: "O", info: "正確！風與風車葉片必須接觸。" },
+            { q: "哪一種力屬於超距力？", type: "選擇", options: ["A 摩擦力", "B 磁力", "C 推力", "D 拉力"], a: "B", info: "磁鐵隔著空氣也能吸金屬，是超距力。" },
+            { q: "蘋果從樹上掉到地面是因為？", type: "選擇", options: ["A 風力", "B 地球引力", "C 摩擦力", "D 磁力"], a: "B", info: "地球引力將萬物往地心拉。" },
+            { q: "下列哪一個是接觸力？", type: "選擇", options: ["A 磁鐵吸鐵釘", "B 地球引力", "C 手推桌子", "D 靜電"], a: "C", info: "手一定要碰到桌子才能推動它。" },
+            { q: "下列哪一個不是接觸力？", type: "選擇", options: ["A 推門", "B 拉繩子", "C 地球引力", "D 用手拿書"], a: "C", info: "引力不用碰觸就會發生。" },
+            { q: "風吹動樹葉是因為風力的作用。", type: "是非", a: "O", info: "空氣流動產生的風推動了葉子。" },
+            { q: "所有的力都需要接觸物體才能作用。", type: "是非", a: "X", info: "錯！磁力、引力、電力都是超距力。" },
+            { q: "彈簧秤可以用來測量物體重量。", type: "是非", a: "O", info: "彈簧的伸長量有規律，可用來秤重。" },
+            { q: "在彈性限度內，重量越大彈簧伸得越長。", type: "是非", a: "O", info: "這就是彈性的規律性質。" },
+            { q: "彈簧不論拉多長都能恢復原狀。", type: "是非", a: "X", info: "超過「彈性限度」就會壞掉喔！" },
+            { q: "停止施力後彈簧可能恢復原長。", type: "是非", a: "O", info: "只要在彈性限度內就會恢復。" },
+            { q: "哪一個工具利用彈簧設計？", type: "選擇", options: ["A 溫度計", "B 彈簧秤", "C 尺", "D 秒錶"], a: "B", info: "彈簧秤核心就是彈簧。" },
+            { q: "在彈性限度內，懸掛物體越重，彈簧？", type: "選擇", options: ["A 越短", "B 越長", "C 不變", "D 斷裂"], a: "B", info: "愈重，拉力愈大，伸得愈長。" },
+            { q: "停止受力後，彈簧能恢復原狀的原因是？", type: "選擇", options: ["A 重力", "B 彈性", "C 摩擦力", "D 磁力"], a: "B", info: "彈性是物體恢復原狀的能力。" },
+            { q: "下列哪一項不是彈簧特性？", type: "選擇", options: ["A 長度變化規律", "B 受力後伸長", "C 材質會改變", "D 可以恢復原狀"], a: "C", info: "彈簧在拉伸時材質並不會改變。" },
+            { q: "彈簧秤超過彈性限度會影響測量準確度。", type: "是非", a: "O", info: "壞掉的彈簧就沒辦法精準測量了。" },
+            { q: "彈簧越長代表物體越輕。", type: "是非", a: "X", info: "通常是物體愈重，拉得愈長。" },
+            { q: "摩擦力會讓物體運動速度變慢。", type: "是非", a: "O", info: "摩擦力是一種阻礙物體運動的力。" },
+            { q: "摩擦力對生活沒有幫助。", type: "是非", a: "X", info: "如果沒有摩擦力，我們走路會滑倒，也抓不住筆喔！" },
+            { q: "接觸面越粗糙，摩擦力越大。", type: "是非", a: "O", info: "粗糙的表面提供更大的阻力。" },
+            { q: "在腳踏車鏈條上油可以減少摩擦力。", type: "是非", a: "O", info: "潤滑油讓接觸面變平滑。" },
+            { q: "哪一個設計是增加摩擦力？", type: "選擇", options: ["A 滾輪", "B 潤滑油", "C 止滑手套", "D 軸承"], a: "C", info: "止滑設計是為了增加摩擦，避免滑動。" },
+            { q: "球在草地上越滾越慢是因為？", type: "選擇", options: ["A 風力", "B 摩擦力", "C 浮力", "D 磁力"], a: "B", info: "草地的粗糙面提供了摩擦力。" },
+            { q: "哪一種設計是減少摩擦力？", type: "選擇", options: ["A 滾輪", "B 止滑墊", "C 刻紋", "D 粗糙表面"], a: "A", info: "滾動摩擦比滑動摩擦小很多。" },
+            { q: "行李箱滾輪的作用是？", type: "選擇", options: ["A 增加摩擦", "B 減少摩擦", "C 增加重量", "D 增加速度"], a: "B", info: "滾輪讓我們拉行李更輕鬆。" },
+            { q: "直排輪鞋的滾輪可以減少摩擦力。", type: "是非", a: "O", info: "這就是為什麼直排輪跑得很快。" },
+            { q: "寶特瓶瓶蓋刻紋是增加摩擦力。", type: "是非", a: "O", info: "增加摩擦力才容易轉開瓶蓋。" },
+            { q: "速度可以用距離和時間表示。", type: "是非", a: "O", info: "速度 = 距離 / 時間。" },
+            { q: "同樣距離下，時間越少速度越快。", type: "是非", a: "O", info: "花最少時間代表最快。" },
+            { q: "同樣時間下，距離越短速度越快。", type: "是非", a: "X", info: "錯了，同樣時間內跑愈遠才愈快。" },
+            { q: "速度比較需要知道時間和距離。", type: "是非", a: "O", info: "兩者都是計算速度的必要資訊。" },
+            { q: "相同距離下，誰速度最快？", type: "選擇", options: ["A 20秒", "B 30秒", "C 40秒", "D 50秒"], a: "A", info: "秒數愈短代表跑愈快。" },
+            { q: "相同時間下，誰速度最快？", type: "選擇", options: ["A 10公尺", "B 20公尺", "C 30公尺", "D 40公尺"], a: "D", info: "距離愈長代表速度愈快。" },
+            { q: "比較速度與？", type: "選擇", options: ["A 距離與時間", "B 體重與身高", "C 年齡與距離", "D 身高與時間"], a: "A", info: "速度是距離對時間的比例。" },
+            { q: "甲10秒跑20公尺，乙10秒跑30公尺，誰比較快？", type: "選擇", options: ["A 甲", "B 乙", "C 一樣"], a: "B", info: "乙在同樣時間跑得更遠。" },
+            { q: "跑步時相同距離花越少時間速度越快。", type: "是非", a: "O", info: "這是判斷速度的基本方法。" },
+            { q: "速度只和距離有關。", type: "是非", a: "X", info: "一定要配合「時間」才有意義喔！" }
+        ];
+
+        let state = {
+            user: { name: "" },
+            currentLevelIdx: 0,
+            currentQuestionIdx: 0,
+            score: 0,
+            correctCount: 0,
+            wrongCount: 0,
+            startTime: null
+        };
+
+        function showScreen(screenId) {
+            document.querySelectorAll('#app > div').forEach(div => div.classList.add('hidden'));
+            document.getElementById(screenId).classList.remove('hidden');
+            gsap.from(`#${screenId}`, { opacity: 0, y: 20, duration: 0.5 });
+        }
+
+        function startAdventure() {
+            const name = document.getElementById('user-name').value;
+            if(!name.trim()) {
+                alert("請輸入你的探險家姓名喔！");
+                return;
+            }
+            state.user.name = name;
+            state.startTime = new Date();
+            updateMap();
+            showScreen('screen-map');
+        }
+
+        function updateMap() {
+            levels.forEach((lvl, idx) => {
+                const node = document.getElementById(`node-${idx+1}`);
+                if (idx < state.currentLevelIdx) {
+                    node.classList.remove('opacity-50', 'bg-gray-300');
+                    node.classList.add('bg-green-500');
+                    node.innerHTML = `<span>✅</span><span>已完成</span>`;
+                } else if (idx === state.currentLevelIdx) {
+                    node.classList.remove('opacity-50', 'bg-gray-300');
+                    node.classList.add('active', 'bg-blue-400');
+                }
+            });
+        }
+
+        function enterLevel(idx) {
+            if (idx > state.currentLevelIdx) return;
+            state.currentLevelIdx = idx;
+            state.currentQuestionIdx = levels[idx].start;
+            loadQuestion();
+            showScreen('screen-game');
+        }
+
+        function loadQuestion() {
+            const q = questions[state.currentQuestionIdx];
+            const lvl = levels[state.currentLevelIdx];
+            
+            document.getElementById('level-title').innerText = `關卡：${lvl.name}`;
+            document.getElementById('score-display').innerText = `⭐ 分數：${state.score}`;
+            document.getElementById('question-text').innerText = `第 ${state.currentQuestionIdx + 1} 題：${q.q}`;
+            
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            document.getElementById('feedback').classList.add('hidden');
+
+            const choices = q.type === "是非" ? ["O", "X"] : q.options;
+            choices.forEach(choice => {
+                const btn = document.createElement('button');
+                btn.className = "w-full p-4 bg-white hover:bg-blue-50 border-2 border-blue-100 rounded-xl text-left text-xl font-bold transition-all shadow-sm active:scale-95";
+                btn.innerText = choice;
+                btn.onclick = () => checkAnswer(choice, q);
+                optionsContainer.appendChild(btn);
+            });
+
+            const currentLvlProgress = ((state.currentQuestionIdx - lvl.start) / 10) * 100;
+            document.getElementById('level-progress').style.width = `${currentLvlProgress}%`;
+        }
+
+        function checkAnswer(userAnswer, q) {
+            const feedback = document.getElementById('feedback');
+            const isCorrect = userAnswer.startsWith(q.a);
+            feedback.classList.remove('hidden', 'bg-green-100', 'text-green-700', 'bg-red-100', 'text-red-700');
+            
+            if (isCorrect) {
+                state.score += 10;
+                state.correctCount++;
+                feedback.innerText = `✔ 太棒了！\n📘 科學小知識：${q.info}`;
+                feedback.classList.add('bg-green-100', 'text-green-700');
+                document.getElementById('audio-correct').play().catch(()=>{});
+            } else {
+                state.wrongCount++;
+                feedback.innerText = `❌ 再接再厲！\n📘 科學小知識：${q.info}`;
+                feedback.classList.add('bg-red-100', 'text-red-700');
+            }
+
+            document.querySelectorAll('#options-container button').forEach(b => b.disabled = true);
+
+            setTimeout(() => {
+                state.currentQuestionIdx++;
+                const lvl = levels[state.currentLevelIdx];
+                if (state.currentQuestionIdx > lvl.end) {
+                    state.currentLevelIdx++;
+                    if (state.currentLevelIdx >= levels.length) finishGame();
+                    else { updateMap(); showScreen('screen-map'); }
+                } else { loadQuestion(); }
+            }, 3000);
+        }
+
+        async function finishGame() {
+            const endTime = new Date();
+            const durationSec = Math.floor((endTime - state.startTime) / 1000);
+            const durationDisplay = `${Math.floor(durationSec/60)}分${durationSec%60}秒`;
+
+            document.getElementById('final-stats').innerHTML = `
+                <p>👤 <strong>姓名：</strong> ${state.user.name}</p>
+                <p>🏆 <strong>總分：</strong> <span class="text-3xl text-orange-500 font-bold">${state.score}</span></p>
+                <p>✅ <strong>答對：</strong> ${state.correctCount} 題</p>
+                <p>❌ <strong>答錯：</strong> ${state.wrongCount} 題</p>
+                <p>⏱ <strong>時間：</strong> ${durationDisplay}</p>
+            `;
+            showScreen('screen-result');
+
+            if (API_URL) {
+                try {
+                    await fetch(API_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            timestamp: new Date().toLocaleString(),
+                            name: state.user.name,
+                            score: state.score,
+                            correct: state.correctCount,
+                            wrong: state.wrongCount,
+                            duration: durationDisplay
+                        })
+                    });
+                } catch (e) { console.error(e); }
+            }
+            
+            const dummyLeaderboard = [
+                {name: state.user.name, score: state.score, time: durationDisplay},
+                {name: "愛因斯坦", score: 380, time: "3分10秒"},
+                {name: "牛頓", score: 350, time: "4分00秒"}
+            ].sort((a,b) => b.score - a.score);
+
+            document.getElementById('leaderboard').innerHTML = dummyLeaderboard.map((item, i) => `
+                <div class="flex justify-between border-b py-2 ${item.name === state.user.name ? 'text-orange-600 font-bold bg-orange-50' : ''}">
+                    <span>${i+1}. ${item.name}</span>
+                    <span>${item.score}分 / ${item.time}</span>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
