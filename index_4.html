@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>從臺灣探索世界文化 - 國小五下社會自學網</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #E0F2FE; } /* bg-sky-100 */
+        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
+        .tab-active { background-color: #FCD34D; color: #92400E; transform: translateY(-2px); box-shadow: 0 4px 6px rgba(0,0,0,0.1); } /* bg-yellow-300 text-yellow-900 */
+        .tab-inactive { background-color: #FFFFFF; color: #6B7280; }
+        .bounce-hover:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+        
+        /* 隱藏捲軸但可滾動 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* 自訂表格樣式 */
+        .custom-table th { background-color: #FDE047; color: #854D0E; font-weight: 700; }
+        .custom-table tr:nth-child(even) { background-color: #FEF9C3; }
+        .custom-table tr:nth-child(odd) { background-color: #FFFFFF; }
+    </style>
+</head>
+<body class="text-gray-800 antialiased min-h-screen flex flex-col">
+
+    <!-- 導覽列 -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-2xl font-black text-sky-600 flex items-center gap-2">
+                    🌍 <span class="hidden sm:inline">文化小偵探</span>
+                </div>
+                <div class="flex space-x-2 overflow-x-auto no-scrollbar pb-1">
+                    <button onclick="switchPage('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-full font-bold whitespace-nowrap bg-sky-400 text-white shadow-md hover:bg-sky-500 transition">🏠 首頁</button>
+                    <button onclick="switchPage('study')" id="nav-study" class="nav-btn px-4 py-2 rounded-full font-bold whitespace-nowrap bg-white text-gray-600 shadow-sm hover:bg-green-100 transition">📖 自學重點</button>
+                    <button onclick="switchPage('memory')" id="nav-memory" class="nav-btn px-4 py-2 rounded-full font-bold whitespace-nowrap bg-white text-gray-600 shadow-sm hover:bg-pink-100 transition">🧠 超強記憶</button>
+                    <button onclick="switchPage('quiz')" id="nav-quiz" class="nav-btn px-4 py-2 rounded-full font-bold whitespace-nowrap bg-white text-gray-600 shadow-sm hover:bg-orange-100 transition">🎮 挑戰測驗</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要內容區 -->
+    <main class="flex-grow max-w-6xl mx-auto w-full px-4 py-8">
+
+        <!-- ================= 首頁 ================= -->
+        <section id="page-home" class="page-section space-y-8 animate-fade-in">
+            <div class="text-center space-y-4">
+                <h1 class="text-4xl md:text-5xl font-black text-sky-700 drop-shadow-sm">國小五下社會：從臺灣探索世界文化</h1>
+                <p class="text-xl md:text-2xl font-bold text-orange-500 bg-orange-100 inline-block px-6 py-2 rounded-full">✨ 用「物、時、信」，看懂臺灣與世界文化 ✨</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                <!-- 卡片 1 -->
+                <div class="bg-pink-100 rounded-3xl p-6 shadow-lg border-4 border-white bounce-hover text-center">
+                    <div class="text-6xl mb-4">🏛️</div>
+                    <h2 class="text-3xl font-black text-pink-600 mb-2">物</h2>
+                    <h3 class="text-xl font-bold text-gray-700">博物館與文物</h3>
+                    <p class="mt-3 text-gray-600 font-medium">看見文化怎麼被保存！文化不是古董，是生活日常的累積。</p>
+                </div>
+                <!-- 卡片 2 -->
+                <div class="bg-green-100 rounded-3xl p-6 shadow-lg border-4 border-white bounce-hover text-center">
+                    <div class="text-6xl mb-4">🕰️</div>
+                    <h2 class="text-3xl font-black text-green-600 mb-2">時</h2>
+                    <h3 class="text-xl font-bold text-gray-700">時間、曆法與作息</h3>
+                    <p class="mt-3 text-gray-600 font-medium">看見族群生活怎麼形成習俗！從看天吃飯到看時鐘上班。</p>
+                </div>
+                <!-- 卡片 3 -->
+                <div class="bg-yellow-100 rounded-3xl p-6 shadow-lg border-4 border-white bounce-hover text-center">
+                    <div class="text-6xl mb-4">🙏</div>
+                    <h2 class="text-3xl font-black text-yellow-600 mb-2">信</h2>
+                    <h3 class="text-xl font-bold text-gray-700">宗教與信仰文化</h3>
+                    <p class="mt-3 text-gray-600 font-medium">看見不同族群怎麼帶來文化！學習尊重與欣賞多元信仰。</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-md text-center mt-8 border-l-8 border-sky-400">
+                <p class="text-xl font-bold text-sky-800">💡 一句話記憶：</p>
+                <p class="text-lg mt-2 text-gray-700">文化不是課本裡的古董，而是我們每天吃、拜、過節、看展、安排時間的生活日常。</p>
+            </div>
+        </section>
+
+
+        <!-- ================= 自學重點區 ================= -->
+        <section id="page-study" class="page-section hidden space-y-6">
+            <h2 class="text-3xl font-black text-green-600 text-center mb-6">📖 自學重點大揭密</h2>
+            
+            <!-- 子分頁按鈕 -->
+            <div class="flex flex-col sm:flex-row justify-center gap-3 mb-6">
+                <button onclick="switchStudyTab('lesson1')" id="tab-lesson1" class="study-tab tab-active px-6 py-3 rounded-xl font-bold text-lg shadow-sm w-full sm:w-auto">第1課：在地與世界文化</button>
+                <button onclick="switchStudyTab('lesson2')" id="tab-lesson2" class="study-tab tab-inactive px-6 py-3 rounded-xl font-bold text-lg shadow-sm w-full sm:w-auto">第2課：族群生活與時間</button>
+                <button onclick="switchStudyTab('lesson3')" id="tab-lesson3" class="study-tab tab-inactive px-6 py-3 rounded-xl font-bold text-lg shadow-sm w-full sm:w-auto">第3課：世界宗教在臺灣</button>
+            </div>
+
+            <!-- 第 1 課內容 -->
+            <div id="content-lesson1" class="study-content bg-white rounded-3xl p-6 md:p-10 shadow-lg border-t-8 border-pink-400">
+                <h3 class="text-2xl font-black text-pink-600 mb-4 flex items-center gap-2">🏛️ 第1課：如何發現在地與世界文化特色？</h3>
+                <ul class="space-y-4 text-lg text-gray-700">
+                    <li class="flex items-start"><span class="text-pink-500 mr-2">✔️</span> <b>文化是人類生活方式的展現。</b></li>
+                    <li class="flex items-start"><span class="text-pink-500 mr-2">✔️</span> <b>博物館功能：</b>可以保存、展示文化，讓我們認識過去人類的生活。</li>
+                    <li class="flex items-start"><span class="text-pink-500 mr-2">✔️</span> <b>臺灣最早的博物館：</b>建於<b>日治時期</b>，外觀多有<b>歐洲風格</b>，如「國立臺灣博物館」。</li>
+                    <li class="flex items-start"><span class="text-pink-500 mr-2">✔️</span> <b>中華文化傳入：</b>中華民國政府播遷來臺後，帶來許多中華文物（繪畫、書法、陶瓷），並透過博物館、學校教育推廣。代表為「國立故宮博物院」（中國古代宮殿風格）。</li>
+                    <li class="flex items-start"><span class="text-pink-500 mr-2">✔️</span> <b>現代博物館：</b>有團體導覽、語音導覽、數位學習，甚至可透過線上展覽在家參觀，科技讓學習更方便！</li>
+                </ul>
+            </div>
+
+            <!-- 第 2 課內容 -->
+            <div id="content-lesson2" class="study-content hidden bg-white rounded-3xl p-6 md:p-10 shadow-lg border-t-8 border-green-400">
+                <h3 class="text-2xl font-black text-green-600 mb-4 flex items-center gap-2">🕰️ 第2課：各族群生活方式如何形成文化？</h3>
+                <ul class="space-y-4 text-lg text-gray-700">
+                    <li class="flex items-start"><span class="text-green-500 mr-2">✔️</span> <b>早期生活作息：</b>常配合自然環境與氣候變化。</li>
+                    <li class="flex items-start"><span class="text-green-500 mr-2">✔️</span> <b>原住民族傳統時間：</b>祭典常與作物、狩獵、季節有關。例如：<b>布農族</b>將小米耕種與祭典結合，形成一年生活週期（小米祭、打耳祭等）。</li>
+                    <li class="flex items-start"><span class="text-green-500 mr-2">✔️</span> <b>早期漢人農耕時間：</b>農業社會依照自然變化生活，節慶與農業有關。常參考<b>農民曆</b>（結合太陽、月亮運轉與季節氣候），用於農耕、婚喪喜慶、節日安排。</li>
+                    <li class="flex items-start"><span class="text-green-500 mr-2">✔️</span> <b>現代標準時間：</b>臺灣現代較常使用國曆，但仍參考農民曆。<b>標準時間制度</b>讓人們生活作息逐漸固定（上學、上班），並讓臺灣與世界運作同步。</li>
+                </ul>
+            </div>
+
+            <!-- 第 3 課內容 -->
+            <div id="content-lesson3" class="study-content hidden bg-white rounded-3xl p-6 md:p-10 shadow-lg border-t-8 border-yellow-400">
+                <h3 class="text-2xl font-black text-yellow-600 mb-4 flex items-center gap-2">🙏 第3課：世界宗教如何在臺灣傳播發展？</h3>
+                <ul class="space-y-4 text-lg text-gray-700">
+                    <li class="flex items-start"><span class="text-yellow-500 mr-2">✔️</span> <b>宗教的起源：</b>常源自人們對生、老、病、死等生命問題的思考。</li>
+                    <li class="flex items-start"><span class="text-yellow-500 mr-2">✔️</span> <b>文化的融合：</b>不同族群移入臺灣，帶來不同信仰，並與臺灣在地文化互動與融合。</li>
+                    <li class="flex items-start"><span class="text-yellow-500 mr-2">✔️</span> <b>基督宗教：</b>常見活動有讀聖經、做禮拜、禱告、慶祝耶誕節。</li>
+                    <li class="flex items-start"><span class="text-yellow-500 mr-2">✔️</span> <b>伊斯蘭教：</b>教徒稱為<b>穆斯林</b>，經典是《古蘭經》，有一日多次的祈禱需求，因此臺灣許多公共場所設置了穆斯林祈禱室。</li>
+                    <li class="flex items-start"><span class="text-yellow-500 mr-2">✔️</span> <b>佛教：</b>起源於印度，創始人是釋迦牟尼，主張眾生平等。</li>
+                    <li class="flex items-start"><span class="text-yellow-500 mr-2">✔️</span> <b>道教：</b>是多神信仰，有符咒、收驚、做醮等豐富的文化特色。</li>
+                    <li class="flex items-start"><span class="text-yellow-500 mr-2">✔️</span> <b>民間信仰：</b>常與地方生活、宮廟、地方歷史結合。例如「媽祖信仰」從航海保護神，逐漸成為臺灣重要民間信仰，甚至走向國際。</li>
+                </ul>
+            </div>
+        </section>
+
+
+        <!-- ================= 超強記憶區 ================= -->
+        <section id="page-memory" class="page-section hidden space-y-8">
+            <h2 class="text-3xl font-black text-pink-600 text-center mb-6">🧠 超強記憶與易考重點</h2>
+
+            <!-- 記憶口訣卡片 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-gradient-to-r from-sky-400 to-sky-500 rounded-2xl p-6 shadow-md text-white">
+                    <h3 class="text-xl font-bold mb-2 opacity-90">🔑 記憶卡 1：三大主軸</h3>
+                    <p class="text-3xl font-black">「物、時、信」看文化</p>
+                </div>
+                <div class="bg-gradient-to-r from-pink-400 to-pink-500 rounded-2xl p-6 shadow-md text-white">
+                    <h3 class="text-xl font-bold mb-2 opacity-90">🔑 記憶卡 2：兩大博物館</h3>
+                    <p class="text-2xl font-black">臺博歐風看臺灣<br>故宮中式看中華</p>
+                </div>
+                <div class="bg-gradient-to-r from-green-400 to-green-500 rounded-2xl p-6 shadow-md text-white">
+                    <h3 class="text-xl font-bold mb-2 opacity-90">🔑 記憶卡 3：三種時間</h3>
+                    <p class="text-2xl font-black">原民看祭典<br>漢人看農曆<br>現代看時鐘</p>
+                </div>
+                <div class="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl p-6 shadow-md text-white">
+                    <h3 class="text-xl font-bold mb-2 opacity-90">🔑 記憶卡 4：四大宗教</h3>
+                    <p class="text-2xl font-black">聖基、古伊、釋佛、符道</p>
+                </div>
+            </div>
+
+            <!-- 易考重點提醒 -->
+            <div class="bg-white rounded-3xl p-6 md:p-8 shadow-lg border-4 border-yellow-300">
+                <h3 class="text-2xl font-black text-orange-600 mb-4 flex items-center gap-2">⭐ 考試必看！易考重點提醒</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-yellow-50 rounded-xl p-4 border-l-4 border-yellow-400">
+                        <p class="text-lg font-bold text-gray-800">⭐ 超常考 1</p>
+                        <p class="text-gray-700">臺灣最早博物館是<b>日治時期</b>，<span class="text-red-500">不是</span>民國初期。</p>
+                    </div>
+                    <div class="bg-yellow-50 rounded-xl p-4 border-l-4 border-yellow-400">
+                        <p class="text-lg font-bold text-gray-800">⭐ 超常考 2</p>
+                        <p class="text-gray-700">國立臺灣博物館是<b>歐洲風格</b>，<span class="text-red-500">不是</span>日式風格。</p>
+                    </div>
+                    <div class="bg-yellow-50 rounded-xl p-4 border-l-4 border-yellow-400">
+                        <p class="text-lg font-bold text-gray-800">⭐ 超常考 3</p>
+                        <p class="text-gray-700">國立故宮博物院是<b>中國古代宮殿風格</b>。</p>
+                    </div>
+                    <div class="bg-yellow-50 rounded-xl p-4 border-l-4 border-yellow-400">
+                        <p class="text-lg font-bold text-gray-800">⭐ 超常考 4</p>
+                        <p class="text-gray-700">農民曆<span class="text-red-500">不是只有看月亮</span>，是結合<b>太陽、月亮與季節氣候</b>。</p>
+                    </div>
+                    <div class="bg-yellow-50 rounded-xl p-4 border-l-4 border-yellow-400">
+                        <p class="text-lg font-bold text-gray-800">⭐ 超常考 5</p>
+                        <p class="text-gray-700">標準時間制度<span class="text-red-500">不是早期就有</span>，是現代化制度，讓作息固定。</p>
+                    </div>
+                    <div class="bg-yellow-50 rounded-xl p-4 border-l-4 border-yellow-400">
+                        <p class="text-lg font-bold text-gray-800">⭐ 超常考 6</p>
+                        <p class="text-gray-700">穆斯林<span class="text-red-500">不一定</span>是新住民，臺灣也有本地穆斯林。</p>
+                    </div>
+                    <div class="bg-yellow-50 rounded-xl p-4 border-l-4 border-yellow-400 md:col-span-2">
+                        <p class="text-lg font-bold text-gray-800">⭐ 超常考 7</p>
+                        <p class="text-gray-700">不同宗教會<b>互動與融合</b>，<span class="text-red-500">不是</span>互不往來。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 彩色比較表 -->
+            <div class="space-y-6">
+                <!-- 表格 1 -->
+                <div class="overflow-x-auto bg-white rounded-2xl shadow-md p-4">
+                    <h4 class="text-xl font-bold text-sky-700 mb-3">🏛️ 博物館超級比一比</h4>
+                    <table class="w-full text-left border-collapse custom-table rounded-xl overflow-hidden">
+                        <thead>
+                            <tr>
+                                <th class="p-3 w-1/3">比較項目</th>
+                                <th class="p-3 w-1/3">國立臺灣博物館</th>
+                                <th class="p-3 w-1/3">國立故宮博物院</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-700">
+                            <tr>
+                                <td class="p-3 font-bold border-t">建立時期</td>
+                                <td class="p-3 border-t">日治時期 (臺灣最早)</td>
+                                <td class="p-3 border-t">中華民國政府播遷來臺後</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold border-t">建築風格</td>
+                                <td class="p-3 border-t text-pink-600 font-bold">歐洲風格 (圓柱、圓頂)</td>
+                                <td class="p-3 border-t text-sky-600 font-bold">中國古代宮殿 (綠琉璃瓦)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold border-t">代表文物</td>
+                                <td class="p-3 border-t">臺灣自然史、臺灣番社圖</td>
+                                <td class="p-3 border-t">清明上河圖、書畫、陶瓷</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 表格 2 -->
+                <div class="overflow-x-auto bg-white rounded-2xl shadow-md p-4">
+                    <h4 class="text-xl font-bold text-green-700 mb-3">🕰️ 時間作息超級比一比</h4>
+                    <table class="w-full text-left border-collapse custom-table rounded-xl overflow-hidden">
+                        <thead>
+                            <tr>
+                                <th class="p-3 w-1/4">類型</th>
+                                <th class="p-3 w-1/3">看什麼決定生活？</th>
+                                <th class="p-3 w-auto">代表例子</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-700">
+                            <tr>
+                                <td class="p-3 font-bold border-t">原民傳統時間</td>
+                                <td class="p-3 border-t">作物、祭典、自然環境</td>
+                                <td class="p-3 border-t">布農族小米祭、射耳祭</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold border-t">漢人農耕時間</td>
+                                <td class="p-3 border-t">農民曆 (太陽/月亮/氣候)</td>
+                                <td class="p-3 border-t">清明掃墓、端午、過年</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold border-t">現代標準時間</td>
+                                <td class="p-3 border-t text-red-500 font-bold">時鐘、制度、國際同步</td>
+                                <td class="p-3 border-t">上學、上班時間、勞動節</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 表格 3 -->
+                <div class="overflow-x-auto bg-white rounded-2xl shadow-md p-4">
+                    <h4 class="text-xl font-bold text-yellow-700 mb-3">🙏 四大宗教關鍵字</h4>
+                    <table class="w-full text-left border-collapse custom-table rounded-xl overflow-hidden">
+                        <thead>
+                            <tr>
+                                <th class="p-3 w-1/4">宗教</th>
+                                <th class="p-3 w-3/4">關鍵字大集合</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-700 font-medium">
+                            <tr>
+                                <td class="p-3 font-bold border-t text-blue-600">基督宗教</td>
+                                <td class="p-3 border-t">聖經、禱告、做禮拜、耶誕節</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold border-t text-green-600">伊斯蘭教</td>
+                                <td class="p-3 border-t">古蘭經、穆斯林、祈禱室、一日多次祈禱</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold border-t text-orange-500">佛教</td>
+                                <td class="p-3 border-t">起源印度、釋迦牟尼、眾生平等</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold border-t text-purple-600">道教</td>
+                                <td class="p-3 border-t">多神信仰、符咒、收驚、做醮</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= 互動測驗區 ================= -->
+        <section id="page-quiz" class="page-section hidden max-w-3xl mx-auto">
+            
+            <!-- 測驗首頁 -->
+            <div id="quiz-intro" class="bg-white rounded-3xl p-8 shadow-xl text-center border-4 border-orange-400">
+                <div class="text-6xl mb-4">🎮</div>
+                <h2 class="text-3xl font-black text-orange-500 mb-4">文化小偵探 測驗挑戰</h2>
+                <p class="text-lg text-gray-700 mb-6">總共 30 題，包含是非題與選擇題。<br>準備好驗收你的學習成果了嗎？</p>
+                <button onclick="startQuiz()" class="bg-orange-500 hover:bg-orange-600 text-white text-2xl font-bold py-4 px-10 rounded-full shadow-lg transform hover:scale-105 transition">開始挑戰！</button>
+            </div>
+
+            <!-- 測驗進行中 -->
+            <div id="quiz-container" class="hidden">
+                <!-- 進度條 -->
+                <div class="mb-4 flex justify-between items-center bg-white p-3 rounded-2xl shadow-sm">
+                    <span class="font-bold text-sky-600" id="quiz-progress-text">第 1 / 30 題</span>
+                    <span class="font-bold text-orange-500">得分：<span id="quiz-score">0</span></span>
+                </div>
+                
+                <div class="w-full bg-gray-200 rounded-full h-3 mb-6">
+                  <div id="quiz-progress-bar" class="bg-sky-400 h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+
+                <!-- 題目卡 -->
+                <div class="bg-white rounded-3xl p-6 md:p-10 shadow-xl border-t-8 border-sky-400 min-h-[300px] flex flex-col justify-center">
+                    <h3 id="question-text" class="text-2xl md:text-3xl font-bold text-gray-800 mb-8 leading-relaxed">題目載入中...</h3>
+                    
+                    <!-- 選項區 -->
+                    <div id="options-container" class="grid grid-cols-1 gap-4">
+                        <!-- 選項按鈕會由 JS 動態產生 -->
+                    </div>
+
+                    <!-- 回饋區 (對/錯) -->
+                    <div id="feedback-container" class="hidden mt-8 p-4 rounded-xl text-center text-lg font-bold animate-pulse">
+                        <p id="feedback-msg" class="text-2xl mb-2"></p>
+                        <p id="feedback-exp" class="text-gray-700 font-normal"></p>
+                        <button id="next-btn" onclick="nextQuestion()" class="mt-4 bg-sky-500 hover:bg-sky-600 text-white py-2 px-8 rounded-full shadow-md font-bold text-xl">下一題 ➔</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 測驗結果 -->
+            <div id="quiz-result" class="hidden bg-white rounded-3xl p-8 shadow-xl text-center border-4 border-sky-400">
+                <div id="result-icon" class="text-7xl mb-4">🏆</div>
+                <h2 class="text-4xl font-black text-sky-600 mb-2">挑戰完成！</h2>
+                <p class="text-2xl text-gray-700 font-bold mb-2">你的總分是：<span id="final-score" class="text-orange-500 text-5xl">100</span> 分</p>
+                <p class="text-lg text-gray-600 mb-6">答對了 <span id="correct-count">30</span> / 30 題</p>
+                
+                <div id="result-message" class="bg-yellow-100 p-4 rounded-xl text-xl font-bold text-yellow-800 mb-8">
+                    太神啦！你是傳說中的文化大師！
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button onclick="startQuiz()" class="bg-orange-500 hover:bg-orange-600 text-white text-xl font-bold py-3 px-8 rounded-full shadow-md transition">↺ 再玩一次</button>
+                    <button onclick="switchPage('study')" class="bg-green-500 hover:bg-green-600 text-white text-xl font-bold py-3 px-8 rounded-full shadow-md transition">📖 複習重點</button>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="bg-sky-200 text-sky-700 py-6 text-center font-bold mt-auto">
+        <p>國小五下社會 - 單元4：從臺灣探索世界文化 自學網頁</p>
+        <p class="text-sm mt-2 opacity-75">讓學習變成好玩的探險！</p>
+    </footer>
+
+    <!-- JavaScript 邏輯 -->
+    <script>
+        // === 導覽列與分頁切換邏輯 ===
+        function switchPage(pageId) {
+            // 隱藏所有 section
+            document.querySelectorAll('.page-section').forEach(el => el.classList.add('hidden'));
+            // 顯示目標 section
+            document.getElementById('page-' + pageId).classList.remove('hidden');
+            
+            // 重設導覽列按鈕樣式
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-sky-400', 'text-white');
+                btn.classList.add('bg-white', 'text-gray-600');
+            });
+            
+            // 設定當前按鈕樣式
+            const activeBtn = document.getElementById('nav-' + pageId);
+            activeBtn.classList.remove('bg-white', 'text-gray-600');
+            activeBtn.classList.add('bg-sky-400', 'text-white');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // === 自學重點子分頁切換邏輯 ===
+        function switchStudyTab(lessonId) {
+            // 隱藏所有內容
+            document.querySelectorAll('.study-content').forEach(el => el.classList.add('hidden'));
+            // 顯示目標內容
+            document.getElementById('content-' + lessonId).classList.remove('hidden');
+
+            // 重設按鈕樣式
+            document.querySelectorAll('.study-tab').forEach(btn => {
+                btn.classList.remove('tab-active');
+                btn.classList.add('tab-inactive');
+            });
+
+            // 設定當前按鈕樣式
+            const activeBtn = document.getElementById('tab-' + lessonId);
+            activeBtn.classList.remove('tab-inactive');
+            activeBtn.classList.add('tab-active');
+        }
+
+        // === 測驗題庫 (30題) ===
+        const allQuestions = [
+            // 是非題 (15題)
+            { type: "tf", q: "臺灣最早的博物館建於日治時期。", ans: "○", exp: "正確！國立臺灣博物館建於日治時期。" },
+            { type: "tf", q: "博物館只能展示古代物品，不能展示現代藝術。", ans: "╳", exp: "錯誤。博物館也可以展示現代藝術、科學與自然等多元主題。" },
+            { type: "tf", q: "國立臺灣博物館外觀具有歐洲風格。", ans: "○", exp: "正確！有圓柱、對稱、圓頂等歐洲特色。" },
+            { type: "tf", q: "國立故宮博物院是中國古代宮殿建築風格。", ans: "○", exp: "正確！有綠色琉璃瓦與黃色磚牆。" },
+            { type: "tf", q: "數位博物館可以讓民眾在家欣賞展覽。", ans: "○", exp: "正確！現代科技讓看展覽不受地點限制。" },
+            { type: "tf", q: "文化只存在於博物館中，日常生活沒有文化。", ans: "╳", exp: "錯誤。文化是人類生活方式的展現，日常生活處處是文化。" },
+            { type: "tf", q: "早期漢人生活作息常配合自然環境。", ans: "○", exp: "正確！農業社會常配合日出而作，日落而息。" },
+            { type: "tf", q: "農民曆和農業社會生活有關。", ans: "○", exp: "正確！常用於農耕、婚喪喜慶、節日安排。" },
+            { type: "tf", q: "臺灣現代只使用農民曆，不使用國曆。", ans: "╳", exp: "錯誤。現代較常使用國曆（標準時間），但仍會參考農民曆。" },
+            { type: "tf", q: "標準時間制度讓社會生活更有固定規律。", ans: "○", exp: "正確！方便大家一起上班、上學，也與世界同步。" },
+            { type: "tf", q: "宗教可能源自人們對生命問題的思考。", ans: "○", exp: "正確！對於生老病死的好奇與敬畏常是宗教起源。" },
+            { type: "tf", q: "不同移民來臺後，信仰完全不會融合。", ans: "╳", exp: "錯誤。不同信仰在臺灣常會互相影響與融合。" },
+            { type: "tf", q: "穆斯林是伊斯蘭教徒。", ans: "○", exp: "正確！他們以《古蘭經》為經典。" },
+            { type: "tf", q: "佛教起源於印度。", ans: "○", exp: "正確！創始人是釋迦牟尼。" },
+            { type: "tf", q: "道教是多神信仰。", ans: "○", exp: "正確！並有符咒、收驚、做醮等特色。" },
+            
+            // 選擇題 (15題)
+            { type: "mc", q: "臺灣最早的博物館建於哪個時期？", options: ["清帝國時期", "日治時期", "大航海時代", "民國初期"], ans: "日治時期", exp: "臺灣最早的博物館建於日治時期喔！" },
+            { type: "mc", q: "下列哪一項是國立臺灣博物館特色？", options: ["綠色琉璃瓦", "黃色磚牆", "歐洲風格圓柱", "阿波羅噴泉"], ans: "歐洲風格圓柱", exp: "臺博館是歐洲風格（圓柱、圓頂）；故宮才是琉璃瓦與黃磚牆。" },
+            { type: "mc", q: "國立故宮博物院主要保存哪類文物？", options: ["中華文物", "西方神話雕像", "工業機器", "海洋生物標本"], ans: "中華文物", exp: "故宮保存許多繪畫、書法、陶瓷等中華文物。" },
+            { type: "mc", q: "博物館與國外合作展覽，可以幫助我們：", options: ["只認識臺灣夜市", "認識世界文化與交流", "學會煮飯", "練習跑步"], ans: "認識世界文化與交流", exp: "透過國際展覽，不用出國也能看見世界。" },
+            { type: "mc", q: "早期農業社會的漢人生活作息多配合：", options: ["自然環境", "網路速度", "電視節目", "遊戲更新"], ans: "自然環境", exp: "農業社會看天吃飯，作息配合自然環境。" },
+            { type: "mc", q: "漢人決定婚喪喜慶日子常參考：", options: ["農民曆", "車票時刻表", "地圖", "成績單"], ans: "農民曆", exp: "農民曆結合天象與氣候，是漢人生活的重要參考。" },
+            { type: "mc", q: "布農族常將哪種作物與祭典結合？", options: ["小麥", "小米", "稻米", "玉米"], ans: "小米", exp: "布農族有一套完整的小米祭典曆法。" },
+            { type: "mc", q: "現代社會能與世界同步運作，和哪一項最有關？", options: ["標準時間", "神話故事", "傳統服飾", "地方小吃"], ans: "標準時間", exp: "標準時間制度讓全世界有統一的時間標準。" },
+            { type: "mc", q: "清明節最可能和哪一項活動有關？", options: ["掃墓祭祖", "交換耶誕禮物", "開齋節", "做實驗"], ans: "掃墓祭祖", exp: "清明節是漢人傳統慎終追遠、掃墓祭祖的日子。" },
+            { type: "mc", q: "穆斯林是哪一宗教的信徒？", options: ["佛教", "道教", "伊斯蘭教", "基督宗教"], ans: "伊斯蘭教", exp: "伊斯蘭教徒稱為穆斯林。" },
+            { type: "mc", q: "閱讀聖經、做禮拜、禱告，較可能是：", options: ["基督宗教", "伊斯蘭教", "道教", "民間信仰"], ans: "基督宗教", exp: "這些是基督宗教常見的活動。" },
+            { type: "mc", q: "釋迦牟尼與眾生平等，較可能和哪個宗教有關？", options: ["佛教", "道教", "伊斯蘭教", "基督宗教"], ans: "佛教", exp: "佛教起源印度，由釋迦牟尼創立。" },
+            { type: "mc", q: "收驚、符咒、做醮較可能和哪個信仰有關？", options: ["道教", "基督宗教", "伊斯蘭教", "希臘神話"], ans: "道教", exp: "這些都是道教文化的特色。" },
+            { type: "mc", q: "臺灣民間信仰常和哪一項最有關？", options: ["地方生活與宮廟文化", "外太空旅行", "電腦程式", "國際匯率"], ans: "地方生活與宮廟文化", exp: "例如媽祖信仰就是從地方宮廟發展出來的重要信仰。" },
+            { type: "mc", q: "下列哪一項最能代表本單元精神？", options: ["只學自己的文化就好", "文化沒有差異", "從臺灣生活看見世界文化", "宗教與生活完全無關"], ans: "從臺灣生活看見世界文化", exp: "本單元希望我們從身邊的事物，發現臺灣與世界的連結。" }
+        ];
+
+        // 測驗狀態變數
+        let quizQueue = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let correctCount = 0;
+        const totalQuestions = allQuestions.length;
+        const pointsPerQ = 100 / totalQuestions; // 計算每題分數
+
+        // 陣列洗牌函數 (Fisher-Yates)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // 開始測驗
+        function startQuiz() {
+            document.getElementById('quiz-intro').classList.add('hidden');
+            document.getElementById('quiz-result').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            
+            // 初始化變數
+            quizQueue = JSON.parse(JSON.stringify(allQuestions)); // 深拷貝題庫
+            shuffleArray(quizQueue); // 打亂題目順序
+            currentQuestionIndex = 0;
+            score = 0;
+            correctCount = 0;
+            
+            updateScoreUI();
+            renderQuestion();
+        }
+
+        // 渲染題目
+        function renderQuestion() {
+            const qData = quizQueue[currentQuestionIndex];
+            
+            // 更新進度
+            document.getElementById('quiz-progress-text').innerText = `第 ${currentQuestionIndex + 1} / ${totalQuestions} 題`;
+            const progressPercent = ((currentQuestionIndex) / totalQuestions) * 100;
+            document.getElementById('quiz-progress-bar').style.width = `${progressPercent}%`;
+
+            // 顯示題目
+            document.getElementById('question-text').innerText = `Q: ${qData.q}`;
+            
+            // 隱藏回饋區，清空選項區
+            document.getElementById('feedback-container').classList.add('hidden');
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            // 準備選項 (如果是選擇題則打亂選項順序，是非題固定 ○ ╳)
+            let optionsToRender = [];
+            if (qData.type === "mc") {
+                optionsToRender = [...qData.options];
+                shuffleArray(optionsToRender);
+            } else {
+                optionsToRender = ["○", "╳"];
+            }
+
+            // 產生選項按鈕
+            optionsToRender.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = "opt-btn w-full text-left bg-blue-50 hover:bg-sky-100 text-gray-800 font-bold py-4 px-6 rounded-2xl shadow-sm border-2 border-transparent transition text-lg md:text-xl";
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(opt, btn, qData);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        // 檢查答案
+        function checkAnswer(selectedOpt, btnElement, qData) {
+            // 停用所有按鈕防止重複點擊
+            const allBtns = document.querySelectorAll('.opt-btn');
+            allBtns.forEach(b => {
+                b.disabled = true;
+                b.classList.remove('hover:bg-sky-100');
+            });
+
+            const feedbackContainer = document.getElementById('feedback-container');
+            const feedbackMsg = document.getElementById('feedback-msg');
+            const feedbackExp = document.getElementById('feedback-exp');
+
+            feedbackContainer.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+
+            if (selectedOpt === qData.ans) {
+                // 答對
+                btnElement.classList.add('bg-green-400', 'text-white', 'border-green-500');
+                feedbackContainer.classList.add('bg-green-100', 'text-green-800');
+                
+                const praiseWords = ["太強了！文化小偵探升級！", "完全正確！你好棒！", "滿分解答！繼續保持！", "太厲害啦！"];
+                feedbackMsg.innerText = `✨ 正確！${praiseWords[Math.floor(Math.random() * praiseWords.length)]}`;
+                
+                score += pointsPerQ;
+                correctCount++;
+                updateScoreUI();
+            } else {
+                // 答錯
+                btnElement.classList.add('bg-red-400', 'text-white', 'border-red-500');
+                feedbackContainer.classList.add('bg-red-100', 'text-red-800');
+                feedbackMsg.innerText = `❌ 哎呀，答錯了！正確答案是「${qData.ans}」`;
+                
+                // 標示正確答案
+                allBtns.forEach(b => {
+                    if (b.innerText === qData.ans) {
+                        b.classList.add('border-4', 'border-green-500', 'bg-green-100');
+                    }
+                });
+            }
+
+            feedbackExp.innerText = qData.exp;
+            
+            // 如果是最後一題，按鈕文字改為「看結果」
+            if (currentQuestionIndex === totalQuestions - 1) {
+                document.getElementById('next-btn').innerText = "查看成績 🏆";
+                document.getElementById('next-btn').classList.replace('bg-sky-500', 'bg-orange-500');
+                document.getElementById('next-btn').classList.replace('hover:bg-sky-600', 'hover:bg-orange-600');
+            } else {
+                document.getElementById('next-btn').innerText = "下一題 ➔";
+                document.getElementById('next-btn').classList.replace('bg-orange-500', 'bg-sky-500');
+                document.getElementById('next-btn').classList.replace('hover:bg-orange-600', 'hover:bg-sky-600');
+            }
+        }
+
+        // 下一題或結算
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < totalQuestions) {
+                renderQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+
+        // 更新分數 UI
+        function updateScoreUI() {
+            document.getElementById('quiz-score').innerText = Math.round(score);
+        }
+
+        // 結束測驗
+        function endQuiz() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('quiz-result').classList.remove('hidden');
+            
+            const finalScoreMath = Math.round(score);
+            document.getElementById('final-score').innerText = finalScoreMath;
+            document.getElementById('correct-count').innerText = correctCount;
+
+            const msgEl = document.getElementById('result-message');
+            const iconEl = document.getElementById('result-icon');
+            
+            if (finalScoreMath === 100) {
+                iconEl.innerText = "👑";
+                msgEl.innerText = "太神啦！你是傳說中的文化大師！完全制霸！";
+                msgEl.className = "bg-yellow-100 p-4 rounded-xl text-xl font-bold text-yellow-800 mb-8";
+            } else if (finalScoreMath >= 80) {
+                iconEl.innerText = "🌟";
+                msgEl.innerText = "表現得非常好！你已經掌握了大部分的文化知識囉！";
+                msgEl.className = "bg-green-100 p-4 rounded-xl text-xl font-bold text-green-800 mb-8";
+            } else if (finalScoreMath >= 60) {
+                iconEl.innerText = "👍";
+                msgEl.innerText = "不錯喔！再稍微複習一下重點，你會更強大的！";
+                msgEl.className = "bg-blue-100 p-4 rounded-xl text-xl font-bold text-blue-800 mb-8";
+            } else {
+                iconEl.innerText = "💪";
+                msgEl.innerText = "沒關係，學習就是不斷嘗試！建議先去「自學重點」複習一下再挑戰喔！";
+                msgEl.className = "bg-pink-100 p-4 rounded-xl text-xl font-bold text-pink-800 mb-8";
+            }
+        }
+        
+        // 頁面載入預設開啟首頁
+        window.onload = () => {
+            switchPage('home');
+        };
+
+    </script>
+</body>
+</html>
