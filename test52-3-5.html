@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎓 5下社會科 期末考複習系統</title>
+<style>
+  :root {
+    --bg: #f0f4ff;
+    --card-bg: #ffffff;
+    --text: #1a1a2e;
+    --text-light: #555577;
+    --border: #dde3f5;
+    --primary: #5b6ef5;
+    --primary-light: #e8ebff;
+    --danger: #ff4f6e;
+    --danger-light: #fff0f3;
+    --success: #22c55e;
+    --success-light: #e8fff0;
+    --warning: #f59e0b;
+    --warning-light: #fffbeb;
+    --accent1: #8b5cf6;
+    --accent2: #06b6d4;
+    --accent3: #f97316;
+    --shadow: 0 2px 12px rgba(91,110,245,0.10);
+    --shadow-lg: 0 8px 32px rgba(91,110,245,0.18);
+    --radius: 14px;
+    --radius-sm: 8px;
+    --font: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+    --answered-bg: #e8f5ff;
+    --answered-border: #93c5fd;
+    --flagged-border: #f59e0b;
+    --flagged-bg: #fffbeb;
+  }
+  [data-theme="dark"] {
+    --bg: #0f1117;
+    --card-bg: #1a1d2e;
+    --text: #e8eaf6;
+    --text-light: #9999bb;
+    --border: #2a2d42;
+    --primary: #7c8dff;
+    --primary-light: #1f2340;
+    --danger: #ff6b85;
+    --danger-light: #2a1520;
+    --success: #4ade80;
+    --success-light: #0d2018;
+    --warning: #fbbf24;
+    --warning-light: #1a1400;
+    --shadow: 0 2px 12px rgba(0,0,0,0.4);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+    --answered-bg: #1a2535;
+    --answered-border: #3b5ea6;
+    --flagged-bg: #1a1400;
+    --flagged-border: #d97706;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  /* ── TOP HEADER ── */
+  .header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent1) 100%);
+    color: white;
+    padding: 18px 24px 14px;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 4px 20px rgba(91,110,245,0.25);
+  }
+  .header-top {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px;
+  }
+  .header h1 { font-size: 1.25rem; font-weight: 800; letter-spacing: 0.03em; }
+  .header h1 span { opacity: 0.75; font-size: 0.8rem; display: block; font-weight: 400; margin-top: 2px; }
+  .header-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  .hbtn {
+    background: rgba(255,255,255,0.18);
+    border: 1.5px solid rgba(255,255,255,0.35);
+    color: white; border-radius: 20px; padding: 6px 14px;
+    font-size: 0.82rem; cursor: pointer; font-weight: 600;
+    transition: all 0.2s; white-space: nowrap;
+  }
+  .hbtn:hover { background: rgba(255,255,255,0.32); }
+  .hbtn.active { background: white; color: var(--primary); border-color: white; }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--card-bg);
+    border-bottom: 1.5px solid var(--border);
+    padding: 10px 24px;
+    display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
+    font-size: 0.82rem;
+  }
+  .stat-chip {
+    display: flex; align-items: center; gap: 5px;
+    background: var(--primary-light); color: var(--primary);
+    padding: 4px 12px; border-radius: 20px; font-weight: 600;
+  }
+  .stat-chip.flag { background: var(--warning-light); color: var(--warning); }
+  .stat-chip.correct { background: var(--success-light); color: var(--success); }
+  .stat-chip.wrong { background: var(--danger-light); color: var(--danger); }
+  .progress-bar-wrap {
+    flex: 1; min-width: 120px; max-width: 220px;
+    height: 8px; background: var(--border); border-radius: 4px; overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent1));
+    border-radius: 4px; transition: width 0.4s;
+  }
+
+  /* ── TOOLBAR ── */
+  .toolbar {
+    padding: 12px 24px;
+    display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+    background: var(--card-bg);
+    border-bottom: 1.5px solid var(--border);
+  }
+  .search-wrap {
+    position: relative; flex: 1; min-width: 200px;
+  }
+  .search-wrap input {
+    width: 100%; padding: 9px 14px 9px 38px;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    background: var(--bg); color: var(--text);
+    font-size: 0.9rem; outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-wrap input:focus { border-color: var(--primary); }
+  .search-icon {
+    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+    font-size: 1rem; pointer-events: none; opacity: 0.5;
+  }
+  .filter-tabs { display: flex; gap: 6px; }
+  .filter-tab {
+    padding: 7px 16px; border-radius: 10px; border: 1.5px solid var(--border);
+    background: var(--bg); color: var(--text-light);
+    font-size: 0.83rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+  }
+  .filter-tab.active {
+    background: var(--primary); color: white; border-color: var(--primary);
+  }
+  .mode-select {
+    padding: 7px 12px; border-radius: 10px; border: 1.5px solid var(--border);
+    background: var(--bg); color: var(--text);
+    font-size: 0.83rem; outline: none; cursor: pointer;
+    font-weight: 600;
+  }
+  .type-filter-wrap { display: flex; gap: 6px; }
+  .type-btn {
+    padding: 6px 12px; border-radius: 8px; border: 1.5px solid var(--border);
+    background: var(--bg); color: var(--text-light);
+    font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+  }
+  .type-btn.active { background: var(--accent2); color: white; border-color: var(--accent2); }
+
+  /* ── QUIZ MODE BANNER ── */
+  .quiz-banner {
+    background: linear-gradient(90deg, var(--accent3), var(--danger));
+    color: white; text-align: center; padding: 10px;
+    font-weight: 700; font-size: 0.9rem; display: none;
+  }
+  .quiz-banner.visible { display: block; }
+
+  /* ── QUESTIONS CONTAINER ── */
+  .questions-list { padding: 16px 24px; max-width: 960px; margin: 0 auto; }
+  .no-results {
+    text-align: center; padding: 60px 20px;
+    color: var(--text-light); font-size: 1rem;
+  }
+  .no-results .icon { font-size: 3rem; display: block; margin-bottom: 12px; }
+
+  /* ── QUESTION CARD ── */
+  .q-card {
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+    transition: all 0.2s;
+    overflow: hidden;
+  }
+  .q-card:hover { box-shadow: var(--shadow-lg); }
+  .q-card.flagged {
+    border-color: var(--flagged-border);
+    background: var(--flagged-bg);
+  }
+  .q-card.answered-correct { border-color: var(--success); }
+  .q-card.answered-wrong { border-color: var(--danger); }
+
+  .q-row {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 14px 16px;
+  }
+
+  /* Flag button */
+  .flag-btn {
+    flex-shrink: 0; width: 34px; height: 34px;
+    background: none; border: 2px solid var(--border);
+    border-radius: 8px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; transition: all 0.2s; margin-top: 2px;
+  }
+  .flag-btn:hover { border-color: var(--warning); background: var(--warning-light); }
+  .flag-btn.flagged { background: var(--warning); border-color: var(--warning); }
+  .flagged-label {
+    display: none; font-size: 0.68rem; font-weight: 700;
+    color: var(--warning); background: var(--warning-light);
+    padding: 2px 7px; border-radius: 6px; margin-top: 4px; text-align: center;
+  }
+  .q-card.flagged .flagged-label { display: block; }
+  .flag-col { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+
+  /* Q number */
+  .q-num {
+    flex-shrink: 0; width: 32px; height: 32px;
+    background: var(--primary-light); color: var(--primary);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 0.82rem; margin-top: 3px;
+  }
+
+  /* Type badge */
+  .q-type-badge {
+    flex-shrink: 0; font-size: 0.7rem; font-weight: 700;
+    padding: 3px 8px; border-radius: 6px; margin-top: 5px;
+    white-space: nowrap;
+  }
+  .q-type-badge.tf { background: var(--accent2); color: white; }
+  .q-type-badge.mc { background: var(--accent1); color: white; }
+
+  /* Q content */
+  .q-content { flex: 1; min-width: 0; }
+  .q-source {
+    font-size: 0.7rem; color: var(--text-light);
+    margin-bottom: 6px;
+  }
+  .q-text {
+    font-size: 0.95rem; line-height: 1.7;
+    color: var(--text); margin-bottom: 10px;
+  }
+
+  /* Options grid */
+  .options-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 6px; margin-bottom: 10px;
+  }
+  @media (max-width: 600px) {
+    .options-grid { grid-template-columns: 1fr; }
+  }
+  .opt-btn {
+    padding: 8px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg); color: var(--text);
+    cursor: pointer; text-align: left;
+    font-size: 0.88rem; font-weight: 500;
+    transition: all 0.2s; display: flex; align-items: center; gap: 8px;
+  }
+  .opt-btn:hover { border-color: var(--primary); background: var(--primary-light); }
+  .opt-btn.selected { border-color: var(--primary); background: var(--primary-light); font-weight: 700; }
+  .opt-btn.correct-opt { border-color: var(--success); background: var(--success-light); color: var(--success); font-weight: 700; }
+  .opt-btn.wrong-opt { border-color: var(--danger); background: var(--danger-light); color: var(--danger); }
+  .opt-label {
+    min-width: 22px; height: 22px; border-radius: 50%;
+    background: var(--border); display: flex; align-items: center;
+    justify-content: center; font-size: 0.75rem; font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* Answer area */
+  .answer-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    background: var(--bg);
+    border-top: 1.5px dashed var(--border);
+    cursor: pointer;
+  }
+  .answer-label {
+    font-size: 0.78rem; font-weight: 700;
+    color: var(--text-light); white-space: nowrap;
+  }
+  .answer-text {
+    flex: 1;
+    font-size: 0.9rem; font-weight: 700;
+    color: white; /* hidden: same as hover bg */
+    background: white;
+    border-radius: 6px; padding: 4px 10px;
+    transition: color 0.2s, background 0.2s;
+    border: 1.5px solid var(--border);
+    min-height: 30px; display: flex; align-items: center;
+  }
+  [data-theme="dark"] .answer-text {
+    color: var(--card-bg); background: var(--card-bg);
+    border-color: var(--border);
+  }
+  .answer-row:hover .answer-text,
+  .answer-text.revealed {
+    color: var(--primary) !important;
+    background: var(--primary-light) !important;
+  }
+  [data-theme="dark"] .answer-row:hover .answer-text,
+  [data-theme="dark"] .answer-text.revealed {
+    color: var(--primary) !important;
+    background: var(--primary-light) !important;
+  }
+  .reveal-hint {
+    font-size: 0.72rem; color: var(--text-light);
+    white-space: nowrap; opacity: 0.7;
+  }
+
+  /* Explanation */
+  .explanation {
+    padding: 8px 16px 12px;
+    font-size: 0.82rem; color: var(--text-light);
+    background: var(--bg); border-top: 1px solid var(--border);
+    line-height: 1.6; display: none;
+  }
+  .explanation.visible { display: block; }
+  .explanation strong { color: var(--accent3); }
+
+  /* Quiz mode answer feedback */
+  .quiz-feedback {
+    display: none; padding: 10px 16px;
+    font-size: 0.9rem; font-weight: 700;
+    border-top: 2px solid var(--border);
+    align-items: center; gap: 8px;
+  }
+  .quiz-feedback.visible { display: flex; }
+  .quiz-feedback.correct { background: var(--success-light); color: var(--success); border-color: var(--success); }
+  .quiz-feedback.wrong { background: var(--danger-light); color: var(--danger); border-color: var(--danger); }
+
+  /* ── BOTTOM ACTION BAR ── */
+  .bottom-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--card-bg);
+    border-top: 2px solid var(--border);
+    padding: 12px 24px;
+    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+    z-index: 90; box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+  }
+  .action-btn {
+    padding: 10px 22px; border-radius: 12px;
+    border: 2px solid var(--border);
+    background: var(--bg); color: var(--text);
+    font-size: 0.88rem; font-weight: 700; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .action-btn:hover { border-color: var(--primary); color: var(--primary); }
+  .action-btn.primary { background: var(--primary); color: white; border-color: var(--primary); }
+  .action-btn.primary:hover { background: var(--accent1); border-color: var(--accent1); }
+  .action-btn.danger { background: var(--danger-light); color: var(--danger); border-color: var(--danger); }
+
+  /* Bottom padding for fixed bar */
+  .questions-list { padding-bottom: 80px; }
+
+  /* ── SECTION DIVIDER ── */
+  .section-divider {
+    text-align: center; margin: 20px 0 12px;
+    font-size: 0.88rem; font-weight: 700; color: var(--text-light);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-divider::before,
+  .section-divider::after {
+    content: ''; flex: 1; height: 1.5px; background: var(--border);
+  }
+
+  /* ── MOBILE TWEAKS ── */
+  @media (max-width: 768px) {
+    .header { padding: 14px 16px; }
+    .stats-bar, .toolbar, .questions-list { padding-left: 12px; padding-right: 12px; }
+    .q-row { gap: 8px; padding: 12px 12px; }
+    .header h1 { font-size: 1rem; }
+    .hbtn { padding: 5px 10px; font-size: 0.75rem; }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes pop { 0%{transform:scale(0.9)} 60%{transform:scale(1.1)} 100%{transform:scale(1)} }
+  .flag-btn.flagged { animation: pop 0.3s ease; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+</style>
+</head>
+<body data-theme="light">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div>
+      <h1>🎓 5下社會科 期末考複習系統
+        <span>翰林版 第3-5單元 ｜ 北投國小</span>
+      </h1>
+    </div>
+    <div class="header-btns">
+      <button class="hbtn" onclick="toggleTheme()" id="theme-btn">🌙 深色</button>
+      <button class="hbtn" id="mode-btn" onclick="cycleMode()">📝 測驗模式</button>
+      <button class="hbtn" onclick="scrollTop()">⬆ 回頂部</button>
+    </div>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-chip">📚 <span id="stat-total">0</span> 題</div>
+  <div class="stat-chip flag">🚩 已標記 <span id="stat-flagged">0</span> 題 (<span id="stat-flag-pct">0</span>%)</div>
+  <div class="stat-chip correct" id="stat-correct-chip" style="display:none">✅ 答對 <span id="stat-correct">0</span></div>
+  <div class="stat-chip wrong" id="stat-wrong-chip" style="display:none">❌ 答錯 <span id="stat-wrong">0</span></div>
+  <div class="progress-bar-wrap" id="progress-wrap" style="display:none">
+    <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+  </div>
+  <span id="stat-progress-txt" style="font-size:0.8rem;color:var(--text-light);display:none"></span>
+</div>
+
+<!-- QUIZ BANNER -->
+<div class="quiz-banner" id="quiz-banner">
+  📝 測驗模式中 — 選擇答案後查看結果，完成後點「查看成績」
+</div>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="search-input" placeholder="搜尋題目關鍵字…" oninput="filterQuestions()">
+  </div>
+  <div class="filter-tabs">
+    <button class="filter-tab active" id="tab-all" onclick="setFilter('all')">全部題目</button>
+    <button class="filter-tab" id="tab-flagged" onclick="setFilter('flagged')">🚩 已標記</button>
+    <button class="filter-tab" id="tab-wrong" onclick="setFilter('wrong')">❌ 錯題本</button>
+  </div>
+  <div class="type-filter-wrap">
+    <button class="type-btn active" id="type-all" onclick="setType('all')">全部</button>
+    <button class="type-btn" id="type-tf" onclick="setType('tf')">是非</button>
+    <button class="type-btn" id="type-mc" onclick="setType('mc')">選擇</button>
+  </div>
+</div>
+
+<!-- QUESTIONS -->
+<div class="questions-list" id="questions-list"></div>
+
+<!-- BOTTOM BAR -->
+<div class="bottom-bar">
+  <button class="action-btn" onclick="revealAll()">👁 顯示所有答案</button>
+  <button class="action-btn" onclick="hideAll()">🙈 隱藏所有答案</button>
+  <button class="action-btn danger" onclick="clearFlags()">🗑 清除所有旗標</button>
+  <button class="action-btn primary" id="score-btn" onclick="showScore()" style="display:none">📊 查看成績</button>
+  <button class="action-btn" onclick="resetQuiz()" id="reset-btn" style="display:none">🔄 重新作答</button>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════
+//  DATA
+// ══════════════════════════════════════════════════════
+const QUESTIONS = [{"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "小豆子出生那一年，中國大陸正爆發「國 共內戰」，他爸爸在報紙上看到一則新聞「經濟緊急措施——米糧荒仍然嚴重，各方連日開會討論」。由此可推測小豆子出生那一年應該是戰後中華民國政府剛接收臺灣，把臺灣的糧食、物資運送到中國大陸，才造成米糧荒嚴重、經濟緊急。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 1}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "阿東喜歡國內旅遊，他宣稱就他的觀察，臺灣的宗教祭典幾乎都是當地的特殊文化，很少開放外人參觀及媒體採訪。", "options": ["○ 正確", "╳ 錯誤"], "answer": "╳ 錯誤", "explanation": "", "id": 2}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "雖然人們的信仰不同，但各個宗教仍會相互交流，例如：臺灣的佛教團體曾至梵蒂岡與教宗交流。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 3}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "有的宗教利用教義與儀式，成為維持社會秩序的一種力量。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 4}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "國小學生能選擇喜歡的校內社團活動或課程，這也是民主精神的表現。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 5}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "國外的文物與作品有時也會在臺灣展出，例如：美國大都會博物館展品於故宮展出，讓民眾可以在臺灣欣賞世界名畫。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 6}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "戰後臺灣戒嚴時期，政府不只限制人民的言論、集會、出版等自由，而且司法審判也不公開、公平。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 7}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "戒嚴時期禁歌最引起民眾反感，例如媽媽請你也保重唱出鄉下青年離鄉獨自到都市工作，思念媽媽的心聲，被政府以「擾亂軍心，減損士氣，士兵不能想媽媽」為由查禁。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 8}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "李登輝是首度以國家元首身分代表政府向「二二八事件」受難者致歉的總統。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 9}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "戒嚴時期，民營報紙的數量已陸續增加，提供民眾更多海內外的訊息，並可對各項施政提出監督。", "options": ["○ 正確", "╳ 錯誤"], "answer": "╳ 錯誤", "explanation": "", "id": 10}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "五年甲班學期末要舉行「時空記者會」的活動，在活動前，各組加緊練習與實際演練。芬芬那組在進行角色扮演的演練時，由凱凱擔任歷史人物來提出問題，組員們擔任受訪者來回答問題。", "options": ["○ 正確", "╳ 錯誤"], "answer": "╳ 錯誤", "explanation": "", "id": 11}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "小雅隨手翻開阿公用來墊茶壺的舊紙，發現上面寫著「初三，宜祈福、酬神、開光、設醮、裁衣、合帳、安床、作灶」等文字，她認為這張舊紙本來應該是農民曆的一部分。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 12}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "解嚴之後，司法機關會公正的調查案件，也會公開審判的結果。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 13}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "中華民國政府接收臺灣初期，中國大陸正爆發「國 共內戰」，臺灣生產的糧食和物資被運送到中國大陸，導致臺灣物價飛漲、民眾失業等社會問題，造成臺灣物資短缺。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 14}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "你有仔細看過你的學校行事曆嗎？上面可以看見年分、月分、日期還有以七天為一週的週次，這樣的時間計算觀念，最早是由中華民國政府開始實施標準時間制度而形成的規範，能使社會大眾生活更有秩序。", "options": ["○ 正確", "╳ 錯誤"], "answer": "╳ 錯誤", "explanation": "", "id": 15}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "政府為了感謝勞動者對社會與經濟的貢獻，也配合國際趨勢，將每年 5 月 1 日訂定為國定假日「勞動節」。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 16}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "二二八紀念碑落成典禮上，當時李登輝總統首度以國家元首身分代表政府致歉。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 17}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "快樂市舉行市長選舉，所有年滿 20 歲的公民都可以投票。不過，選舉規定只有男性可以登記成為候選人，這是民主精神的展現。", "options": ["○ 正確", "╳ 錯誤"], "answer": "╳ 錯誤", "explanation": "", "id": 18}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "總統直選的政治改革訴求是在公民投票法實施之後被提出的。", "options": ["○ 正確", "╳ 錯誤"], "answer": "╳ 錯誤", "explanation": "", "id": 19}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "小美聽小提琴老師說，學習小提琴的人可以到奇美博物館借琴，因此特地和家人去臺南奇美博物館一探究竟。剛到門口就看到雕琢精美的噴泉，噴泉的設計是以西方文化的希臘、羅馬風格為主題，還看到壯麗的白色建築與歐式庭園。這座博物館不但收藏了世界知名的藝術品與各式各樣的西洋樂器，還有許多自然的標本。令小美驚訝的是，這其實是一座由企業家許文龍先生興建的私人博物館。請問奇美博物館最吸引人的特色是什麼？", "options": ["展覽全部以臺灣民俗為主", "收藏西洋藝術、樂器與自然標本", "展出當代數位藝術", "免費入場並提供娛樂設施。"], "answer": "收藏西洋藝術、樂器與自然標本", "explanation": "", "id": 20}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "佛教教徒需遵守什麼戒律？", "options": ["每日跪拜祈禱五次", "畫符念咒，為人消災祈福", "不殺生、不偷盜", "以上皆是。"], "answer": "不殺生、不偷盜", "explanation": "", "id": 21}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "原住民族認為天地萬物都存在神靈，因此對大自然的力量感到敬畏，因而發展出不同的信仰，但不包括下列哪一項？", "options": ["山神", "虎爺", "太陽神", "小米神。"], "answer": "虎爺", "explanation": "", "id": 22}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "民國 76 年，臺灣在國內外的輿論壓力下終於宣布解嚴，當時宣布解嚴的總統是哪一位？", "options": ["蔣渭水", "蔣經國", "孫中山", "李登輝。"], "answer": "蔣經國", "explanation": "", "id": 23}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "融融參觀博物館，發現臺灣的基督宗教發展有一段時間曾經中斷，所以他去查歷史書籍，可能跟下列哪一項歷史有關呢？", "options": ["清帝國開港通商", "荷蘭人與西班牙人離開臺灣", "第一次世界大戰", "日本統治臺灣。"], "answer": "荷蘭人與西班牙人離開臺灣", "explanation": "", "id": 24}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "臺灣的博物館可以透過各種方式，引進世界各地的文物與作品，讓民眾可以認識世界各地文化。請問下列哪一個方式錯誤？", "options": ["與外國博物館合作", "透過交換文物", "透過主題特展", "設置地方文化館。"], "answer": "設置地方文化館。", "explanation": "", "id": 25}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "小婷是班上的社會小老師，她昨天生病請假在家，今天到學校上課時，她向好朋友小萱借筆記來抄，發現小萱的筆記有錯誤。請你幫小婷找出正確的筆記內容：", "options": ["奇美博物館以東方文化為主題設計噴泉", "清明上河圖收藏於國立故宮博物院", "國立故宮博物院是歐洲風格的建築", "臺灣番社圖收藏於國立故宮博物院。"], "answer": "清明上河圖收藏於國立故宮博物院", "explanation": "", "id": 26}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "我國是一個多元族群融合的國家，不同信仰的人都能成為好朋友，芳芳的同學所信仰的宗教具有一日跪拜祈禱五次的信仰功課，芳芳去這個同學家玩，最可能會發現下列哪一本書呢？", "options": ["聖經", "金剛經", "古蘭經", "道德經。"], "answer": "古蘭經", "explanation": "", "id": 27}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "臺灣最早在什麼時期就已開始舉辦地方議員選舉？", "options": ["清帝國時期", "日治時期", "戰後初期", "解嚴之後。"], "answer": "日治時期", "explanation": "", "id": 28}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "政府為了感謝勞工朋友對社會與經濟的貢獻，及改善勞動者的權益，因此將每年的 5 月 1 日訂為什麼節日？", "options": ["軍人節", "勞動節", "教師節", "母親節。"], "answer": "勞動節", "explanation": "", "id": 29}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "芊芊的社會報告主題是「古代中國人民的日常生活情形和城市的風貌」，老師建議芊芊可以研究清明上河圖。請問芊芊要到哪一個地方參觀研究？", "options": ["國立臺灣博物館", "國立臺灣美術館", "國立故宮博物院", "國立臺灣歷史博物館。"], "answer": "國立故宮博物院", "explanation": "", "id": 30}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "關於戰後初期臺灣社會狀況的敘述，哪一項正確？", "options": ["中華民國政府接收臺灣後就一切平和發展", "政府接收臺灣之後，因查緝私菸處理失當，引發「二二八事件」", "中華民國政府接收臺灣之後，臺灣人與中國大陸來臺人員之間的語言及文化無明顯差異", "負責接收臺灣的官員嚴守紀律，頗獲民眾好評。"], "answer": "政府接收臺灣之後，因查緝私菸處理失當，引發「二二八事件」", "explanation": "", "id": 31}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "下列哪個場所是作為保存與展示文化的地方？", "options": ["警察局", "總統府", "博物館", "學校。"], "answer": "博物館", "explanation": "", "id": 32}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "下列何者不是 臺灣人民積極爭取解除戒嚴的原因？", "options": ["經濟快速成長", "教育發展快速", "受到民主潮流的影響", "少子化因素。"], "answer": "少子化因素。", "explanation": "", "id": 33}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "采采生病了，媽媽帶她到附近的教會醫院看醫生，采采好奇的問媽媽：「臺灣的教會醫院是從什麼時候開始建立的呢？」媽媽該如何回答？", "options": ["最近十年", "清帝國開港通商後", "中華民國政府播遷來臺時期", "清帝國關閉港口時期。"], "answer": "清帝國開港通商後", "explanation": "", "id": 34}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "五年丙班的同學討論參觀某間博物館常設展覽的方式，請問下列同學的敘述哪一個錯誤？", "options": ["小誼：「我們可以事先預約團體導覽，博物館通常會分配專門的解說員帶領我們參觀。」", "小秋：「我們可以打電話到博物館聆聽解說。」", "阿誌：「可以租借個人語音導覽機器，這樣可以隨自己的步調在參觀時同步聆聽語音導覽。」", "小娟：「我因為腳受傷沒辦法親自前往現場參觀，也可以在家裡欣賞線上展覽。」"], "answer": "小秋：「我們可以打電話到博物館聆聽解說。」", "explanation": "", "id": 35}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "下列哪一項做法無法保存與推廣每個族群的文化？", "options": ["成立博物館", "只展示最新的畫作", "成立地方文化館", "設立數位博物館。"], "answer": "只展示最新的畫作", "explanation": "", "id": 36}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "週休假日，小玲約小馨一起到國立臺灣博物館參觀，小玲和小馨看到館內知名收藏品臺灣番社圖。請問，小玲和小馨可以從臺灣番社圖了解到什麼知識？", "options": ["石器時代，臺灣人民的生活情形", "早期平埔族群的風俗與生活情形", "古代中國人民的日常生活情形和城市的風貌", "早期西班牙人的風俗與生活情形。"], "answer": "早期平埔族群的風俗與生活情形", "explanation": "", "id": 37}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "采采發現新聞提到穆斯林在臺北車站聚會，很好奇伊斯蘭教在臺灣的發展，下列哪一個描述是正確的呢？", "options": ["伊斯蘭教是臺灣本土發展出來的宗教", "伊斯蘭教早期是隨躲避戰亂的移民傳入臺灣", "伊斯蘭教是跟著荷蘭人傳入臺灣的", "伊斯蘭教在臺灣發展的時間已經超過 2,000 年。"], "answer": "伊斯蘭教早期是隨躲避戰亂的移民傳入臺灣", "explanation": "", "id": 38}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "出身於臺南市 麻豆區的文夏，媽媽請你也保重、黃昏的故鄉都是他為人津津樂道的經典歌曲。其中，媽媽請你也保重因為唱出了出外打拚的遊子對於故鄉與母親的思念之情，遭政府以軍人在軍中會想媽媽導致「懷憂喪志」而列為禁歌，一禁就禁了 30 年。另一首黃昏的故鄉則因歌詞可能會引發思鄉之情，以致腐蝕軍心，也遭列為禁歌之一。根據上文，文夏唱的這兩首歌曲被禁唱的主要原因不包括哪一個？", "options": ["會導致懷憂喪志", "引發思鄉之情", "文詞粗鄙", "歌詞太過消極負面。"], "answer": "文詞粗鄙", "explanation": "", "id": 39}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "在大航海時代，由荷蘭人與西班牙人傳入臺灣的宗教信仰是下列哪一個？", "options": ["基督宗教", "伊斯蘭教", "佛教", "道教。"], "answer": "基督宗教", "explanation": "", "id": 40}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "阿偉的爸爸在家中和朋友聊天時，聊到了政府政策，隔天就有陌生人來把爸爸帶走，後來又被關在綠島。家人多年都不敢再談起這件事。這種因為發表意見而被逮捕的現象，可能是發生在什麼時間？", "options": ["金屬器時代", "清帝國時期", "戒嚴時期", "大航海時期"], "answer": "戒嚴時期", "explanation": "", "id": 41}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "自政府宣布戒嚴到民國 76 年解除戒嚴，將人民權利還給人民，這個期間共經過多少年？", "options": ["50 年", "28 年", "38 年", "60 年。"], "answer": "38 年", "explanation": "", "id": 42}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "每當母親節前夕，學校都會播放幾首與母親相關的歌曲，讓我們不禁想起媽媽的辛勞與付出，希望能在母親節時表達我們的愛意與感謝。青青雖然是小學生，也可以準備康乃馨和卡片，在母親節當天送給媽媽，表達對媽媽的感謝。請問青青會在哪一天送出卡片？", "options": ["12 月 31 日", "5 月的第二個星期天", "5 月 1 日", "5 月第二週的星期五。"], "answer": "5 月的第二個星期天", "explanation": "", "id": 43}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "下列哪一個是農民曆二十四節氣裡相對應的節日？", "options": ["勞動節", "母親節", "教師節", "清明節。"], "answer": "清明節。", "explanation": "", "id": 44}, {"source": "5下國小社會總復習", "section": "選擇題", "type": "mc", "question": "現在政府將「二二八紀念日」訂定為國定紀念日，希望藉此撫平歷史傷痕。民國 36 年「二二八事件」發生時，負責擔任臺灣省行政長官的是哪位？", "options": ["李登輝", "蔣經國", "陳儀", "蔣中正。"], "answer": "陳儀", "explanation": "", "id": 45}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "小豆子出生那一年，中國大陸正爆發「國　共內戰」，他爸爸在報紙上看到一則新聞「經濟緊急措施──米糧荒仍然嚴重，各方連日開會討論」。由此可推測小豆子出生那一年應該是戰後中華民國政府剛接收臺灣，把臺灣的糧食、物資運送到中國大陸，才造成米糧荒嚴重、經濟緊急。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 46}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "中華民國政府接收臺灣初期，中國大陸正爆發「國　共內戰」，臺灣生產的糧食和物資被運送到中國大陸，導致臺灣物價飛漲、民眾失業等社會問題，造成臺灣物資短缺。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 47}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "政府為了感謝勞動者對社會與經濟的貢獻，也配合國際趨勢，將每年　5　月　1　日訂定為國定假日「勞動節」。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 48}, {"source": "5下國小社會總復習", "section": "是非題", "type": "tf", "question": "快樂市舉行市長選舉，所有年滿　20　歲的公民都可以投票。不過，選舉規定只有男性可以登記成為候選人，這是民主精神的展現。", "options": ["○ 正確", "╳ 錯誤"], "answer": "╳ 錯誤", "explanation": "民主社會的公共事務不分性別都可參與。", "id": 49}, {"source": "期末考甲卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "第二次世界大戰結束，日本戰敗投 １.（ ○１）中國大陸爆發國共內戰，對臺灣造 降後，由中華民國政府接收臺灣與 成什麼影響？ ○１臺灣生產的糧食 澎湖，並在臺南公會堂舉行典禮， 被運送到中國大陸 ○２中國大陸的物 宣布臺灣光復。", "options": ["○ 正確", "╳ 錯誤"], "answer": "╳ 錯誤", "explanation": "", "id": 50}, {"source": "期末考甲卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "當人們開始尋找生、老、病、死的 機會 ○４物價趨於穩定，民眾生活寬 解答時，宗教就逐漸產生了。 裕。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 51}, {"source": "期末考甲卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "在所有節日中，光光最喜歡開齋節 ２.（ ○４）早期農業社會的人民大多會長期居 了！每年這天，他都會和同樣信仰 住在相同的地點，通常要發生什麼 的朋友一起聚會，光光可能是佛教 原因才會讓他們離開長期居住的地 的信徒。3.開齋節是伊斯蘭教的節慶 方？ ○１房價調漲○ ２長輩過世 ○３房", "options": ["○ 正確", "╳ 錯誤"], "answer": "╳ 錯誤", "explanation": "", "id": 52}, {"source": "期末考甲卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "中華文化的曆法，是結合太陽與月 屋老舊 ○４天災或戰亂。 亮的運行，並記錄季節和氣候的變 ３.（ ○３）臺灣的博物館有時會透過哪一種方 化，成為農民耕種的依據，也被稱 式，引進世界各地的文物與作品， 為農民曆。5 .有不同的教義與儀式 讓民眾可以認識世界各地文化？", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 53}, {"source": "期末考甲卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "基督宗教和佛教都是歷史悠久的宗 ○１加強學校教育 ○２建造很多博物館 教，因此有相同的教義與儀式。 ○３與外國博物館合作交換文物或主", "options": ["○ 正確", "╳ 錯誤"], "answer": "╳ 錯誤", "explanation": "", "id": 54}, {"source": "期末考甲卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "戒嚴時期政府為了維護國家穩定， 題特展 ○４舉辦藝文創作比賽。 增修法律規定人民應盡之義務並保 ４.（ ○３）關於二二八事件，下列哪一項敘述 障人民權利。", "options": ["○ 正確", "╳ 錯誤"], "answer": "╳ 錯誤", "explanation": "", "id": 55}, {"source": "期末考甲卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "臺灣最早的博物館建於日治時期。 理失當 ○２造成民眾死傷慘重 ○３許多", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 56}, {"source": "期末考甲卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "近年來社會逐漸重新討論二二八事 社會菁英受到提拔進入政府任職 ○４ 件，政府也透過各種措施，希望從 事件後許多人民選擇遠離政治。 事件中學習教訓並反思，促進人們 ５.（ ○３）為什麼臺灣與世界的運作逐漸同步 相互理解與尊重。 發展，人們的生活步調也漸趨於一", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 57}, {"source": "期末考甲卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "公民投票法的實施讓人民可以對國 致？ ○１因為我們把傳統習俗全部 家重大政策或議題表達意見，作為 都拋棄了○ ２因為我們把節慶的時間 政府施政的依據。 調整到和其他各國一樣○ ３因為採用", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 58}, {"source": "期末考甲卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "隨著時代的變遷，很多事物可能消 現代標準時間 ○４因為我們配合自然 失或被遺忘，博物館作為保存與展 環境的變化，而自然環境對每個人 示文化的場所，可以讓我們認識過 都是平等的。 往人類的生活。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 59}, {"source": "期末考甲卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "傳統中，布農族人會將一年中重要 在臺灣實施的？ ○１大航海時代 ○２ 的活動與時間記錄在金屬板上，提 清帝國時期 ○３日治時期○ ４中華民國 醒家人重要祭典。", "options": ["○ 正確", "╳ 錯誤"], "answer": "╳ 錯誤", "explanation": "", "id": 60}, {"source": "期末考甲卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "解嚴後，臺灣的民主化仍然持續進 ７.（ ○４）促使更多人民參與政治改革的美麗 行，不但人民首次直接選舉總統， 島事件，發生在下列哪一個地方？ 之後也和平完成政黨輪替，讓民主 ○ １臺北○ ２臺中○ ３臺南○ ４高雄。 制度更加完善。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 61}, {"source": "期末考甲卷(第3-4單元)", "section": "選擇題", "type": "mc", "question": "中國大陸爆發國共內戰，對臺灣造 降後，由中華民國政府接收臺灣與 成什麼影響？", "options": ["臺灣生產的糧食 澎湖，並在臺南公會堂舉行典禮， 被運送到中國大陸", "中國大陸的物 宣布臺灣光復。1.臺北公會堂 資不斷運送至臺灣", "增加大量工作"], "answer": "臺灣生產的糧食 澎湖，並在臺南公會堂舉行典禮， 被運送到中國大陸", "explanation": "", "id": 62}, {"source": "期末考甲卷(第3-4單元)", "section": "選擇題", "type": "mc", "question": "下列關於道教信仰的特徵，哪一個 １.（ ˇ）優先任用中國大陸人士擔任公職。 敘述正確？", "options": ["相信唯一的真神", "２.（ ）地方官員大多任用臺灣在地人民。 是一個多神的信仰", "不相信有神明 ３.（ ˇ）語言是人事任用考量因素之一", "相信人是萬物的主宰。 ４.（ ）所有官員都很清廉，受民眾信賴"], "answer": "２.（ ）地方官員大多任用臺灣在地人民。 是一個多神的信仰", "explanation": "", "id": 63}, {"source": "期末考甲卷(第3-4單元)", "section": "選擇題", "type": "mc", "question": "阿昌乘坐時光機回到過去，走在街 ５.（ ˇ）有部分軍警出現濫用特權的情形。 上時，看到許多地方都貼著「檢舉 ６.（ ）著重經濟發展，提升就業率。 匪諜，人人有責」的標語，請問他 五、小艾的社會報告是研究「客家文化」， 回到了什麼時期？", "options": ["中國大陸剛 他利用假日到客家文化園區參觀，學到 爆發國共內戰時", "二二八事件發生 許多關於客家文化的資訊。請問政府和 時○ ３臺灣戒嚴時期", "臺灣解嚴後。 民間陸續成立博物館、美術館和地方文"], "answer": "臺灣解嚴後。 民間陸續成立博物館、美術館和地方文", "explanation": "", "id": 64}, {"source": "期末考甲卷(第3-4單元)", "section": "選擇題", "type": "mc", "question": "基督宗教早期主要在下列哪個地區 化館的主要目的是什麼？請將正確的打 傳播？ ○ １印度○ ２歐洲地區", "options": ["阿拉 ˇ：每題 2 分，共 10 分 伯半島", "美洲地區。 １.（ ˇ）展覽各族群的文物與藝術創作"], "answer": "美洲地區。 １.（ ˇ）展覽各族群的文物與藝術創作", "explanation": "", "id": 65}, {"source": "期末考甲卷(第3-4單元)", "section": "選擇題", "type": "mc", "question": "為了配合國際趨勢，政府將每年的 ２.（ ）環保意識抬頭。 哪一天訂定為「勞動節」？", "options": ["5 ３.（ ˇ）讓民眾探索臺灣各族群文化之美。 月 1 日○ ２5 月 5 日", "5 月第二個星 ４.（ ˇ）保存各族群的文化。 期五", "5 月第二個星期日。 ５.（ ˇ）推廣各族群的文化。 三、臺灣是個民主開放的社會，政府和民間 六、小茵和同學正在討論民主議題，要對歷 陸續成立了許多博物館、美術館和地方 史事件有充分了解才能順利進行。請協 文化館等，希望能夠保存和推廣每個族 助她填入正確代號：每題2分，共12分 群的文化，請問：每題 2 分，共 6 分 A 二二八事件 B 野百合學運 C 美麗島事件"], "answer": "5 ３.（ ˇ）讓民眾探索臺灣各族群文化之美。 月 1 日○ ２5 月 5 日", "explanation": "", "id": 66}, {"source": "期末考乙卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "臺灣現在是個民主開放的社會，各 １.（ ○１）二二八事件爆發時，誰是當時臺灣 族群也能開始對自身的文化進行保 的最高行政長官？ ○１陳儀 ○２蔣介 存與推廣。 石○ ３蔣經國 ○４李登輝。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 67}, {"source": "期末考乙卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "中華民國政府接收臺灣之後，公職 ２.（ ○２）現在臺灣各地的博物館或美術館提 人員大多優先任用熟悉當地事務的 供各種方式讓參觀者探索館內收藏 臺灣人士。", "options": ["○ 正確", "╳ 錯誤"], "answer": "╳ 錯誤", "explanation": "", "id": 68}, {"source": "期末考乙卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "無論是個人、群體或國家社會的運 內？ ○ １參與團體導覽 ○２自己翻閱 作，計算時間的方式從古至今都相 社會課本 ○３個人語音導覽 ○４數位學 同。", "options": ["○ 正確", "╳ 錯誤"], "answer": "╳ 錯誤", "explanation": "", "id": 69}, {"source": "期末考乙卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "中華民國政府播遷到臺灣後，帶來 ３.（ ○３）芊芊這次的社會報告主題是「古代 許多中華文物，例如：繪畫、書法 中國人民的日常生活情形和城市的 和陶瓷。 風貌」 ，老師建議芊芊可以研究清", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 70}, {"source": "期末考乙卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "民國 36 年，政府因為運送糧食處理 明上河圖。請問芊芊要到哪一個地 失當，引爆民眾對政府長期累積的 方參觀研究？ ○ １國立臺灣博物館 不滿，全臺各地陸續發生衝突，稱 ○２國立臺灣美術館 ○３國立故宮博物 為「二二八事件」。5 .因查緝私菸處理失當 院○ ４國立臺灣歷史博物館。", "options": ["○ 正確", "╳ 錯誤"], "answer": "╳ 錯誤", "explanation": "", "id": 71}, {"source": "期末考乙卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "標準時間制度最早是 由中華民國政 ４.（ ○２）佑佑每個星期天都會跟著父母一起 府開始實施，能使社會大眾生活更 閱讀聖經、做禮拜跟禱告，請問佑 有秩序。", "options": ["○ 正確", "╳ 錯誤"], "answer": "╳ 錯誤", "explanation": "", "id": 72}, {"source": "期末考乙卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "臺灣最早的博物館建於中華民國政 呢？ ○ １道教○ ２基督宗教 ○３伊斯蘭 府來臺後，是一座擁有歐洲風格的 教 ○４佛教。 大型公共建築物。", "options": ["○ 正確", "╳ 錯誤"], "answer": "╳ 錯誤", "explanation": "", "id": 73}, {"source": "期末考乙卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "臺灣的宗教相當多元，近年來有許 功能？ ○１是保存文化的場所 ○２是 多新住民、外籍移工和觀光客來到 展示文化的場所 ○３可以讓我們認識 臺灣，導致信仰佛教的人數快速增 過往人類的生活 ○４可以住宿休息。 加。8.信仰伊斯蘭教的人數有增多的趨勢", "options": ["○ 正確", "╳ 錯誤"], "answer": "╳ 錯誤", "explanation": "", "id": 74}, {"source": "期末考乙卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "民國 74 年，在國內外的壓力下， 是今日世界主要的宗教信仰，她詢 蔣經國總統宣布解除戒嚴，臺灣也 問同學為何會有宗教的產生，請問 逐漸走向自由民主。", "options": ["○ 正確", "╳ 錯誤"], "answer": "╳ 錯誤", "explanation": "", "id": 75}, {"source": "期末考乙卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "戒嚴時期，政府為了避免出現反對 ○ １文文：源於對科學的好奇心 ○２燕 政府的言論或行動，透過各種管道 燕：對於政治權力的追求 ○３力力： 監視人民。 為了獲得更多經濟利益 ○４名名：對", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 76}, {"source": "期末考乙卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "政府配合國際趨勢，將每年 5 月 1 生命歷程尋求解答。 日訂為「勞動節」 ，以感謝勞動者 ７.（ ○２）臺灣在戒嚴期間，政府的哪一個作 對社會與經濟的貢獻。 法為民主政治奠下基礎？ ○１實施", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 77}, {"source": "期末考乙卷(第3-4單元)", "section": "是非題", "type": "tf", "question": "戒嚴期間只有男性可以參選議員或 公民投票法 ○２開放部分地方首長和 鄉鎮市民代表，進入議會監督政府 民意代表的選舉○ ３完成政黨輪替 ○４ 施政。", "options": ["○ 正確", "╳ 錯誤"], "answer": "╳ 錯誤", "explanation": "", "id": 78}, {"source": "期末考乙卷(第3-4單元)", "section": "選擇題", "type": "mc", "question": "二二八事件爆發時，誰是當時臺灣 族群也能開始對自身的文化進行保 的最高行政長官？", "options": ["陳儀", "蔣介 存與推廣。 石○ ３蔣經國", "李登輝"], "answer": "陳儀", "explanation": "", "id": 79}, {"source": "期末考乙卷(第3-4單元)", "section": "選擇題", "type": "mc", "question": "阿信是一位道教信徒，最近他所在 四、臺灣的博物館會與世界各地博物館或收 的村莊將舉辦活動，以祈求地方平 藏家合作，引進世界各地的文物，這樣 安。請問下列哪項是道教在臺灣舉 的做法為臺灣的民眾帶來哪些好處？正 辦的宗教活動？", "options": ["俗稱做醮的祭 確請打ˇ：每題 2 分，共 10 分 典", "飛魚祭", "耶誕節○ ４開齋節。 １.（ ˇ）人們可以從中學習欣賞世界文化"], "answer": "俗稱做醮的祭 確請打ˇ：每題 2 分，共 10 分 典", "explanation": "", "id": 80}, {"source": "期末考乙卷(第3-4單元)", "section": "選擇題", "type": "mc", "question": "小裕想要知道現在國內有什麼社會 ２.（ ）讓臺灣的民眾變成外國人。 議題與公共事務，透過哪一個方式 ３.（ ˇ）發現有些文化與我們的文化相關， 無法得知？ ○ １翻閱報紙", "options": ["和好友 並且影響我們的日常生活。 相約玩線上遊戲", "看電視新聞", "上 ４.（ ˇ）民眾可學習尊重世界文化多樣性。 網查詢相關資料。 ５.（ ˇ）在臺灣就有機會觀賞世界名畫"], "answer": "看電視新聞", "explanation": "", "id": 81}, {"source": "期末考乙卷(第3-4單元)", "section": "選擇題", "type": "mc", "question": "中華民國政府接收臺灣後，因臺灣 五、下列哪些是近年政府對二二八事件的 被日本統治多年，在什麼方面和中 處理方式？請打ˇ：每題 2 分，共 10 國大陸有很大的不同，造成日後發 分 展的問題？", "options": ["語言", "文化", "生活 １.（ ˇ）訂定紀念日。 習慣", "以上皆是。 ２.（ ˇ）公開道歉賠償"], "answer": "以上皆是。 ２.（ ˇ）公開道歉賠償", "explanation": "", "id": 82}, {"source": "期末考乙卷(第3-4單元)", "section": "選擇題", "type": "mc", "question": "民國哪一年開始，臺灣人民才首次 ３.（ ˇ）設立紀念碑與紀念館。 直接選舉總統，用選票決定國家的 ４.（ ）隱瞞二二八事件的真相。 領導人？", "options": ["81 年○ ２83 年", "84 年 ５.（ ）規定人們不能討論二二八事件。 ○ ４ 85 年。 六、小蓮在網路上看到一段歌曲介紹，請閱 三、佳芬是生活在某個時代的臺灣人，她發 讀後回答問題：每格 2 分，共 14 分 現世界正在改變，人們開始用星期一、 台語歌曲媽媽請你也保重，描述鄉下青 星期二這些時髦的詞彙指稱以七天為週 年離鄉工作，思念媽媽的心聲，卻被政府查 期的某一天，一天內的時間劃分也從十 禁，好長一段時間無法播放及演唱。 二時辰變成了二十四小時，請回答下列 １.（", "）這首歌被政府查禁最可能的理由是 問題：每題 3 分，共 9 分 什麼？ ○ １擾亂軍心", "過於煽情"], "answer": "過於煽情", "explanation": "", "id": 83}, {"source": "期末考乙卷(第3-4單元)", "section": "選擇題", "type": "mc", "question": "請問佳芬最可能生活在下列哪個時 批評國家○ ４製造假消息。 期呢？", "options": ["大航海時代", "日治時期 ２.小蓮和同學討論戒嚴時期的社會現象，下", "中華民國政府遷臺後", "清帝國時 列敘述對的請畫○，錯誤的打╳。 期。 (1)（ ╳）小圭： 「民間興起一股學習日"], "answer": "日治時期 ２.小蓮和同學討論戒嚴時期的社會現象，下", "explanation": "", "id": 84}, {"source": "期末考乙卷(第3-4單元)", "section": "選擇題", "type": "mc", "question": "佳芬目前仍是個學生，某天，學校 語的風潮。」 公布一項消息，為了配合政府實施 (2)（○ ）小彩： 「政府當時為了防止中 的標準時間制度，學校將更改上課 國共產黨的滲透，鼓勵民眾檢 時間。請問當時大部分學校都在幾 舉匪諜。」 點開始上課？", "options": ["上午八點○ ２上午 (3)（ ╳）小易： 「那個時候正爆發中 日 十點", "下午一點", "下午三點。 戰爭，造成臺灣物資短缺。」"], "answer": "上午八點○ ２上午 (3)（ ╳）小易： 「那個時候正爆發中 日 十點", "explanation": "", "id": 85}, {"source": "期末考甲卷(第3-5單元)", "section": "是非題", "type": "tf", "question": "我們可以透過這個學期在課堂上學 ７.（ ○４）促使更多人民參與政治改革的美麗 習的內容，了解臺灣的多元文化、 島事件，發生在下列哪一個地方？ 被殖民統治的歷史與民主發展的歷 ○ １臺北○ ２臺中○ ３臺南○ ４高雄。 程。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 86}, {"source": "期末考甲卷(第3-5單元)", "section": "選擇題", "type": "mc", "question": "在搜尋訪談人物的相關資料時，下 ２.（ ）環保意識抬頭。 列哪一項不適合作為查詢的工具？ ３.（ ˇ）讓民眾探索臺灣各族群文化之美。", "options": ["網路上的官方文獻", "同學的筆記 ４.（ ˇ）保存各族群的文化", "政府網站", "官方出版的書籍。 ５.（ ˇ）推廣各族群的文化。 三、臺灣是個民主開放的社會，政府和民間 六、小茵和同學正在討論民主議題，要對歷 陸續成立了許多博物館、美術館和地方 史事件有充分了解才能順利進行。請協 文化館等，希望能夠保存和推廣每個族 助她填入正確代號：每題2分，共12分 群的文化，請問：每題 2 分，共 6 分 A 二二八事件 B 野百合學運 C 美麗島事件"], "answer": "同學的筆記 ４.（ ˇ）保存各族群的文化", "explanation": "", "id": 87}, {"source": "期末考乙卷(第3-5單元)", "section": "是非題", "type": "tf", "question": "社會課上，小組可以透過角色扮演 公民投票法 ○２開放部分地方首長和 的方式，來進行歷史人物訪談的實 民意代表的選舉○ ３完成政黨輪替 ○４ 際演練。 人民可以自由組織新政黨。", "options": ["○ 正確", "╳ 錯誤"], "answer": "○ 正確", "explanation": "", "id": 88}, {"source": "期末考乙卷(第3-5單元)", "section": "選擇題", "type": "mc", "question": "民國哪一年開始，臺灣人民才首次 五、下列哪些是近年政府對二二八事件的 直接選舉總統，用選票決定國家的 處理方式？請打ˇ：每題 2 分，共 10 領導人？", "options": ["81 年", "83 年", "84 年 分", "85 年。 １.（ ˇ）訂定紀念日"], "answer": "85 年。 １.（ ˇ）訂定紀念日", "explanation": "", "id": 89}, {"source": "期末考乙卷(第3-5單元)", "section": "選擇題", "type": "mc", "question": "在擬定訪談的提問時，下列哪一項 ２.（ ˇ）公開道歉賠償。 可以作為思考問題的角度？", "options": ["歷 ３.（ ˇ）設立紀念碑與紀念館。 史人物的「人、事、時、地、物」 ４.（ ）隱瞞二二八事件的真相。 ○ ２歷史人物的寵物", "歷史人物的星 ５.（ ）規定人們不能討論二二八事件。 座", "歷史人物父母的星座。 六、小蓮在網路上看到一段歌曲介紹，請閱 三、佳芬是活在某個時代的臺灣人，她發現 讀後回答問題：每格 2 分，共 14 分 世界正在改變。人們開始用星期一、星 台語歌曲媽媽請你也保重，描述鄉下青 期二這些時髦的詞彙指稱以七天為週期 年離鄉工作，思念媽媽的心聲，卻被政府查 的某一天，一天內的時間劃分也從十二 禁，好長一段時間無法播放及演唱。 時辰變成了二十四小時，請回答下列問 １.（", "）這首歌被政府查禁最可能的理由是 題：每題 3 分，共 9 分 什麼？ ○ １擾亂軍心", "過於煽情"], "answer": "歷 ３.（ ˇ）設立紀念碑與紀念館。 史人物的「人、事、時、地、物」 ４.（ ）隱瞞二二八事件的真相。 ○ ２歷史人物的寵物", "explanation": "", "id": 90}];
+
+// ══════════════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════════════
+let flags = JSON.parse(localStorage.getItem('social_flags') || '{}');
+let userAnswers = {};     // id -> selected option text
+let quizSubmitted = {};   // id -> bool
+let mode = 'review';      // 'review' | 'quiz'
+let filterMode = 'all';   // 'all' | 'flagged' | 'wrong'
+let typeFilter = 'all';   // 'all' | 'tf' | 'mc'
+let revealed = {};        // id -> bool (answer revealed in review mode)
+
+// ══════════════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  renderAll();
+  updateStats();
+});
+
+// ══════════════════════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════════════════════
+function getFilteredQuestions() {
+  const search = document.getElementById('search-input').value.trim().toLowerCase();
+  return QUESTIONS.filter(q => {
+    if (typeFilter !== 'all' && q.type !== typeFilter) return false;
+    if (filterMode === 'flagged' && !flags[q.id]) return false;
+    if (filterMode === 'wrong') {
+      if (!quizSubmitted[q.id]) return false;
+      if (userAnswers[q.id] === q.answer) return false;
+    }
+    if (search) {
+      const haystack = q.question + (q.options||[]).join(' ') + q.answer + (q.explanation||'');
+      if (!haystack.toLowerCase().includes(search)) return false;
+    }
+    return true;
+  });
+}
+
+function renderAll() {
+  const list = document.getElementById('questions-list');
+  const filtered = getFilteredQuestions();
+  
+  if (filtered.length === 0) {
+    list.innerHTML = '<div class="no-results"><span class="icon">🔎</span>沒有符合條件的題目</div>';
+    document.getElementById('stat-total').textContent = 0;
+    return;
+  }
+  
+  document.getElementById('stat-total').textContent = filtered.length;
+  
+  let html = '';
+  let lastSection = '';
+  filtered.forEach((q, idx) => {
+    const section = q.section || (q.type === 'tf' ? '是非題' : '選擇題');
+    if (section !== lastSection) {
+      html += `<div class="section-divider">${section === '是非題' ? '✅ 是非題' : '🔵 選擇題'}</div>`;
+      lastSection = section;
+    }
+    html += renderCard(q, idx + 1);
+  });
+  list.innerHTML = html;
+}
+
+function renderCard(q, displayNum) {
+  const isFlagged = !!flags[q.id];
+  const isAnswered = quizSubmitted[q.id];
+  const isCorrect = isAnswered && userAnswers[q.id] === q.answer;
+  const isWrong   = isAnswered && userAnswers[q.id] !== q.answer;
+  const isRevealed = !!revealed[q.id];
+  
+  let cardClass = 'q-card';
+  if (isFlagged) cardClass += ' flagged';
+  if (isCorrect) cardClass += ' answered-correct';
+  if (isWrong)   cardClass += ' answered-wrong';
+  
+  const typeBadge = q.type === 'tf'
+    ? '<span class="q-type-badge tf">是非</span>'
+    : '<span class="q-type-badge mc">選擇</span>';
+  
+  // Options HTML
+  let optionsHtml = '';
+  if (q.type === 'mc' && q.options && q.options.length > 0) {
+    const labels = ['Ａ','Ｂ','Ｃ','Ｄ','Ｅ'];
+    optionsHtml = '<div class="options-grid">';
+    q.options.forEach((opt, i) => {
+      let cls = 'opt-btn';
+      if (mode === 'quiz') {
+        if (!isAnswered) {
+          if (userAnswers[q.id] === opt) cls += ' selected';
+          cls += '" onclick="selectOption(' + q.id + ', \`' + escJs(opt) + '\`)"';
+        } else {
+          if (opt === q.answer) cls += ' correct-opt';
+          else if (userAnswers[q.id] === opt && opt !== q.answer) cls += ' wrong-opt';
+          cls += '"';
+        }
+      } else {
+        cls += '"';
+      }
+      optionsHtml += `<button class="${cls}"><span class="opt-label">${labels[i]||i+1}</span>${escHtml(opt)}</button>`;
+    });
+    optionsHtml += '</div>';
+  } else if (q.type === 'tf') {
+    // TF options in review mode
+    const opts = ['○ 正確', '╳ 錯誤'];
+    optionsHtml = '<div class="options-grid">';
+    opts.forEach((opt) => {
+      let cls = 'opt-btn';
+      if (mode === 'quiz') {
+        if (!isAnswered) {
+          if (userAnswers[q.id] === opt) cls += ' selected';
+          cls += '" onclick="selectOption(' + q.id + ', \`' + escJs(opt) + '\`)"';
+        } else {
+          if (opt === q.answer) cls += ' correct-opt';
+          else if (userAnswers[q.id] === opt && opt !== q.answer) cls += ' wrong-opt';
+          cls += '"';
+        }
+      } else {
+        cls += '"';
+      }
+      optionsHtml += `<button class="${cls}">${escHtml(opt)}</button>`;
+    });
+    optionsHtml += '</div>';
+  }
+  
+  // Answer row (hidden in quiz mode until submitted)
+  let answerHtml = '';
+  if (mode === 'review') {
+    const revClass = isRevealed ? 'revealed' : '';
+    answerHtml = `
+      <div class="answer-row" onclick="toggleReveal(${q.id})" title="點擊或懸停查看答案">
+        <span class="answer-label">📋 答案</span>
+        <span class="answer-text ${revClass}" id="ans-${q.id}">${escHtml(q.answer)}</span>
+        <span class="reveal-hint">👆 點擊 / 懸停顯示</span>
+      </div>`;
+  } else if (mode === 'quiz' && isAnswered) {
+    const feedbackClass = isCorrect ? 'correct' : 'wrong';
+    const icon = isCorrect ? '✅' : '❌';
+    const msg = isCorrect ? '答對了！' : `答案是：${q.answer}`;
+    answerHtml = `<div class="quiz-feedback ${feedbackClass} visible">${icon} ${escHtml(msg)}</div>`;
+  }
+  
+  // Explanation
+  let explainHtml = '';
+  if (q.explanation) {
+    explainHtml = `<div class="explanation ${isRevealed || (mode==='quiz'&&isAnswered) ? 'visible' : ''}" id="exp-${q.id}">
+      💡 <strong>解析：</strong>${escHtml(q.explanation)}
+    </div>`;
+  }
+  
+  // Source badge
+  const srcHtml = `<div class="q-source">📂 ${escHtml(q.source || '')}</div>`;
+  
+  return `
+  <div class="${cardClass}" id="card-${q.id}">
+    <div class="q-row">
+      <div class="flag-col">
+        <button class="flag-btn ${isFlagged?'flagged':''}" onclick="toggleFlag(${q.id})" title="標記為容易出錯">
+          ${isFlagged ? '🚩' : '⚑'}
+        </button>
+        <span class="flagged-label">弱點</span>
+      </div>
+      <div class="q-num">${displayNum}</div>
+      ${typeBadge}
+      <div class="q-content">
+        ${srcHtml}
+        <div class="q-text">${escHtml(q.question)}</div>
+        ${optionsHtml}
+      </div>
+    </div>
+    ${answerHtml}
+    ${explainHtml}
+  </div>`;
+}
+
+// ══════════════════════════════════════════════════════
+//  INTERACTIONS
+// ══════════════════════════════════════════════════════
+function toggleFlag(id) {
+  if (flags[id]) delete flags[id];
+  else flags[id] = true;
+  localStorage.setItem('social_flags', JSON.stringify(flags));
+  updateStats();
+  
+  // Re-render just this card
+  const q = QUESTIONS.find(q => q.id === id);
+  if (!q) return;
+  const filtered = getFilteredQuestions();
+  const idx = filtered.findIndex(qq => qq.id === id);
+  
+  if (filterMode === 'flagged' && !flags[id]) {
+    // Card should disappear
+    renderAll();
+    return;
+  }
+  
+  const card = document.getElementById('card-' + id);
+  if (card && idx >= 0) {
+    card.outerHTML = renderCard(q, idx + 1);
+  }
+}
+
+function toggleReveal(id) {
+  revealed[id] = !revealed[id];
+  const ansEl = document.getElementById('ans-' + id);
+  const expEl = document.getElementById('exp-' + id);
+  if (ansEl) ansEl.classList.toggle('revealed', revealed[id]);
+  if (expEl) expEl.classList.toggle('visible', revealed[id]);
+}
+
+function selectOption(id, opt) {
+  if (mode !== 'quiz') return;
+  if (quizSubmitted[id]) return;
+  userAnswers[id] = opt;
+  quizSubmitted[id] = true;
+  updateStats();
+  
+  const q = QUESTIONS.find(q => q.id === id);
+  if (!q) return;
+  const filtered = getFilteredQuestions();
+  const idx = filtered.findIndex(qq => qq.id === id);
+  const card = document.getElementById('card-' + id);
+  if (card && idx >= 0) {
+    card.outerHTML = renderCard(q, idx + 1);
+  }
+}
+
+function revealAll() {
+  getFilteredQuestions().forEach(q => { revealed[q.id] = true; });
+  renderAll();
+}
+
+function hideAll() {
+  getFilteredQuestions().forEach(q => { delete revealed[q.id]; });
+  renderAll();
+}
+
+function clearFlags() {
+  if (!confirm('確定要清除所有旗標嗎？')) return;
+  flags = {};
+  localStorage.setItem('social_flags', JSON.stringify(flags));
+  updateStats();
+  renderAll();
+}
+
+function filterQuestions() { renderAll(); updateStats(); }
+
+function setFilter(f) {
+  filterMode = f;
+  ['all','flagged','wrong'].forEach(t => {
+    document.getElementById('tab-'+t).classList.toggle('active', t===f);
+  });
+  renderAll(); updateStats();
+}
+
+function setType(t) {
+  typeFilter = t;
+  ['all','tf','mc'].forEach(tt => {
+    document.getElementById('type-'+tt).classList.toggle('active', tt===t);
+  });
+  renderAll(); updateStats();
+}
+
+// ══════════════════════════════════════════════════════
+//  MODE CYCLING
+// ══════════════════════════════════════════════════════
+function cycleMode() {
+  if (mode === 'review') {
+    mode = 'quiz';
+    document.getElementById('mode-btn').textContent = '📖 複習模式';
+    document.getElementById('mode-btn').classList.add('active');
+    document.getElementById('quiz-banner').classList.add('visible');
+    document.getElementById('score-btn').style.display = '';
+    document.getElementById('reset-btn').style.display = '';
+    document.getElementById('stat-correct-chip').style.display = '';
+    document.getElementById('stat-wrong-chip').style.display = '';
+    document.getElementById('progress-wrap').style.display = '';
+    document.getElementById('stat-progress-txt').style.display = '';
+  } else {
+    mode = 'review';
+    document.getElementById('mode-btn').textContent = '📝 測驗模式';
+    document.getElementById('mode-btn').classList.remove('active');
+    document.getElementById('quiz-banner').classList.remove('visible');
+    document.getElementById('score-btn').style.display = 'none';
+    document.getElementById('reset-btn').style.display = 'none';
+    document.getElementById('stat-correct-chip').style.display = 'none';
+    document.getElementById('stat-wrong-chip').style.display = 'none';
+    document.getElementById('progress-wrap').style.display = 'none';
+    document.getElementById('stat-progress-txt').style.display = 'none';
+  }
+  renderAll(); updateStats();
+}
+
+function resetQuiz() {
+  if (!confirm('確定要清除所有作答紀錄嗎？')) return;
+  userAnswers = {}; quizSubmitted = {};
+  renderAll(); updateStats();
+}
+
+function showScore() {
+  const filtered = getFilteredQuestions();
+  const answered = filtered.filter(q => quizSubmitted[q.id]);
+  const correct  = answered.filter(q => userAnswers[q.id] === q.answer);
+  const pct = answered.length ? Math.round(correct.length / answered.length * 100) : 0;
+  const msg = `📊 成績報告\n\n作答：${answered.length} / ${filtered.length} 題\n答對：${correct.length} 題\n答錯：${answered.length - correct.length} 題\n正確率：${pct}%\n\n${pct >= 80 ? '🎉 太棒了！' : pct >= 60 ? '👍 加油繼續！' : '💪 多練習哦！'}`;
+  alert(msg);
+}
+
+// ══════════════════════════════════════════════════════
+//  STATS
+// ══════════════════════════════════════════════════════
+function updateStats() {
+  const total = QUESTIONS.length;
+  const flagCount = Object.keys(flags).length;
+  document.getElementById('stat-flagged').textContent = flagCount;
+  document.getElementById('stat-flag-pct').textContent = Math.round(flagCount / total * 100);
+  document.getElementById('stat-total').textContent = getFilteredQuestions().length;
+  
+  if (mode === 'quiz') {
+    const filtered = getFilteredQuestions();
+    const answered = filtered.filter(q => quizSubmitted[q.id]);
+    const correct  = answered.filter(q => userAnswers[q.id] === q.answer);
+    const wrong    = answered.length - correct.length;
+    document.getElementById('stat-correct').textContent = correct.length;
+    document.getElementById('stat-wrong').textContent = wrong;
+    const pct = filtered.length ? Math.round(answered.length / filtered.length * 100) : 0;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('stat-progress-txt').textContent = `已答 ${answered.length}/${filtered.length}`;
+  }
+}
+
+// ══════════════════════════════════════════════════════
+//  THEME
+// ══════════════════════════════════════════════════════
+function toggleTheme() {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('theme-btn').textContent = isDark ? '🌙 深色' : '☀️ 淺色';
+  localStorage.setItem('social_theme', isDark ? 'light' : 'dark');
+}
+// Restore theme
+(function() {
+  const saved = localStorage.getItem('social_theme');
+  if (saved === 'dark') {
+    document.body.setAttribute('data-theme', 'dark');
+    setTimeout(() => {
+      const btn = document.getElementById('theme-btn');
+      if (btn) btn.textContent = '☀️ 淺色';
+    }, 0);
+  }
+})();
+
+// ══════════════════════════════════════════════════════
+//  UTILS
+// ══════════════════════════════════════════════════════
+function scrollTop() { window.scrollTo({top:0, behavior:'smooth'}); }
+
+function escHtml(s) {
+  return String(s||'')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+function escJs(s) {
+  return String(s||'').replace(/\\/g,'\\\\').replace(/`/g,'\\`');
+}
+</script>
+</body>
+</html>
