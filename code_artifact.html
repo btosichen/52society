@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 六上社會超強記憶自學樂園 🌟</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap');
+
+        /* 🌈 馬卡龍鮮豔活潑色彩系統 */
+        :root {
+            --bg-color: #FFF0F5; /* 淡粉紅背景 */
+            --primary-color: #FF6B6B; /* 活力紅 */
+            --secondary-color: #4ECDC4; /* 湖水綠 */
+            --accent-yellow: #FFE66D; /* 閃亮黃 */
+            --accent-blue: #3399FF; /* 晴空藍 */
+            --accent-purple: #9D74FF; /* 夢幻紫 */
+            --text-dark: #2D3436;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', 'Comic Sans MS', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#FFD1D1 2px, transparent 2px), radial-gradient(#FFD1D1 2px, transparent 2px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+            color: var(--text-dark);
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* 標題設計 */
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 3em;
+            font-weight: 900;
+            text-shadow: 3px 3px 0px var(--accent-yellow), 6px 6px 0px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            animation: bounce 2s infinite alternate;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+
+        /* 導覽列 */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background-color: var(--white);
+            border: 4px solid var(--accent-blue);
+            color: var(--accent-blue);
+            padding: 12px 25px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 4px 0 var(--accent-blue);
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background-color: var(--accent-blue);
+            color: var(--white);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 0 #1A75FF;
+        }
+
+        .tab-btn.tab-pink { border-color: var(--primary-color); color: var(--primary-color); box-shadow: 0 4px 0 var(--primary-color); }
+        .tab-btn.tab-pink:hover, .tab-btn.tab-pink.active { background-color: var(--primary-color); color: var(--white); box-shadow: 0 8px 0 #E63946; }
+        
+        .tab-btn.tab-green { border-color: #2ED573; color: #2ED573; box-shadow: 0 4px 0 #2ED573; }
+        .tab-btn.tab-green:hover, .tab-btn.tab-green.active { background-color: #2ED573; color: var(--white); box-shadow: 0 8px 0 #1E90FF; }
+
+        /* 內容區塊 */
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .content-section.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border: 5px solid transparent;
+            position: relative;
+        }
+
+        .card.finance { border-color: var(--accent-yellow); }
+        .card.tech { border-color: var(--secondary-color); }
+        .card.memory { border-color: var(--accent-purple); background: #F8F4FF; }
+        .card.quiz { border-color: var(--primary-color); }
+
+        .card h2 {
+            font-size: 2em;
+            margin-top: 0;
+            padding-bottom: 15px;
+            border-bottom: 4px dashed #EEEEEE;
+        }
+        .finance h2 { color: #FFA502; border-bottom-color: var(--accent-yellow); }
+        .tech h2 { color: #2ED573; border-bottom-color: var(--secondary-color); }
+        .memory h2 { color: var(--accent-purple); border-bottom-color: var(--accent-purple); }
+
+        /* 重點與標記 */
+        .highlight { background-color: var(--accent-yellow); padding: 2px 8px; border-radius: 8px; font-weight: bold; color: #D35400;}
+        .highlight-blue { background-color: #D6EAF8; padding: 2px 8px; border-radius: 8px; font-weight: bold; color: #2874A6;}
+        .secret-box { background: #FFF4E6; border-left: 8px solid #FF9F43; padding: 15px; border-radius: 0 15px 15px 0; margin: 15px 0; }
+        .secret-box h4 { margin: 0 0 10px 0; color: #D35400; font-size: 1.2em; }
+
+        /* 表格設計 */
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        th, td { padding: 15px; text-align: center; border: 2px solid #F1F2F6; font-size: 1.1em; }
+        th { background-color: var(--accent-purple); color: white; }
+        tr:nth-child(even) { background-color: #F8F9FA; }
+        tr:hover { background-color: #F1F2F6; }
+
+        /* 測驗區塊 */
+        .question-box { background: #F1F8FF; padding: 25px; border-radius: 20px; border-left: 8px solid var(--accent-blue); margin-bottom: 20px; }
+        .q-title { font-size: 1.4em; font-weight: bold; color: #2C3E50; margin-bottom: 15px; }
+        
+        .tag-hard { background: #FF4757; color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.7em; vertical-align: middle; margin-right: 10px; animation: pulse 1.5s infinite; }
+        .tag-star { background: #FFA502; color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.7em; vertical-align: middle; margin-right: 10px; }
+        
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(255, 71, 87, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); } }
+
+        .options-list { list-style: none; padding: 0; display: grid; gap: 10px; }
+        .options-list li {
+            background: white; padding: 15px 20px; border-radius: 15px; border: 3px solid #ECCC68;
+            font-size: 1.2em; cursor: pointer; transition: 0.2s; font-weight: bold; color: #57606F;
+        }
+        .options-list li:hover { background: #FFF9E6; transform: scale(1.02); }
+        .options-list li.correct { background: #7BED9F; border-color: #2ED573; color: #2F3542; }
+        .options-list li.wrong { background: #FF7F50; border-color: #FF4757; color: white; }
+
+        .explanation { display: none; margin-top: 15px; padding: 15px; background: #FFF3CD; border-radius: 10px; color: #856404; font-weight: bold; border-left: 5px solid #FFC107; }
+
+        .btn-start {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53); color: white; border: none;
+            padding: 20px 40px; font-size: 1.8em; font-weight: 900; border-radius: 50px; cursor: pointer;
+            display: block; margin: 30px auto; box-shadow: 0 10px 20px rgba(255, 107, 107, 0.4);
+            transition: all 0.3s;
+        }
+        .btn-start:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 25px rgba(255, 107, 107, 0.6); }
+
+        #score-board { text-align: center; font-size: 2em; display: none; background: white; padding: 30px; border-radius: 20px; border: 5px dashed var(--accent-yellow); margin-top: 20px; }
+        
+        .progress-bar { width: 100%; background: #E0E0E0; border-radius: 20px; height: 25px; margin-bottom: 20px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #4ECDC4, #55E6C1); width: 0%; transition: width 0.5s ease-out; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>✨ 六上社會超強記憶自學樂園 V2 ✨</h1>
+
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="showTab('tab-finance')">💰 第一單元：消費與理財</button>
+        <button class="tab-btn tab-green" onclick="showTab('tab-tech')">🤖 科技島：智慧與法規</button>
+        <button class="tab-btn" onclick="showTab('tab-memory')">🧠 超強記憶外掛</button>
+        <button class="tab-btn tab-pink" onclick="showTab('tab-quiz')">🎮 30題終極測驗</button>
+    </div>
+
+    <!-- 第一單元：消費與理財 -->
+    <div id="tab-finance" class="content-section active">
+        <div class="card finance">
+            <h2>💰 1. 貨幣演進與多元支付</h2>
+            <p>從古至今，人類買東西的方式一直在進化！</p>
+            <ul>
+                <li><span class="highlight">以物易物：</span> 早期沒有錢，用雞換米。</li>
+                <li><span class="highlight">商品貨幣 (教專補充)：</span> 遠古時代曾用「海貝、龜殼、皮革」當貨幣，後來因不易保存與攜帶，被金屬取代。</li>
+                <li><span class="highlight">實體貨幣：</span> 各國發行自己的錢（新臺幣、日圓）。出國旅行必須注意**「匯率」**兌換。</li>
+                <li><span class="highlight">多元支付：</span> 信用卡、電子票證（悠遊卡）、行動支付（手機刷條碼）。<br>
+                    ⚠️ <strong>缺點：</strong> 因為看不到錢變少，容易<span class="highlight">「衝動購物，超出預算」</span>。</li>
+            </ul>
+
+            <div class="secret-box">
+                <h4>👨‍🏫 教師手冊獨家解密：保護消費者的兩大專線</h4>
+                <ul>
+                    <li>📞 <strong>1950 全國消費者服務專線：</strong> 買到瑕疵品老闆不退換、發生消費糾紛時打這支找消保官！</li>
+                    <li>📞 <strong>165 反詐騙諮詢專線：</strong> (2004年成立) 接到要求去ATM解除分期付款、網購詐騙電話，打這支查證或報案！</li>
+                </ul>
+            </div>
+            
+            <h2>🛒 2. 消費選擇與綠色消費</h2>
+            <ul>
+                <li>消費者會考量：價格、品質、需求、品牌。</li>
+                <li>生產者應對：引進自動化設備（降低成本）、提升品質、改變設計來吸引顧客。</li>
+                <li><span class="highlight-blue">綠色消費：</span> 自備購物袋、減少過度包裝、選擇再生材質。</li>
+                <li>🌍 <strong>臺灣之光「甘蔗吸管」：</strong> 埋在土裡 3~6 個月可自然分解，不會產生塑化劑，友善環境！</li>
+            </ul>
+
+            <h2>📈 3. 理財規劃與投資風險</h2>
+            <p>理財名言：<strong>「雞蛋不要放在同一個籃子裡」</strong> (分散風險)。</p>
+            <ul>
+                <li><strong>銀行存款：</strong> 利息固定，<span class="highlight-blue">風險極低</span>。</li>
+                <li><strong>股票：</strong> 代表一間公司的部分所有權。獲利快，但價值變動大，<span class="highlight">風險相對較高</span>。</li>
+            </ul>
+
+            <div class="secret-box">
+                <h4>🛡️ 教師手冊必考重點：保險的三大角色</h4>
+                <p>保險是轉嫁不可預料風險的工具。有三個重要人物：</p>
+                <ol>
+                    <li><strong>要保人：</strong> 負責繳交保費的人。</li>
+                    <li><strong>被保險人：</strong> 受到保險保障的人（出事了保險公司會賠）。</li>
+                    <li><strong>受益人：</strong> 領取保險理賠金的人。</li>
+                </ol>
+                <p>🔥 <span style="color:red; font-weight:bold;">大魔王重點：</span>「要保人」跟「被保險人」之間必須要有<strong>「保險利益」關係</strong>！(例如家人之間，不能隨便幫不認識的路人買保險！)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 科技與法規 (來自單元卷) -->
+    <div id="tab-tech" class="content-section">
+        <div class="card tech">
+            <h2>🤖 1. 智慧科技的影響 (科技島)</h2>
+            <p>科技的發展讓我們的生活「更便利」，並非為了解決法學或美術問題喔！</p>
+            <ul>
+                <li><strong>智慧住宅：</strong> 需具備<span class="highlight">網際網路</span>、智慧型手機、節能家電。不在家也能遙控！</li>
+                <li><strong>智慧學習：</strong> 遠距學習讓學習形式更多元；<span class="highlight-blue">數位學生證</span>可記錄到離校時間、證明身分、借書 (❌ 注意：無法提供「出版書籍」的服務)。</li>
+                <li><strong>公共服務：</strong> 政府設置空氣品質感測器、智慧公車站牌。</li>
+                <li><strong>通訊演進順序：</strong> 固定公用電話 ➡️ 龐大手提電話(黑金剛) ➡️ 簡訊手機 ➡️ 網路撥打手機。</li>
+                <li>⚠️ <strong>科技帶來的問題：</strong> 長時間使用影響健康、不會操作的人會產生「數位落差」。</li>
+            </ul>
+
+            <h2>⚡ 2. 能源科技與環境</h2>
+            <p>發電方式大PK：</p>
+            <ul>
+                <li><strong>火力發電：</strong> 臺灣目前最主要的發電方式。缺點是會排放大量二氧化碳，造成空汙與全球暖化。</li>
+                <li><strong>核能發電：</strong> 少量原料產極大電量。缺點是<span class="highlight">核廢料難以尋找存放地點</span>，且有輻射外洩風險。</li>
+                <li><strong>再生能源 (綠能)：</strong> 太陽能、風力、水力。無耗竭疑慮、汙染少。(例如：學校建設<span class="highlight-blue">光電停車場</span>在車棚上蓋太陽能板)。</li>
+            </ul>
+
+            <h2>🧬 3. 生物科技與法律倫理</h2>
+            <ul>
+                <li><strong>生物科技應用：</strong> 研發疫苗、改造動植物基因(增加產量抗蟲害)、製造人體器官(帶給病人希望)。</li>
+                <li>⚠️ <strong>倫理與法律規範：</strong> 
+                    <ul>
+                        <li><span class="highlight">複製人類</span>涉及道德爭議，目前各國**強烈禁止**，不是鼓勵喔！</li>
+                        <li>基因改造食品，政府有規定必須在包裝上<span class="highlight-blue">明確標示</span>，讓消費者有選擇權 (這跟法律有關，不是純廣告)。</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="secret-box">
+                <h4>🔒 資通安全與著作權法</h4>
+                <p>科技發展必須有法律規範以免造成不良影響：</p>
+                <ul>
+                    <li>任意擷取網路影音據為己有、或付費下載後「擅自上傳分享」 ➡️ <span style="color:red;">侵犯著作權！</span></li>
+                    <li>點選簡訊不明連結 ➡️ <span style="color:red;">可能被植入病毒竊取資料！</span></li>
+                    <li>學習駭客入侵電腦、網路辱罵同學 ➡️ <span style="color:red;">觸犯資通安全與法律！</span></li>
+                    <li>✅ 唯一安全：在實體跳蚤市場購買二手衣物 (環保又不犯法)。</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 超強記憶外掛 -->
+    <div id="tab-memory" class="content-section">
+        <div class="card memory">
+            <h2>🧠 大腦外掛：圖像與諧音記憶法</h2>
+            
+            <h3>📞 【求救專線秒殺法】</h3>
+            <table>
+                <tr>
+                    <th>情境</th>
+                    <th>專線號碼</th>
+                    <th>諧音聯想 (把畫面想出來！)</th>
+                </tr>
+                <tr>
+                    <td>網購遇到詐騙、要求解分期</td>
+                    <td><strong style="color:red; font-size:1.3em;">165</strong></td>
+                    <td>遇到騙子？「<span class="highlight">一溜我 (165)</span>」馬上溜走不理他！🏃‍♂️</td>
+                </tr>
+                <tr>
+                    <td>買到壞掉的東西、消費糾紛</td>
+                    <td><strong style="color:blue; font-size:1.3em;">1950</strong></td>
+                    <td>消保官「<span class="highlight">依舊為你 (1950)</span>」討回公道！🦸‍♂️</td>
+                </tr>
+            </table>
+
+            <h3>⚡ 【能源發電超強對比】</h3>
+            <table>
+                <tr>
+                    <th>發電方式</th>
+                    <th>代表符號</th>
+                    <th>致命缺點 (考卷必考)</th>
+                </tr>
+                <tr>
+                    <td>火力發電</td>
+                    <td>🔥 燃燒吧</td>
+                    <td>會排放大量 <strong style="color:red;">二氧化碳</strong> (空汙、暖化)</td>
+                </tr>
+                <tr>
+                    <td>核能發電</td>
+                    <td>☢️ 輻射危險</td>
+                    <td><strong style="color:red;">核廢料</strong> 沒地方放！</td>
+                </tr>
+                <tr>
+                    <td>再生能源</td>
+                    <td>☀️ 太陽公公</td>
+                    <td>無耗竭疑慮，但受天氣影響。</td>
+                </tr>
+            </table>
+
+            <h3>💼 【保險人物關係圖】</h3>
+            <div style="background: white; padding: 20px; border-radius: 15px; text-align: center; font-size: 1.2em;">
+                <span class="highlight">要保人 (付錢買保險)</span> 
+                <br> ⬇️ 必須有 <strong style="color:red;">【保險利益】</strong> 關係 ⬇️ <br>
+                <span class="highlight-blue">被保險人 (生命受保障的人)</span>
+                <br> ⬇️ 發生事故時 ⬇️ <br>
+                <span style="background: #9AE09A; padding: 2px 8px; border-radius: 8px;">受益人 (領取保險金)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 終極測驗區 -->
+    <div id="tab-quiz" class="content-section">
+        <div class="card quiz">
+            <h2>🎮 終極 30 題大魔王挑戰</h2>
+            <p>結合課本、教師手冊、素養卷與單元卷的最強題庫！答錯會顯示詳解喔！</p>
+            
+            <div class="progress-bar">
+                <div id="quiz-progress" class="progress-fill"></div>
+            </div>
+            
+            <div id="quiz-container">
+                <button class="btn-start" onclick="startQuiz()">🚀 點我啟動挑戰</button>
+            </div>
+            <div id="score-board"></div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // 分頁切換功能
+    function showTab(tabId) {
+        document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+    // 終極題庫 (30題，精選自上傳檔案)
+    const questions = [
+        // --- 消費與理財篇 (10題) ---
+        { q: "遇到消費糾紛（例如買到瑕疵品老闆不退錢）時，應該撥打哪一支專線？", options: ["110", "119", "165", "1950"], ans: 3, tag: "⭐必考", exp: "1950是全國消費者服務專線(諧音:依舊為你)。165是反詐騙專線。" },
+        { q: "接到可疑電話，對方要求去ATM解除分期付款，應該撥打哪一支專線求證？", options: ["165", "1950", "113", "1999"], ans: 0, tag: "", exp: "遇到詐騙，打165反詐騙諮詢專線(諧音:一溜我)。" },
+        { q: "關於保險的敘述，下列何者正確？", options: ["任何人都可以隨意幫陌生人買保險", "要保人與被保險人之間必須有「保險利益」關係", "保險是一種能快速賺大錢的投資", "「要保人」就是領取保險金的人"], ans: 1, tag: "🔥魔王", exp: "教師手冊重點：要保人與被保險人必須有「保險利益」，不能隨便幫陌生人買。要保人是付錢的，受益人才是領錢的。" },
+        { q: "美惠把穿不下的舊褲子拿去古著店重製，這種行為屬於什麼？", options: ["過度消費", "以物易物", "綠色消費", "炫耀性消費"], ans: 2, tag: "素養題", exp: "舊衣重製、延長物品壽命、自備購物袋都屬於友善環境的「綠色消費」。" },
+        { q: "理財有一句名言：「雞蛋不要放在同一個籃子裡」，請問這是什麼意思？", options: ["雞蛋很容易打破", "要將風險分散，不要把錢全部投資在同一個項目", "去市場買菜要帶很多籃子", "不要把錢存在銀行"], ans: 1, tag: "⭐必考", exp: "這句話是在強調「分散風險」的重要性。" },
+        { q: "下列哪一種理財方式，雖然獲利可能較高，但產生虧損的風險也相對較高？", options: ["銀行活期存款", "銀行定期存款", "購買公司股票", "購買儲蓄險"], ans: 2, tag: "", exp: "股票的價值變動大，獲利高但風險也高；銀行存款則是風險極低。" },
+        { q: "早期人類在金屬貨幣發明之前，曾使用過「商品貨幣」，下列何者『不屬於』這類？", options: ["海貝", "龜殼", "皮革", "信用卡"], ans: 3, tag: "", exp: "信用卡是現代的多元支付工具，不是遠古的商品貨幣。" },
+        { q: "琪琪去日本玩，發現帶新臺幣不能直接買東西。這是因為需要考慮什麼概念？", options: ["股票", "匯率", "保險利益", "綠色消費"], ans: 1, tag: "", exp: "各國發行自己的貨幣，跨國使用時必須根據「匯率」進行兌換。" },
+        { q: "現代社會可以使用電子票證或行動支付，下列何者是多元支付可能帶來的『缺點』？", options: ["出門不用帶大量現金", "結帳速度變慢", "容易衝動購物超出預算", "會增加環境汙染"], ans: 2, tag: "⭐必考", exp: "因為看不到實體現金減少，人們很容易無感地刷卡，導致超出預算。" },
+        { q: "生產者為了在市場上競爭，通常會採取什麼作法？", options: ["引進自動化設備降低成本", "故意降低商品品質", "全面停止生產", "拒絕更新商品設計"], ans: 0, tag: "", exp: "生產者會提升效率(如自動化)、改良設計以吸引消費者。" },
+
+        // --- 智慧科技篇 (10題) ---
+        { q: "近年來科技快速演進，對人們生活最直接的影響是什麼？", options: ["讓人們變得不注重環保", "讓生活節奏愈來愈慢", "讓我們的生活更便利", "讓體能變好"], ans: 2, tag: "", exp: "單元卷原題：科技最主要的目的是讓生活更便利。" },
+        { q: "想要用手機遙控家電或上網購物，除了需要智慧型手機或電腦，還『必須』具備什麼條件？", options: ["網際網路", "電動車", "節能家電", "道路即時影像監控"], ans: 0, tag: "⭐必考", exp: "智慧家庭的核心樞紐就是必須要有「網際網路」才能遠端連線。" },
+        { q: "下列哪一項『不是』打造「智慧住宅」應具備的要件？", options: ["智慧型手機", "網際網路", "節能家電", "人工智慧公車站牌"], ans: 3, tag: "", exp: "公車站牌屬於「公共服務」，不是住宅內部的設施。" },
+        { q: "關於「智慧學習教室」的優點，下列敘述何者正確？", options: ["減少同學互動", "提升學習興趣及學習效率", "考試份量增加", "降低師生互動"], ans: 1, tag: "", exp: "遠距教學與數位設備能讓學習更多元靈活，提升效率。" },
+        { q: "數位學生證『沒有』下列哪一項功能？", options: ["證明學生身分", "記錄到校時間", "記錄離校時間", "提供圖書館出版書籍的服務"], ans: 3, tag: "🔥魔王", exp: "單元卷陷阱題！數位學生證可以借書，但圖書館「不會幫你出版書籍」。" },
+        { q: "下列哪一項屬於運用智慧科技的「公共服務」項目？", options: ["警察值勤傳統櫃檯", "高鐵人工售票櫃檯", "空氣品質感測器", "古著店購物"], ans: 2, tag: "", exp: "政府設置的空氣品質感測器與智慧公車站牌都屬於公共服務。" },
+        { q: "手機發明的時間先後順序，哪一個排列是正確的？", options: ["固定公用電話→龐大手提電話→簡訊手機→網路撥打手機", "網路撥打手機→簡訊手機→龐大手提電話→固定公用電話", "簡訊手機→固定公用電話→網路撥打手機→龐大手提電話", "龐大手提電話→固定公用電話→網路撥打手機→簡訊手機"], ans: 0, tag: "⭐必考", exp: "單元卷原題：最老的是公用電話，接著是黑金剛(龐大)，再來是能傳簡訊的智障型手機，最後才是現在的智慧型手機。" },
+        { q: "科技產品帶來好處，但也可能產生問題，下列何者屬於『新科技』帶來的問題？", options: ["可以及時掌握路況", "有些人不會操作產生數位落差，或影響健康", "能遠距學習", "檢測空氣異味"], ans: 1, tag: "", exp: "科技會造成數位落差(老人不會用)以及視力/健康受損。" },
+        { q: "阿論用平板查詢公車路線圖，這是運用了什麼科技？", options: ["生物科技", "航太科技", "資訊數位科技", "奈米科技"], ans: 2, tag: "", exp: "平板、手機、電腦上網都屬於「資訊數位科技」。" },
+        { q: "北迴鐵路的通車，解決了東部地區過去被稱為什麼的問題？ (習作題)", options: ["科技島", "交通孤島", "金融中心", "農業首都"], ans: 1, tag: "素養題", exp: "習作原題：北迴鐵路通車前，東部因地形崎嶇交通不便，被稱為交通孤島。" },
+
+        // --- 能源、生技與法規篇 (10題) ---
+        { q: "核能發電能以少量原料製造大量電力，但也存在什麼嚴重的缺點？", options: ["核輻射容易造成空氣汙染", "核能原料取得不易", "核廢料難以尋找存放地點", "電力品質不穩"], ans: 2, tag: "⭐必考", exp: "核廢料具有放射性且半衰期長，極難找到安全的最終處置場所。" },
+        { q: "目前我國（臺灣）最主要的發電方式是哪一種？", options: ["水力發電", "太陽能發電", "核能發電", "火力發電"], ans: 3, tag: "", exp: "臺灣目前高度仰賴燃煤與天然氣的火力發電。" },
+        { q: "火力發電最大的缺點是什麼？", options: ["發電量極少", "會排放大量二氧化碳，造成空汙與暖化", "沒有資源耗竭的疑慮", "建廠成本最高"], ans: 1, tag: "", exp: "燃燒化石燃料會產生大量溫室氣體與PM2.5。" },
+        { q: "學校建設了「光電停車場」，在車棚上加設太陽能板，這屬於哪一種能源的應用？", options: ["傳統能源", "核能", "再生能源", "生質能"], ans: 2, tag: "", exp: "太陽能屬於取之不盡、低汙染的「再生能源」。" },
+        { q: "科學家運用生物科技改造作物的基因，主要的目的是什麼？", options: ["增加產量與減少病蟲害", "讓植物會說話", "造成全球糧食危機", "增加作物的放射性"], ans: 0, tag: "", exp: "基改作物是為了解決糧食問題，增加抗蟲性與產量。" },
+        { q: "關於生物科技的敘述，下列哪一項『錯誤』？", options: ["改造動植物算是生物科技的一部分", "複製人類是目前各國強烈鼓勵的研究趨勢", "研發疫苗屬於生物科技的發展", "現代生物科技已能製造人體器官帶來希望"], ans: 1, tag: "🔥魔王", exp: "複製人類嚴重違反倫理道德，目前是被各國「強烈禁止」的！" },
+        { q: "孝孝買豆腐時，發現包裝標示「選用基因改良黃豆」，這標示的原因為何？", options: ["純粹為了提升買氣的廣告", "包裝設計比較好看", "法律規定必須標示，保障消費者選擇權", "店家寫錯字"], ans: 2, tag: "⭐必考", exp: "單元卷考題：基改食品依法律規定必須明確標示，這不是廣告手法。" },
+        { q: "任意擷取網路上的影音並據為己有，可能會侵犯他人的什麼權利？", options: ["隱私權", "自由權", "著作權", "生存權"], ans: 2, tag: "", exp: "他人的創作受到「著作權法」保護，不能隨便下載盜用。" },
+        { q: "雅雅的新電腦被植入病毒資料被竊，最可能的原因是？", options: ["她點選了手機簡訊裡的不明連結", "筆記本寫了不當言論", "買到硬體瑕疵品", "電腦太久沒用長灰塵"], ans: 0, tag: "", exp: "資安問題通常來自點擊釣魚網站或不明連結。" },
+        { q: "下列哪一種行為『不會』觸犯資通安全或著作權法？", options: ["學習駭客技術入侵鄰居電腦", "付費下載正版影音後，擅自上傳到網路分享", "在網路上公開辱罵同學", "在實體跳蚤市場購買二手衣物"], ans: 3, tag: "🔥魔王", exp: "A是入侵電腦罪，B是侵害著作權(雖然付費但不能傳給別人)，C是公然侮辱。只有D是合法且環保的行為。" }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    const quizContainer = document.getElementById('quiz-container');
+    const scoreBoard = document.getElementById('score-board');
+    const progressBar = document.getElementById('quiz-progress');
+
+    function startQuiz() {
+        currentQ = 0;
+        score = 0;
+        scoreBoard.style.display = 'none';
+        renderQuestion();
+    }
+
+    function renderQuestion() {
+        if (currentQ >= questions.length) {
+            showResult();
+            return;
+        }
+
+        // 更新進度條
+        const progress = ((currentQ) / questions.length) * 100;
+        progressBar.style.width = progress + '%';
+
+        const qData = questions[currentQ];
+        let tagHtml = "";
+        if (qData.tag === "🔥魔王") tagHtml = `<span class="tag-hard">🔥 魔王題</span>`;
+        if (qData.tag === "⭐必考") tagHtml = `<span class="tag-star">⭐ 必考題</span>`;
+        if (qData.tag === "素養題") tagHtml = `<span class="tag-star" style="background:#8E44AD;">📖 素養題</span>`;
+
+        let html = `
+            <div class="question-box">
+                <div class="q-title">
+                    第 ${currentQ + 1} 題 / 共 ${questions.length} 題<br><br>
+                    ${tagHtml} ${qData.q}
+                </div>
+                <ul class="options-list">
+        `;
+        
+        qData.options.forEach((opt, idx) => {
+            html += `<li onclick="checkAnswer(${idx}, ${qData.ans}, this)">${String.fromCharCode(65+idx)}. ${opt}</li>`;
+        });
+        
+        html += `</ul>
+            <div class="explanation" id="exp-${currentQ}">💡 <strong>詳解：</strong>${qData.exp}</div>
+        </div>`;
+        
+        quizContainer.innerHTML = html;
+    }
+
+    // 將 checkAnswer 設為全域以便 HTML onclick 呼叫
+    window.checkAnswer = function(selected, correct, element) {
+        const listItems = element.parentElement.children;
+        const explanation = document.getElementById(`exp-${currentQ}`);
+        
+        // 鎖定選項
+        for(let li of listItems) {
+            li.style.pointerEvents = 'none';
+        }
+
+        if(selected === correct) {
+            element.classList.add('correct');
+            element.innerHTML += " ✅ 答對了！";
+            score++;
+            setTimeout(() => {
+                currentQ++;
+                renderQuestion();
+            }, 1000);
+        } else {
+            element.classList.add('wrong');
+            element.innerHTML += " ❌";
+            listItems[correct].classList.add('correct');
+            listItems[correct].innerHTML += " (正確答案)";
+            
+            // 答錯顯示詳解，增加等待時間讓學生看清楚
+            explanation.style.display = 'block';
+            
+            let nextBtn = document.createElement('button');
+            nextBtn.innerText = "明白了，下一題 ➡️";
+            nextBtn.className = "tab-btn tab-green";
+            nextBtn.style.marginTop = "15px";
+            nextBtn.onclick = () => {
+                currentQ++;
+                renderQuestion();
+            };
+            explanation.appendChild(document.createElement('br'));
+            explanation.appendChild(nextBtn);
+        }
+    }
+
+    function showResult() {
+        progressBar.style.width = '100%';
+        quizContainer.innerHTML = ``;
+        let message = "";
+        let gif = "";
+        
+        if(score === questions.length) {
+            message = "太神啦！社會科滿分天才！🏆";
+            gif = "🎊🎊🎊";
+        } else if(score >= 25) {
+            message = "非常優秀！觀念超級清楚喔！🎖️";
+        } else if(score >= 18) {
+            message = "還不錯，看看錯題的詳解會更強！💪";
+        } else {
+            message = "沒關係，回到前面看看「超強記憶外掛」再挑戰一次！🐢";
+        }
+        
+        scoreBoard.innerHTML = `
+            <h2>測驗結束！</h2>
+            <div style="font-size: 3em; color: var(--primary-color); margin: 20px 0;">${score} / ${questions.length} 分</div>
+            <p style="color: #27AE60; font-weight: bold;">${message} ${gif}</p>
+            <button class="btn-start" onclick="startQuiz()">🔄 再挑戰一次</button>
+        `;
+        scoreBoard.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
