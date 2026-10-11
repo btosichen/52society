@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>社會6上第2單元 自學寶典</title>
+<style>
+:root{
+  --pink:#ff6fa5; --orange:#ff9f43; --yellow:#ffd43b; --green:#38d39f; --blue:#4dabf7; --purple:#9775fa; --red:#ff5a5f;
+  --ink:#3b2f5c; --soft:#6b5f8a; --card:#ffffff; --bg1:#fff6e5; --bg2:#e8f7ff;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--ink);
+  background:linear-gradient(160deg,var(--bg1) 0%,#fff0f6 45%,var(--bg2) 100%);background-attachment:fixed;font-size:18px;line-height:1.7}
+header{background:linear-gradient(90deg,#ff8fb8,#ffb86b,#ffe066,#7ee0b8,#74c0fc);padding:14px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 4px 0 rgba(0,0,0,.06)}
+header h1{margin:0;font-size:1.35rem;color:#fff;text-shadow:2px 2px 0 rgba(120,60,140,.45);line-height:1.3}
+header small{display:block;font-size:.85rem;color:#fff;font-weight:600;text-shadow:1px 1px 0 rgba(120,60,140,.4)}
+nav{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.95);display:flex;gap:6px;overflow-x:auto;padding:8px 10px;border-bottom:3px dashed #ffd1e3}
+nav button{flex:0 0 auto;border:none;border-radius:999px;padding:8px 14px;font-size:1rem;font-weight:700;cursor:pointer;background:#f3f0ff;color:var(--ink);font-family:inherit}
+nav button.on{background:var(--pink);color:#fff;box-shadow:0 3px 0 #d94c84}
+main{max-width:980px;margin:0 auto;padding:16px}
+section{display:none}section.on{display:block;animation:pop .35s}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
+.card{background:var(--card);border-radius:22px;padding:18px 18px;margin:14px 0;box-shadow:0 6px 0 rgba(151,117,250,.15),0 2px 12px rgba(0,0,0,.05);border:3px solid #f1e9ff}
+h2{font-size:1.4rem;margin:.2em 0 .5em;display:flex;align-items:center;gap:8px}
+h3{font-size:1.15rem;margin:.9em 0 .3em;color:#7048e8}
+.pill{display:inline-block;border-radius:999px;padding:1px 10px;font-size:.82rem;font-weight:800;margin:0 3px;vertical-align:middle}
+.hot{background:#ffe3e3;color:#e03131;border:2px solid #ff8787}
+.hard{background:#fff3bf;color:#c25e00;border:2px solid #ffc94d}
+.gift{background:#e5dbff;color:#6741d9;border:2px solid #b197fc}
+.mid{background:#d3f9d8;color:#2b8a3e;border:2px solid #8ce99a}
+mark{background:linear-gradient(transparent 45%,#ffec99 45%);color:inherit;font-weight:800;padding:0 2px}
+.red{color:#e03131;font-weight:800}
+.lesson-tag{display:inline-block;background:var(--blue);color:#fff;border-radius:12px;padding:2px 12px;font-weight:800;margin-right:6px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.mini{border-radius:18px;padding:14px;border:3px solid}
+.mini b.t{display:block;font-size:1.08rem;margin-bottom:4px}
+.c1{background:#fff0f6;border-color:#ffa8c5}.c2{background:#fff4e6;border-color:#ffc078}.c3{background:#ebfbee;border-color:#8ce99a}
+.c4{background:#e7f5ff;border-color:#74c0fc}.c5{background:#f3f0ff;border-color:#b197fc}.c6{background:#fff9db;border-color:#ffd43b}
+table{width:100%;border-collapse:separate;border-spacing:0;border-radius:16px;overflow:hidden;font-size:.95rem;margin:8px 0}
+th{background:#9775fa;color:#fff;padding:8px}td{background:#faf8ff;padding:8px;border-top:2px solid #fff;vertical-align:top}
+tr:nth-child(even) td{background:#fff5f9}
+.tbl-wrap{overflow-x:auto}
+.memo{background:repeating-linear-gradient(45deg,#fff9db,#fff9db 12px,#fff3bf 12px,#fff3bf 24px);border:3px dashed #fab005;border-radius:18px;padding:14px;margin:10px 0}
+.memo .big{font-size:1.35rem;font-weight:900;color:#d9480f;letter-spacing:1px}
+.deep{background:#f3f0ff;border-left:8px solid #9775fa;border-radius:14px;padding:12px 14px;margin:10px 0}
+.warn{background:#fff5f5;border-left:8px solid #ff6b6b;border-radius:14px;padding:12px 14px;margin:10px 0}
+svg{max-width:100%;height:auto;display:block;margin:6px auto}
+svg text{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif}
+.btn{border:none;border-radius:16px;padding:10px 18px;font-size:1.05rem;font-weight:800;cursor:pointer;font-family:inherit;color:#fff;background:var(--green);box-shadow:0 4px 0 #20a77a}
+.btn.p{background:var(--pink);box-shadow:0 4px 0 #d94c84}.btn.b{background:var(--blue);box-shadow:0 4px 0 #2b8ad9}.btn.o{background:var(--orange);box-shadow:0 4px 0 #d97a1c}
+.btn:active{transform:translateY(3px);box-shadow:none}
+input[type=number]{font-size:1.2rem;padding:8px;border-radius:12px;border:3px solid #b197fc;width:130px;font-family:inherit}
+.conv{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:1.1rem}
+.conv .out{font-size:1.4rem;font-weight:900;color:#e8590c}
+/* flashcards */
+.flip{perspective:800px;cursor:pointer;min-height:130px}
+.flip .in{position:relative;width:100%;min-height:130px;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font-weight:800}
+.flip .f{background:linear-gradient(135deg,#ffd6e7,#ffe8cc);font-size:1.15rem}
+.flip .bk{background:linear-gradient(135deg,#d0ebff,#d3f9d8);transform:rotateY(180deg);font-size:1rem}
+/* quiz */
+.q{background:#fff;border-radius:20px;padding:14px 16px;margin:12px 0;border:3px solid #e9ecef;position:relative}
+.q.ok{border-color:#51cf66;background:#f4fff6}.q.ng{border-color:#ff8787;background:#fff6f6}
+.q .no{display:inline-block;background:var(--purple);color:#fff;border-radius:10px;padding:0 9px;font-weight:900;margin-right:6px}
+.q.star{border-color:#ffc94d;box-shadow:0 0 0 4px #fff3bf}
+.opts{display:grid;gap:8px;margin-top:8px}
+.opts button{text-align:left;border:3px solid #dee2e6;background:#fff;border-radius:14px;padding:9px 12px;font-size:1rem;cursor:pointer;font-family:inherit;color:var(--ink)}
+.opts button.right{border-color:#40c057;background:#d3f9d8;font-weight:800}
+.opts button.wrong{border-color:#fa5252;background:#ffe3e3;text-decoration:line-through}
+.opts button:disabled{cursor:default}
+.ex{display:none;margin-top:8px;background:#f8f9ff;border-radius:12px;padding:8px 12px;font-size:.95rem}
+.q.done .ex{display:block}
+.bar{height:16px;background:#f1f3f5;border-radius:99px;overflow:hidden;margin:8px 0}
+.bar>div{height:100%;background:linear-gradient(90deg,#ff8fb8,#ffd43b,#51cf66);width:0;transition:width .3s}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.filters button{border:3px solid #d0bfff;background:#fff;border-radius:999px;padding:5px 12px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--ink);font-size:.95rem}
+.filters button.on{background:#d0bfff}
+.score{font-size:1.25rem;font-weight:900}
+.hist li{margin:4px 0}
+.mascot{width:64px;height:64px;flex:0 0 auto;margin:0}
+footer{text-align:center;color:var(--soft);font-size:.85rem;padding:20px}
+@media (max-width:520px){body{font-size:16px}header h1{font-size:1.1rem}.mascot{width:50px;height:50px}}
+</style>
+</head>
+<body>
+<header>
+  <!-- 吉祥物：晶片寶寶「小晶」 -->
+  <svg class="mascot" viewBox="0 0 100 100" aria-label="吉祥物小晶">
+    <g stroke="#7048e8" stroke-width="4" stroke-linecap="round">
+      <line x1="30" y1="8" x2="30" y2="20"/><line x1="50" y1="8" x2="50" y2="20"/><line x1="70" y1="8" x2="70" y2="20"/>
+      <line x1="30" y1="80" x2="30" y2="92"/><line x1="50" y1="80" x2="50" y2="92"/><line x1="70" y1="80" x2="70" y2="92"/>
+      <line x1="8" y1="35" x2="20" y2="35"/><line x1="8" y1="55" x2="20" y2="55"/><line x1="80" y1="35" x2="92" y2="35"/><line x1="80" y1="55" x2="92" y2="55"/>
+    </g>
+    <rect x="18" y="18" width="64" height="64" rx="16" fill="#fff" stroke="#7048e8" stroke-width="4"/>
+    <circle cx="38" cy="45" r="6" fill="#3b2f5c"/><circle cx="62" cy="45" r="6" fill="#3b2f5c"/>
+    <circle cx="40" cy="43" r="2" fill="#fff"/><circle cx="64" cy="43" r="2" fill="#fff"/>
+    <circle cx="30" cy="58" r="5" fill="#ffa8c5"/><circle cx="70" cy="58" r="5" fill="#ffa8c5"/>
+    <path d="M40 60 Q50 70 60 60" stroke="#3b2f5c" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M44 22 l6 -10 l6 10" fill="#ffd43b" stroke="#f08c00" stroke-width="2"/>
+  </svg>
+  <div><h1>社會 6上・第二單元<br>戰後經濟轉型與生活轉變</h1><small>小晶陪你自學 🌈 重點＋圖解＋記憶術＋40題練習</small></div>
+</header>
+
+<nav id="nav">
+  <button data-s="home" class="on">🏠 開始</button>
+  <button data-s="l1">🌾 第1課</button>
+  <button data-s="l2">🛣️ 第2課</button>
+  <button data-s="l3">💻 第3課</button>
+  <button data-s="mem">🧠 記憶術</button>
+  <button data-s="time">⏳ 年代換算</button>
+  <button data-s="deep">💎 資優加深</button>
+  <button data-s="quiz">✏️ 練習題</button>
+  <button data-s="rec">📒 我的紀錄</button>
+</nav>
+
+<main>
+<!-- ================= HOME ================= -->
+<section id="home" class="on">
+  <div class="card">
+    <h2>👋 歡迎！這單元在說什麼？</h2>
+    <p>一句話記住整個單元：<mark>臺灣從「種田」變成「做晶片」的故事！</mark>戰後很窮 → 政府改革＋美國幫忙 → 開工廠賺外銷 → 蓋大建設 → 發展高科技 → 成為「科技島」。</p>
+    <svg viewBox="0 0 900 260" role="img" aria-label="臺灣產業升級樓梯圖">
+      <defs><linearGradient id="sky" x1="0" x2="1"><stop offset="0" stop-color="#fff0f6"/><stop offset="1" stop-color="#e7f5ff"/></linearGradient></defs>
+      <rect x="0" y="0" width="900" height="260" rx="20" fill="url(#sky)"/>
+      <g font-size="17" font-weight="800" text-anchor="middle">
+        <rect x="20" y="190" width="160" height="50" rx="10" fill="#8ce99a"/><text x="100" y="221" fill="#2b8a3e">🌾 農業</text>
+        <rect x="190" y="155" width="160" height="85" rx="10" fill="#ffd43b"/><text x="270" y="185" fill="#8a5a00">👕 民生工業</text><text x="270" y="207" font-size="13" fill="#8a5a00">紡織・塑膠・食品</text>
+        <rect x="360" y="120" width="160" height="120" rx="10" fill="#ffa94d"/><text x="440" y="150" fill="#fff">📦 加工出口</text><text x="440" y="172" font-size="13" fill="#fff">家電・電子組裝</text>
+        <rect x="530" y="85" width="160" height="155" rx="10" fill="#ff8fb8"/><text x="610" y="115" fill="#fff">🏭 重工業</text><text x="610" y="137" font-size="13" fill="#fff">鋼鐵・石化・造船</text>
+        <rect x="700" y="50" width="180" height="190" rx="10" fill="#9775fa"/><text x="790" y="80" fill="#fff">💻 高科技</text><text x="790" y="102" font-size="13" fill="#fff">晶圓・AI 晶片</text>
+        <g font-size="14" fill="#6b5f8a"><text x="100" y="180">民國30年代</text><text x="270" y="145">40年代</text><text x="440" y="110">50年代</text><text x="610" y="75">60年代</text><text x="790" y="40">70年代以後</text></g>
+      </g>
+    </svg>
+    <p style="text-align:center;font-weight:800;color:#7048e8">⬆ 產業像爬樓梯，一層一層「升級」！</p>
+  </div>
+  <div class="grid">
+    <div class="mini c1"><b class="t">🌾 第1課</b>政府如何穩定戰後的社會發展？<br>土地改革・美援・加工出口區</div>
+    <div class="mini c2"><b class="t">🛣️ 第2課</b>公共建設為何會改變生活型態？<br>十大建設・中山高・高雄重工業</div>
+    <div class="mini c4"><b class="t">💻 第3課</b>臺灣為什麼能成為世界的科技島？<br>科學園區・晶圓・台積電</div>
+  </div>
+  <div class="card">
+    <h2>🏷️ 看懂標籤</h2>
+    <p><span class="pill hot">⭐ 常考</span> 考卷最常出現，一定要背！ <span class="pill hard">🔥 難題</span> 容易被陷阱騙 <span class="pill mid">🙂 中等</span> 想一下就會 <span class="pill gift">💎 資優</span> 課本以外的加深知識（不一定會考，但會讓你更懂）</p>
+    <p>📌 建議順序：讀第1→2→3課 ➜ 背記憶術 ➜ 玩年代換算 ➜ 做練習題 ➜ 看錯題紀錄再複習。</p>
+  </div>
+</section>
+
+<!-- ================= L1 ================= -->
+<section id="l1">
+  <div class="card">
+    <h2><span class="lesson-tag">第1課</span>政府如何穩定戰後的社會發展？</h2>
+    <div class="warn">😣 <b>戰後初期（民國34年後）的困境</b> <span class="pill hot">⭐ 常考</span><br>
+      ① <mark>物價飛漲</mark>、② <mark>糧食不足</mark>、③ 民生物資短缺、④ 公共設施被戰火破壞 → 人民生活困苦。<br>
+      <span class="red">陷阱：</span>「戰後物價平穩、糧食充足」❌、「都市國際化、收入大增」❌</div>
+  </div>
+
+  <div class="card">
+    <h2>🌾 一、土地改革：先讓農民吃飽、安心種田</h2>
+    <p>政府解決問題的第一步：<mark>改善農民生活</mark>。</p>
+    <svg viewBox="0 0 900 230" role="img" aria-label="土地改革三步驟">
+      <g font-weight="800" text-anchor="middle">
+        <rect x="10" y="30" width="270" height="170" rx="22" fill="#ffe3ec" stroke="#ff6fa5" stroke-width="4"/>
+        <text x="145" y="70" font-size="24" fill="#d6336c">① 三七五減租</text><text x="145" y="100" font-size="17" fill="#3b2f5c">民國38年</text>
+        <text x="145" y="135" font-size="16" fill="#3b2f5c">地租最多收成的37.5%</text><text x="145" y="162" font-size="16" fill="#3b2f5c">➜ 租金負擔變輕</text>
+        <path d="M285 115 l35 0" stroke="#ff922b" stroke-width="8" marker-end="url(#ar)"/>
+        <rect x="325" y="30" width="250" height="170" rx="22" fill="#fff4e6" stroke="#ff922b" stroke-width="4"/>
+        <text x="450" y="70" font-size="24" fill="#d9480f">② 公地放領</text><text x="450" y="100" font-size="17" fill="#3b2f5c">民國40年 💎</text>
+        <text x="450" y="135" font-size="16" fill="#3b2f5c">把政府的公有土地</text><text x="450" y="162" font-size="16" fill="#3b2f5c">賣給農民</text>
+        <path d="M580 115 l35 0" stroke="#ff922b" stroke-width="8" marker-end="url(#ar)"/>
+        <rect x="620" y="30" width="270" height="170" rx="22" fill="#ebfbee" stroke="#40c057" stroke-width="4"/>
+        <text x="755" y="70" font-size="24" fill="#2b8a3e">③ 耕者有其田</text><text x="755" y="100" font-size="17" fill="#3b2f5c">民國42年</text>
+        <text x="755" y="135" font-size="16" fill="#3b2f5c">政府向地主收購土地</text><text x="755" y="162" font-size="16" fill="#3b2f5c">再轉售給耕作的農民</text>
+      </g>
+      <defs><marker id="ar" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6z" fill="#ff922b"/></marker></defs>
+    </svg>
+    <p style="font-size:.9rem;color:#6b5f8a">（課本只考 ①③，② 公地放領是教師手冊補充 💎）</p>
+
+    <h3>🧮 換算看懂「三七五」<span class="pill hard">🔥 難題</span></h3>
+    <div class="memo">假設一年收成 <b>100 袋米</b>：<br>
+      ✖ 以前：地主常拿走約一半 ➜ <b>50 袋</b>，農民剩 50 袋<br>
+      ✔ 三七五減租後：地主最多拿 <b>37.5 袋</b>（100 × 37.5% ＝ 100 × 375/1000）➜ 農民至少留 <b>62.5 袋</b><br>
+      👉 農民多了 <b class="red">12.5 袋</b>！所以叫「減租」，農民可以「把大部分收成留下來」。</div>
+
+    <h3>👥 不同角色的改變</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>角色</th><th>改變</th><th>心情</th></tr>
+      <tr><td>👨‍🌾 農民</td><td>租金降低 ➜ 擁有自己的土地，生活漸漸穩定</td><td>😄 開心</td></tr>
+      <tr><td>🎩 地主</td><td>土地被政府<mark>收購（有補償，不是全部沒收）</mark>，收入減少；部分地主拿補償金<mark>轉投資工商業</mark> ➜ 間接促進工商業發展</td><td>😟 擔心</td></tr>
+      <tr><td>👔 政府</td><td>目的：<mark>穩定社會、發展經濟</mark></td><td>🙂</td></tr>
+    </table></div>
+    <div class="warn"><span class="pill hot">⭐ 常考陷阱</span> 「地主的土地與財產全被沒收、要從佃農做起」❌ ➜ 是<b>收購並給補償</b>。</div>
+  </div>
+
+  <div class="card">
+    <h2>🇺🇸 二、美國援助（美援）</h2>
+    <div class="grid">
+      <div class="mini c4"><b class="t">⏰ 時間</b>民國 <mark>40～50年代</mark>（從民國40年＝西元1951年開始）</div>
+      <div class="mini c5"><b class="t">🤔 為什麼美國要幫？ <span class="pill gift">💎</span></b>擔心<b>共產勢力擴張</b>，希望臺灣成為亞洲的<b>反共防線</b>。</div>
+      <div class="mini c6"><b class="t">🎁 給什麼？</b>物資（<mark>麵粉、奶粉</mark>）＋貸款＋技術支援</div>
+    </div>
+    <h3>🍞 美援改變了生活</h3>
+    <div class="grid">
+      <div class="mini c2"><b class="t">🍜 飲食</b>麵粉 ➜ 饅頭、麵條；奶粉 ➜ 牛奶給孩童補營養。<br>麵食與乳製品<mark>普及</mark>。<br><span class="red">陷阱：「米」不是美援主要物資 ❌</span></div>
+      <div class="mini c1"><b class="t">👕 穿著</b>物資缺乏，<mark>麵粉袋</mark>被拿來做成家常服（內褲、衣服）。</div>
+      <div class="mini c3"><b class="t">🌉 建設</b>貸款＋技術 ➜ 興建基礎建設（見下表）</div>
+    </div>
+    <h3>🏞️ 兩大美援建設比一比 <span class="pill hot">⭐ 常考</span></h3>
+    <div class="tbl-wrap"><table>
+      <tr><th></th><th>💧 石門水庫</th><th>🌉 西螺大橋</th></tr>
+      <tr><td>位置</td><td>北部（桃園）</td><td>連接<mark>彰化縣 ↔ 雲林縣</mark></td></tr>
+      <tr><td>重點</td><td>臺灣<mark>第一座多功能水庫</mark></td><td>日治時期規劃，<mark>美援支助完工</mark></td></tr>
+      <tr><td>功能</td><td>灌溉、發電、給水、防洪、觀光 ➜ 提供<mark>北部</mark>用水</td><td>交通要道，促進人力與貨物流通</td></tr>
+      <tr><td>今日</td><td>公園、步道，休閒好去處</td><td>地標、觀光景點</td></tr>
+    </table></div>
+    <div class="warn"><span class="pill hard">🔥 陷阱</span> 「石門水庫提供<b>中部</b>農業灌溉」❌ ➜ 是<b>北部</b>！</div>
+  </div>
+
+  <div class="card">
+    <h2>📦 三、民生工業 → 加工出口區</h2>
+    <div class="grid">
+      <div class="mini c6"><b class="t">民國40年代：民生工業</b><mark>紡織、塑膠、食品</mark>（滿足日常需求）<br>代表：大同電扇<br><span class="red">陷阱：不包括「軍事」❌</span></div>
+      <div class="mini c2"><b class="t">民國50年代：加工出口區 <span class="pill hot">⭐</span></b>第一個設在<mark>高雄</mark>（高雄港）<br>原因：<mark>鄰近港口，方便進口原料、出口產品</mark><br>方式：外國公司來設廠，組裝家電／電子 ➜ <mark>海運</mark>外銷<br>意義：「<b>Made in Taiwan</b>」高品質製造的起點</div>
+    </div>
+    <svg viewBox="0 0 900 170" role="img" aria-label="加工出口流程">
+      <g font-weight="800" font-size="17" text-anchor="middle">
+        <rect x="10" y="40" width="190" height="90" rx="18" fill="#d0ebff"/><text x="105" y="80">🚢 進口零件</text><text x="105" y="108" font-size="14">原料從港口進來</text>
+        <text x="225" y="92" font-size="30" fill="#ff922b">➜</text>
+        <rect x="250" y="40" width="190" height="90" rx="18" fill="#ffe8cc"/><text x="345" y="80">🏭 工廠組裝</text><text x="345" y="108" font-size="14">加工成家電、電子</text>
+        <text x="465" y="92" font-size="30" fill="#ff922b">➜</text>
+        <rect x="490" y="40" width="190" height="90" rx="18" fill="#d3f9d8"/><text x="585" y="80">🚢 海運出口</text><text x="585" y="108" font-size="14">賣到世界各地</text>
+        <text x="705" y="92" font-size="30" fill="#ff922b">➜</text>
+        <rect x="730" y="40" width="160" height="90" rx="18" fill="#ffd6e7"/><text x="810" y="80">💰 賺外匯</text><text x="810" y="108" font-size="14">MIT 起點</text>
+      </g>
+    </svg>
+    <h3>👫 加工出口區帶來的社會變化 <span class="pill hot">⭐ 常考</span></h3>
+    <ul>
+      <li>提供<mark>大量就業機會</mark></li>
+      <li>吸引<mark>農村青年移入</mark>都市（農村人口減少，<span class="red">不是</span>農業人口增加）</li>
+      <li>帶動<mark>住宅、道路、鐵路</mark>等建設</li>
+      <li><mark>女性</mark>進入工廠，改善家庭經濟、<b>提升女性地位</b></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= L2 ================= -->
+<section id="l2">
+  <div class="card">
+    <h2><span class="lesson-tag">第2課</span>公共建設為何會改變生活型態？</h2>
+    <div class="grid">
+      <div class="mini c3"><b class="t">👍 公共建設的好處</b>交通便利、帶動經濟、縮短往來時間</div>
+      <div class="mini c1"><b class="t">👎 要注意的地方</b>需要<mark>大量金錢和時間</mark>；營運不善會成為<mark>政府財政負擔</mark></div>
+      <div class="mini c4"><b class="t">🎫 生活例子</b>TPASS 行政院通勤月票（民國112年）：臺鐵、捷運、公車都能用；<mark>依地區分成多種方案</mark></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🏗️ 一、十大建設（民國60年代）</h2>
+    <h3>為什麼要蓋？</h3>
+    <div class="grid">
+      <div class="mini c6"><b class="t">🏠 國內問題</b>用電需求上升（生產活動擴大）、道路運量不夠、工業原料不足</div>
+      <div class="mini c2"><b class="t">🌍 國際問題：能源危機 <span class="pill hard">🔥</span></b><mark>西亞</mark>爆發戰爭 ➜ 產油國<mark>限制石油出口</mark> ➜ 油價<mark>大漲</mark> ➜ 全球經濟不景氣<br><span class="red">陷阱：不是「臺灣油田枯竭」、不是「油價下跌」</span></div>
+      <div class="mini c5"><b class="t">🎯 目的</b>提升<mark>國家競爭力</mark>：改善交通、強化能源、提升重工業</div>
+    </div>
+    <h3>🗺️ 十大建設分類圖 <span class="pill hot">⭐ 常考</span></h3>
+    <svg viewBox="0 0 900 330" role="img" aria-label="十大建設分類">
+      <g font-weight="800" text-anchor="middle">
+        <rect x="10" y="10" width="420" height="310" rx="24" fill="#e7f5ff" stroke="#4dabf7" stroke-width="4"/>
+        <text x="220" y="48" font-size="24" fill="#1971c2">🚗 交通運輸 6 項</text>
+        <g font-size="18" fill="#3b2f5c">
+          <rect x="30" y="70" width="180" height="50" rx="14" fill="#fff"/><text x="120" y="102">中山高速公路</text>
+          <rect x="230" y="70" width="180" height="50" rx="14" fill="#fff"/><text x="320" y="102">北迴鐵路</text>
+          <rect x="30" y="135" width="180" height="50" rx="14" fill="#fff"/><text x="120" y="167">鐵路電氣化</text>
+          <rect x="230" y="135" width="180" height="50" rx="14" fill="#fff"/><text x="320" y="167">桃園國際機場</text>
+          <rect x="30" y="200" width="180" height="50" rx="14" fill="#fff"/><text x="120" y="232">臺中港</text>
+          <rect x="230" y="200" width="180" height="50" rx="14" fill="#fff"/><text x="320" y="232">蘇澳港</text>
+          <text x="220" y="295" font-size="16" fill="#1971c2">口訣：高・北・電・機＋兩港口</text>
+        </g>
+        <rect x="445" y="10" width="445" height="200" rx="24" fill="#fff0f6" stroke="#ff6fa5" stroke-width="4"/>
+        <text x="667" y="48" font-size="24" fill="#c2255c">🏭 重工業 3 項</text>
+        <g font-size="18" fill="#3b2f5c">
+          <rect x="460" y="70" width="130" height="50" rx="14" fill="#fff"/><text x="525" y="102">大煉鋼廠</text>
+          <rect x="602" y="70" width="130" height="50" rx="14" fill="#fff"/><text x="667" y="102">造船廠</text>
+          <rect x="744" y="70" width="135" height="50" rx="14" fill="#fff"/><text x="811" y="102">石油化學</text>
+          <text x="667" y="165" font-size="16" fill="#c2255c">口訣：鋼・船・石化</text>
+          <text x="667" y="192" font-size="14" fill="#6b5f8a">重工業＝製造大型原料或設備</text>
+        </g>
+        <rect x="445" y="225" width="445" height="95" rx="24" fill="#fff9db" stroke="#fab005" stroke-width="4"/>
+        <text x="667" y="262" font-size="24" fill="#e67700">⚡ 能源 1 項</text>
+        <text x="667" y="298" font-size="18" fill="#3b2f5c">核能發電廠</text>
+      </g>
+    </svg>
+    <div class="memo"><span class="big">6＋3＋1＝10</span>　「交通六、重工三、能源一」<br>
+      🎵 口訣：<b>「高北電機兩港口，鋼船石化一核電」</b></div>
+    <div class="warn"><span class="pill hard">🔥 陷阱</span> <b>不是</b>十大建設的：石門水庫、西螺大橋（美援）、加工出口區、新竹科學園區、高鐵、捷運。<br>
+      ⚠ 十大建設也帶來隱憂：建設集中在少數都市 ➜ 人口與資源向都市聚集 ➜ <mark>城鄉差距擴大</mark>、區域發展不均。</div>
+  </div>
+
+  <div class="card">
+    <h2>🛣️ 二、交通建設改變土地利用</h2>
+    <ul>
+      <li>臺灣地形<mark>南北狹長</mark>，日治時期已有西部縱貫鐵路（<span class="red">不是</span>戰後政府規劃）。</li>
+      <li><mark>民國67年</mark>中山高速公路（今國道1號）通車：<mark>基隆 ⇄ 高雄</mark>，大幅縮短運輸時間。<span class="pill hot">⭐</span></li>
+      <li>之後增建<b>國道3號、西部高速鐵路</b> ➜ 形成<mark>南北一日生活圈</mark>。</li>
+    </ul>
+    <h3>🔁 「現象→問題→行動」臺中市案例</h3>
+    <svg viewBox="0 0 900 200" role="img" aria-label="臺中案例因果">
+      <g font-weight="800" text-anchor="middle" font-size="17">
+        <rect x="10" y="20" width="270" height="160" rx="20" fill="#d3f9d8"/><text x="145" y="55" font-size="21" fill="#2b8a3e">🔎 現象</text>
+        <text x="145" y="90">高速公路旁</text><text x="145" y="115">農田 ➜ 工業區、住宅區</text><text x="145" y="140">商店增加、工作機會多</text>
+        <text x="300" y="108" font-size="30" fill="#ff922b">➜</text>
+        <rect x="320" y="20" width="270" height="160" rx="20" fill="#ffe3e3"/><text x="455" y="55" font-size="21" fill="#e03131">⚠ 問題</text>
+        <text x="455" y="90">人口增加（民國66→76年）</text><text x="455" y="115">交通壅塞</text><text x="455" y="140">噪音、空氣汙染</text>
+        <text x="610" y="108" font-size="30" fill="#ff922b">➜</text>
+        <rect x="630" y="20" width="260" height="160" rx="20" fill="#d0ebff"/><text x="760" y="55" font-size="21" fill="#1971c2">🛠 行動</text>
+        <text x="760" y="90">政府陸續興建</text><text x="760" y="115">其他交通建設</text><text x="760" y="140">與大眾運輸工具</text>
+      </g>
+    </svg>
+    <p>💡 重點觀念：<mark>交通建設愈完善 ➜ 人口愈集中</mark>；要在「交通發展、產業需求、生活品質」之間取得<b>平衡</b>。</p>
+  </div>
+
+  <div class="card">
+    <h2>🏭 三、高雄重工業：聚集與轉型</h2>
+    <h3>為什麼要發展重工業？</h3>
+    <p>建工廠、造機械、運貨物都要大量<mark>鋼鐵與石油原料</mark>；全靠進口 ➜ <mark>成本高、容易受國際情勢影響</mark>。</p>
+    <h3>為什麼選高雄？ <span class="pill hot">⭐ 常考</span></h3>
+    <div class="grid">
+      <div class="mini c4"><b class="t">① 有基礎</b><mark>日治時期</mark>就已發展煉鐵、造船（<span class="red">不是臺中</span>，也不是戰後才開始）</div>
+      <div class="mini c3"><b class="t">② 港口好</b>擁有良好的<mark>港口</mark>與交通條件</div>
+      <div class="mini c2"><b class="t">③ 能擴大</b>具備擴大工業聚落的基礎</div>
+    </div>
+    <p class="red">✖ 錯誤選項常見：「較不容易造成空氣汙染」「薪資較高」「有豐富礦藏」</p>
+    <h3>🔄 高雄的變化</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>以前：重工業中心</th><th>問題</th><th>改善與轉型（今日）</th></tr>
+      <tr><td>🔩 鋼鐵、🛢 石化、🚢 造船<br>人口密集都市</td>
+      <td>空氣與河川汙染<br>居民、民間團體用<mark>陳情、集會</mark>表達訴求</td>
+      <td>空汙管制、廢水處理、增設公園綠地<br>🌳 垃圾場 ➜ <mark>高雄都會公園</mark><br>🛥 造船廠發展<mark>觀光遊艇</mark><br>⛵ <mark>媽祖海巡</mark>（宗教＋海洋）<br>➜ 觀光與文化的<b>國際港灣都市</b></td></tr>
+    </table></div>
+  </div>
+</section>
+
+<!-- ================= L3 ================= -->
+<section id="l3">
+  <div class="card">
+    <h2><span class="lesson-tag">第3課</span>臺灣為什麼能成為世界的科技島？</h2>
+    <h3>🤔 為什麼要轉向高科技？ <span class="pill hard">🔥 難題</span></h3>
+    <div class="grid">
+      <div class="mini c1"><b class="t">💸 工資上升</b>生活水準提高，<mark>低廉勞動力的優勢不再</mark></div>
+      <div class="mini c3"><b class="t">🌱 環保意識抬頭</b>重工業汙染被重視</div>
+      <div class="mini c4"><b class="t">🌏 國外競爭</b>國外<mark>低價產品</mark>的競爭壓力</div>
+    </div>
+    <div class="warn"><span class="pill hard">🔥 陷阱</span> 「由於<b>工資低廉</b>，促使轉型高科技」❌ ➜ 是<b>工資上升、低廉優勢不再</b>！</div>
+  </div>
+
+  <div class="card">
+    <h2>🔬 一、新竹科學園區</h2>
+    <p><mark>民國69年</mark>，政府在<mark>新竹</mark>設立<b>第一座科學園區</b>：引進科技設備與新技術、<b>企業與大學合作</b>、培育人才、吸引國內外企業。<span class="pill hot">⭐</span></p>
+    <svg viewBox="0 0 900 260" role="img" aria-label="新竹科學園區產業聚落">
+      <g font-weight="800" text-anchor="middle">
+        <circle cx="450" cy="130" r="85" fill="#9775fa"/><text x="450" y="125" font-size="22" fill="#fff">新竹</text><text x="450" y="153" font-size="22" fill="#fff">科學園區</text>
+        <line x1="370" y1="95" x2="200" y2="60" stroke="#b197fc" stroke-width="5"/><line x1="370" y1="165" x2="200" y2="200" stroke="#b197fc" stroke-width="5"/><line x1="535" y1="130" x2="680" y2="130" stroke="#b197fc" stroke-width="5"/>
+        <rect x="40" y="25" width="200" height="65" rx="18" fill="#ffd6e7"/><text x="140" y="65" font-size="18">🔬 工研院</text>
+        <rect x="40" y="170" width="200" height="65" rx="18" fill="#d3f9d8"/><text x="140" y="200" font-size="17">🎓 清華大學</text><text x="140" y="223" font-size="17">🎓 陽明交通大學</text>
+        <rect x="660" y="90" width="220" height="80" rx="18" fill="#ffe8cc"/><text x="770" y="125" font-size="17">提供研究場所</text><text x="770" y="150" font-size="17">＋人才來源</text>
+      </g>
+    </svg>
+    <p>➜ 形成<mark>高科技產業聚落</mark>（大家聚在一起，互相合作也互相競爭）。之後電腦、資訊電子成為<mark>外銷主力</mark>，政府在各地陸續設立科學園區（新竹、中部、南部）。</p>
+    <h3>⚖️ 科學園區的 T 表 <span class="pill hot">⭐ 常考</span></h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>😀 帶來優點</th><th>😥 產生問題</th></tr>
+      <tr><td>大量就業機會</td><td>用水、用電需求增加；廢水、廢棄物</td></tr>
+      <tr><td>吸引人口移入</td><td><mark>交通壅塞</mark>、通勤時間變長（例：臺北<b>內湖</b>）</td></tr>
+      <tr><td>帶動教育、商業、醫療發展</td><td>徵收農地 ➜ 衝擊生態與農業；<mark>排擠其他產業的土地需求</mark></td></tr>
+      <tr><td>居民收入增加</td><td>房價、租金上升；產業過度集中 ➜ 區域失衡</td></tr>
+    </table></div>
+    <p class="red">✏ 考法：「下列何者<b>不是</b>正面效益？」➜ 答「排擠其他產業的土地需求」</p>
+  </div>
+
+  <div class="card">
+    <h2>🏆 二、高科技產業的成就與省思</h2>
+    <div class="grid">
+      <div class="mini c5"><b class="t">💿 晶圓是什麼？</b>製作各種<b>晶片</b>的基礎，手機、電腦、汽車自動駕駛、<b>AI</b> 都需要它。製造需要<b>極高技術</b>。</div>
+      <div class="mini c6"><b class="t">🥇 世界第一</b>民國114年臺灣高階晶圓<mark>市占率約76%</mark>（超過七成）全球第一。</div>
+      <div class="mini c4"><b class="t">🌐 跨國企業來臺</b>輝達設立臺灣總部、Google 設研發中心 ➜ 臺灣是<b>科技產業重要據點</b>；臺灣也有<mark>設計晶片</mark>的能力。</div>
+    </div>
+    <svg viewBox="0 0 900 230" role="img" aria-label="全球晶圓市占率長條圖">
+      <rect x="0" y="0" width="900" height="230" rx="20" fill="#f8f9ff"/>
+      <text x="450" y="30" text-anchor="middle" font-size="18" font-weight="800">全球高階晶圓市占率（民國114年）</text>
+      <g font-size="17" font-weight="800">
+        <text x="20" y="72">🇹🇼 臺灣</text><rect x="130" y="52" width="608" height="30" rx="8" fill="#ff6fa5"/><text x="748" y="74">76%</text>
+        <text x="20" y="117">中國</text><rect x="130" y="97" width="72" height="30" rx="8" fill="#ffc078"/><text x="212" y="119">9%</text>
+        <text x="20" y="162">韓國</text><rect x="130" y="142" width="56" height="30" rx="8" fill="#74c0fc"/><text x="196" y="164">7%</text>
+        <text x="20" y="207">美國／其他</text><rect x="130" y="187" width="32" height="30" rx="8" fill="#b197fc"/><text x="172" y="209">各4%</text>
+      </g>
+    </svg>
+    <h3>🤔 經濟奇蹟的省思 <span class="pill hot">⭐ 常考</span></h3>
+    <p>戰後經濟快速發展 ➜ 獲得「<mark>經濟奇蹟</mark>」美譽。但也帶來：<mark>土地、水資源、電力需求提高</mark>、土地開發、<mark>從業人員工時過長</mark>（不是薪資過低）。</p>
+    <div class="memo">未來要兼顧 3 件事：<span class="big">產業升級＋區域均衡＋環境永續</span></div>
+  </div>
+
+  <div class="card">
+    <h2>🏔️ 三、半導體巨人：台積電（護國神山）</h2>
+    <div class="grid">
+      <div class="mini c1"><b class="t">📅 創立</b><mark>民國76年</mark>（西元1987年），<b>張忠謀</b>創立</div>
+      <div class="mini c2"><b class="t">💡 創新模式</b>以前大公司「自己設計、自己製造」；台積電：<mark>「只專心幫別人製造，不自己設計產品」</mark>＝<b>專業晶圓製造（代工）</b></div>
+      <div class="mini c3"><b class="t">💧 永續</b><mark>一滴水平均用3.5次</mark>、國內第一座民營<b>再生水廠</b>、降低 PM2.5</div>
+    </div>
+    <h3>🍳 用「餐廳」比喻晶圓代工</h3>
+    <svg viewBox="0 0 900 190" role="img" aria-label="晶圓代工比喻">
+      <g font-weight="800" text-anchor="middle" font-size="17">
+        <rect x="10" y="20" width="260" height="150" rx="20" fill="#e7f5ff"/><text x="140" y="55" font-size="20">👩‍🍳 設計師（食譜）</text><text x="140" y="90">輝達、蘋果</text><text x="140" y="118">專心想新點子</text><text x="140" y="145">設計晶片</text>
+        <text x="300" y="100" font-size="30" fill="#ff922b">➜</text>
+        <rect x="330" y="20" width="260" height="150" rx="20" fill="#fff0f6"/><text x="460" y="55" font-size="20">🏭 超強中央廚房</text><text x="460" y="90">台積電</text><text x="460" y="118">照食譜做出來</text><text x="460" y="145">只製造、不設計</text>
+        <text x="620" y="100" font-size="30" fill="#ff922b">➜</text>
+        <rect x="650" y="20" width="240" height="150" rx="20" fill="#ebfbee"/><text x="770" y="55" font-size="20">📱 成品</text><text x="770" y="90">手機、電腦</text><text x="770" y="118">電動車、AI</text><text x="770" y="145">的「大腦」</text>
+      </g>
+    </svg>
+    <div class="deep">💬 思考：缺水時，水要先給「產值高的工廠」還是「生活與農業灌溉」？——沒有標準答案，要聽不同角色的想法並找配套措施（節水、再生水）。</div>
+  </div>
+</section>
+
+<!-- ================= MEMORY ================= -->
+<section id="mem">
+  <div class="card">
+    <h2>🧠 超強記憶術</h2>
+    <h3>① 年代口訣：「美加十科，捷高」</h3>
+    <div class="memo"><span class="big">4美、5加、6十、7科、8捷、9高</span><br>
+      🎈 故事記法：<b>「美國加拿大的十個科學家，搭捷運再坐高鐵」</b><br>
+      民國 <b>40</b>年代 美援 ➜ <b>50</b> 加工出口區 ➜ <b>60</b> 十大建設 ➜ <b>70</b> 科學園區 ➜ <b>80</b> 臺北捷運 ➜ <b>90</b> 高鐵（一日生活圈）</div>
+    <h3>② 精確年份：「38減租、42有田、55加工、67高速、69科學、76台積」</h3>
+    <div class="memo">🎵 唸成節奏：<b>「三八減，四二田，五五加工，六七通車，六九竹科，七六神山」</b></div>
+    <h3>③ 十大建設：「交六、重三、能一」</h3>
+    <div class="memo"><b>「高北電機兩港口，鋼船石化一核電」</b></div>
+    <h3>④ 高雄重工業：「鋼石船」</h3>
+    <div class="memo">諧音 <b>「剛（鋼）時（石）穿（船）」</b>：高雄的工人「剛時穿」上工作服！</div>
+    <h3>⑤ 美援三寶：「粉、粉、袋」</h3>
+    <div class="memo"><b>麵粉</b>（麵食）、<b>奶粉</b>（牛奶）、<b>麵粉袋</b>（做衣服）＋兩個建設：<b>北水庫、中大橋</b>（石門水庫在北，西螺大橋在中部彰雲）</div>
+    <h3>⑥ 選高雄的理由：「老、港、大」</h3>
+    <div class="memo"><b>老</b>：日治就有基礎　<b>港</b>：港口好　<b>大</b>：可以擴大工業聚落</div>
+  </div>
+
+  <div class="card">
+    <h2>🔀 容易搞混的「差異比較」</h2>
+    <div class="tbl-wrap"><table>
+      <tr><th>比較</th><th>三七五減租</th><th>耕者有其田</th></tr>
+      <tr><td>年份</td><td>民國38年</td><td>民國42年</td></tr>
+      <tr><td>土地是誰的？</td><td>還是<b>地主</b>的（只降租金）</td><td>變成<b>農民</b>的（政府收購再轉售）</td></tr>
+      <tr><td>關鍵字</td><td>降低<mark>租金</mark></td><td>擁有<mark>土地</mark></td></tr>
+    </table></div>
+    <div class="tbl-wrap"><table>
+      <tr><th>比較</th><th>加工出口區</th><th>重工業區</th><th>科學園區</th></tr>
+      <tr><td>年代</td><td>民國50年代</td><td>民國60年代</td><td>民國69年起</td></tr>
+      <tr><td>第一個在</td><td><mark>高雄</mark></td><td><mark>高雄</mark>（中心）</td><td><mark>新竹</mark></td></tr>
+      <tr><td>做什麼</td><td>組裝家電、電子後外銷</td><td>鋼鐵、石化、造船</td><td>晶圓、電腦、資訊電子</td></tr>
+      <tr><td>靠什麼</td><td>便宜勞力＋港口</td><td>原料自給＋港口</td><td><mark>技術＋人才（大學）</mark></td></tr>
+      <tr><td>帶來</td><td>農村人口移入、女性就業</td><td>汙染 ➜ 轉型觀光</td><td>就業、交通壅塞、土地排擠</td></tr>
+    </table></div>
+    <div class="tbl-wrap"><table>
+      <tr><th>比較</th><th>民生（輕）工業</th><th>重工業</th><th>高科技產業</th></tr>
+      <tr><td>產品</td><td>紡織、塑膠、食品</td><td>鋼鐵、石化、船</td><td>晶片、電腦</td></tr>
+      <tr><td>需要</td><td>大量人力</td><td>大量原料、能源</td><td>高技術、研發、人才</td></tr>
+      <tr><td>口訣</td><td>「吃、穿、用」</td><td>「大、重、粗」</td><td>「小、精、貴」</td></tr>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h2>🃏 翻翻卡（點一下翻面）</h2>
+    <div class="grid" id="cards"></div>
+  </div>
+</section>
+
+<!-- ================= TIME ================= -->
+<section id="time">
+  <div class="card">
+    <h2>⏳ 民國 ⇄ 西元 換算機</h2>
+    <div class="memo"><span class="big">西元 ＝ 民國 ＋ 1911</span>　　<span class="big">民國 ＝ 西元 － 1911</span><br>
+      🧠 記法：民國元年＝西元<b>1912</b>年，所以差 <b>1911</b>（「一九一一，一加就到」）。<br>
+      🔍 驗算小技巧：民國年數「＋11」再看前兩位「19」或「20」：民國69 ➜ 69＋11＝80 ➜ 西元19<b>80</b>；民國96 ➜ 96＋11＝107 ➜ 西元<b>2007</b>（超過100就進位成20xx）</div>
+    <div class="conv">民國 <input type="number" id="roc" value="69"> 年 ➜ 西元 <span class="out" id="adOut">1980</span> 年</div>
+    <div class="conv" style="margin-top:10px">西元 <input type="number" id="ad" value="1987"> 年 ➜ 民國 <span class="out" id="rocOut">76</span> 年</div>
+    <h3>📏 「年代」是什麼意思？ <span class="pill hard">🔥</span></h3>
+    <p>「民國<b>40年代</b>」＝民國<mark>40～49年</mark>（西元1951～1960年）。不是只有「民國40年」那一年喔！</p>
+  </div>
+  <div class="card">
+    <h2>🚂 第二單元時間軸</h2>
+    <svg viewBox="0 0 900 470" role="img" aria-label="時間軸">
+      <line x1="80" y1="20" x2="80" y2="455" stroke="#b197fc" stroke-width="8" stroke-linecap="round"/>
+      <g font-size="17" font-weight="700">
+        <g id="tl"></g>
+      </g>
+    </svg>
+  </div>
+  <div class="card">
+    <h2>🎯 換算小挑戰</h2>
+    <p id="chQ" style="font-size:1.2rem;font-weight:800"></p>
+    <div class="conv"><input type="number" id="chA"> <button class="btn b" id="chBtn">檢查</button> <button class="btn o" id="chNew">換一題</button></div>
+    <p id="chR" style="font-weight:800"></p>
+  </div>
+</section>
+
+<!-- ================= DEEP ================= -->
+<section id="deep">
+  <div class="card">
+    <h2>💎 資優加深教材（課本延伸）</h2>
+    <div class="deep"><h3>1. 為什麼土地改革能讓「工業」也發展？</h3>
+      地主拿到的補償是<b>實物土地債券＋公營事業股票</b>（臺泥、臺紙、農林、工礦四大公司）。地主變成「股東」，資金從<b>農業流向工商業</b>。這就是課本說的「間接促進工商業發展」。<br>
+      🔗 連鎖反應：農民有田 ➜ 更努力生產 ➜ 糧食增加 ➜ 社會穩定 ➜ 有能力發展工業。</div>
+    <div class="deep"><h3>2. 石門水庫的錢從哪裡來？</h3>
+      總經費約新臺幣 33.9 億元，其中<b>美援貸款約 19 億元，占 56%</b>（超過一半）！這說明了「美援對戰後重建有多重要」。<br>
+      🧮 換算練習：33.9 億 × 56% ≈ 19 億。</div>
+    <div class="deep"><h3>3. 能源危機的國際關係</h3>
+      民國62年（西元1973年）第四次中東戰爭，<b>石油輸出國組織（OPEC）</b>為了打擊支持以色列的國家，限制出口、提高油價。臺灣幾乎所有石油都靠進口，所以受到很大影響 ➜ 政府更下定決心推動十大建設（含核能發電，分散能源風險）。</div>
+    <div class="deep"><h3>4. 經濟學小概念：比較利益與產業升級</h3>
+      每個國家會做「自己最划算」的事：<br>
+      早期臺灣：工資低 ➜ 適合<b>勞力密集</b>（紡織、組裝）<br>
+      工資上升後：再做勞力密集就輸給更便宜的國家 ➜ 必須轉向<b>技術密集</b>（晶圓）。<br>
+      這叫做「<b>產業升級</b>」——用腦力取代勞力！</div>
+    <div class="deep"><h3>5. 產業聚落（群聚效應）</h3>
+      同類型公司聚在同一區（像竹科），好處：① 上下游零件好買、② 人才互相流動、③ 消息傳得快，<b>競爭讓品質與創新更好</b>。但也會讓人口、車輛、房價都集中上升。</div>
+    <div class="deep"><h3>6. 晶圓是怎麼做出來的？</h3>
+      <svg viewBox="0 0 900 140" role="img" aria-label="晶圓製造流程">
+        <g font-weight="800" text-anchor="middle" font-size="16">
+          <rect x="5" y="30" width="160" height="80" rx="16" fill="#fff3bf"/><text x="85" y="65">🏖 沙子</text><text x="85" y="90" font-size="13">提煉出矽</text>
+          <text x="180" y="78" fill="#ff922b" font-size="24">➜</text>
+          <rect x="200" y="30" width="160" height="80" rx="16" fill="#ffe8cc"/><text x="280" y="65">🕯 單晶矽柱</text><text x="280" y="90" font-size="13">高溫熔化拉長</text>
+          <text x="375" y="78" fill="#ff922b" font-size="24">➜</text>
+          <rect x="395" y="30" width="160" height="80" rx="16" fill="#ffd6e7"/><text x="475" y="65">💿 切片拋光</text><text x="475" y="90" font-size="13">＝晶圓</text>
+          <text x="570" y="78" fill="#ff922b" font-size="24">➜</text>
+          <rect x="590" y="30" width="140" height="80" rx="16" fill="#e5dbff"/><text x="660" y="65">✨ 刻電路</text><text x="660" y="90" font-size="13">無塵室</text>
+          <text x="745" y="78" fill="#ff922b" font-size="24">➜</text>
+          <rect x="765" y="30" width="130" height="80" rx="16" fill="#d3f9d8"/><text x="830" y="65">🧠 晶片</text><text x="830" y="90" font-size="13">切割封裝</text>
+        </g>
+      </svg>
+      一片晶圓可以切出很多顆晶片；電路線寬只有幾奈米（頭髮的上萬分之一），所以需要「無塵室」，連一粒灰塵都不行！</div>
+    <div class="deep"><h3>7. 和 SDGs 的連結</h3>
+      本單元對應 <b>SDG 8 尊嚴就業與經濟發展</b>、<b>SDG 9 產業創新與基礎設施</b>。台積電省水、再生水廠、降低 PM2.5 也連到 SDG 6（淨水）與 SDG 13（氣候行動）。</div>
+    <div class="deep"><h3>8. 🗣 資優思辨題（說說看）</h3>
+      ① 如果你是戰後的地主，你會怎麼利用補償金？為什麼？<br>
+      ② 為什麼許多縣市「爭取」設科學園區，但當地居民有時「反對」擴建？請用 T 表列出不同角色的立場。<br>
+      ③ 除了高科技，臺灣未來還有什麼產業可能有競爭力？（提示：觀光、文化創意、綠能、醫療照護…）<br>
+      ④ 「護國神山」的稱號有什麼好處？如果一個國家太依賴單一產業，可能有什麼風險？</div>
+  </div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section id="quiz">
+  <div class="card">
+    <h2>✏️ 練習題（40題）</h2>
+    <p>選了就會馬上告訴你對錯和解析。黃色框框＝<b>重點必練題</b>。</p>
+    <div class="filters" id="filt">
+      <button data-f="all" class="on">全部</button><button data-f="1">第1課</button><button data-f="2">第2課</button><button data-f="3">第3課</button>
+      <button data-f="hot">⭐ 常考</button><button data-f="hard">🔥 難題</button><button data-f="mid">🙂 中等</button><button data-f="wrong">📕 上次錯題</button>
+    </div>
+    <div class="bar"><div id="pbar"></div></div>
+    <p class="score" id="live">已作答 0 題，答對 0 題</p>
+  </div>
+  <div id="qlist"></div>
+  <div class="card" style="text-align:center">
+    <button class="btn p" id="submit">📒 交卷並記錄成績</button>
+    <button class="btn b" id="reset">🔄 重新作答</button>
+    <p id="saveMsg" style="font-weight:800"></p>
+  </div>
+</section>
+
+<!-- ================= RECORD ================= -->
+<section id="rec">
+  <div class="card">
+    <h2>📒 我的學習紀錄</h2>
+    <p>成績會存在這台平板的瀏覽器裡（換瀏覽器或清除資料就會不見喔）。</p>
+    <ul class="hist" id="hist"></ul>
+    <h3>📕 最近一次的錯題</h3>
+    <div id="wrongBox"></div>
+    <button class="btn o" id="clear">🗑 清除紀錄</button>
+  </div>
+</section>
+</main>
+<footer>🌈 社會6上 第二單元自學寶典｜依翰林版課本、教師手冊與單元卷、期中考卷整理</footer>
+
+<script>
+/* ---------- 分頁 ---------- */
+const nav=document.getElementById('nav');
+nav.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  nav.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll('main>section').forEach(s=>s.classList.toggle('on',s.id===b.dataset.s));
+  if(b.dataset.s==='rec')renderRec();window.scrollTo({top:0,behavior:'smooth'});});
+
+/* ---------- 儲存（安全包裝） ---------- */
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}};
+
+/* ---------- 翻翻卡 ---------- */
+const flash=[["三七五減租","民國38年｜地租最多收成37.5%｜降低農民租金負擔"],["耕者有其田","民國42年｜政府向地主收購土地，轉售給農民"],
+["美援物資","麵粉、奶粉（麵粉袋還做成衣服）"],["石門水庫","第一座多功能水庫｜北部用水"],["西螺大橋","連接彰化縣 ↔ 雲林縣"],
+["第一個加工出口區","民國50年代｜高雄｜近港口方便進出口"],["能源危機","西亞戰爭→限制石油出口→油價大漲"],["十大建設","交通6＋重工業3＋能源1"],
+["中山高速公路","民國67年通車｜基隆↔高雄"],["高雄重工業","鋼鐵・石化・造船"],["第一座科學園區","民國69年｜新竹"],["台積電","民國76年｜張忠謀｜專業晶圓代工｜護國神山"]];
+document.getElementById('cards').innerHTML=flash.map(([f,b])=>`<div class="flip" onclick="this.classList.toggle('on')"><div class="in"><div class="f">${f}</div><div class="bk">${b}</div></div></div>`).join('');
+
+/* ---------- 時間軸 ---------- */
+const tl=[[34,"第二次世界大戰結束，中華民國接收臺灣","#adb5bd"],[38,"三七五減租","#ff6fa5"],[40,"美援開始（40～50年代）","#4dabf7"],[42,"耕者有其田","#ff6fa5"],
+[55,"高雄設立第一個加工出口區","#ff922b"],[62,"能源危機・十大建設推動","#fab005"],[67,"中山高速公路全線通車","#fab005"],[69,"新竹科學園區成立","#9775fa"],
+[76,"台積電創立","#9775fa"],[85,"臺北捷運通車","#38d39f"],[96,"臺灣高鐵通車（一日生活圈）","#38d39f"]];
+document.getElementById('tl').innerHTML=tl.map(([y,t,c],i)=>{const yy=40+i*38;
+ return `<circle cx="80" cy="${yy}" r="14" fill="${c}" stroke="#fff" stroke-width="4"/><text x="110" y="${yy+6}" fill="#3b2f5c">民國${y}年（${y+1911}）</text><text x="330" y="${yy+6}" fill="#3b2f5c">${t}</text>`}).join('');
+
+/* ---------- 換算 ---------- */
+const roc=document.getElementById('roc'),ad=document.getElementById('ad');
+roc.oninput=()=>document.getElementById('adOut').textContent=roc.value?(+roc.value+1911):'?';
+ad.oninput=()=>{const v=+ad.value-1911;document.getElementById('rocOut').textContent=ad.value?(v>0?v:'（民國以前）'):'?'};
+let ch;function newCh(){const it=tl[Math.floor(Math.random()*tl.length)];const toAD=Math.random()<.5;
+ ch={ans:toAD?it[0]+1911:it[0]};document.getElementById('chQ').textContent=toAD?`「${it[1]}」在民國${it[0]}年，是西元幾年？`:`「${it[1]}」在西元${it[0]+1911}年，是民國幾年？`;
+ document.getElementById('chA').value='';document.getElementById('chR').textContent='';}
+document.getElementById('chNew').onclick=newCh;
+document.getElementById('chBtn').onclick=()=>{const r=document.getElementById('chR');
+ r.textContent=(+document.getElementById('chA').value===ch.ans)?'🎉 答對了！你是換算高手！':`😅 再想想～答案是 ${ch.ans}（記得 ±1911）`;r.style.color=r.textContent.startsWith('🎉')?'#2b8a3e':'#e03131'};
+newCh();
+
+/* ---------- 題庫 ---------- */
+const TF=["⭕ 對","❌ 錯"];
+const Q=[
+{l:1,tag:["hot"],q:"（是非）戰後初期中華民國政府來到臺灣，當時臺灣物價平穩、糧食充足。",o:TF,a:1,ex:"錯！當時是<b>物價飛漲、糧食不足</b>，人民生活困苦。"},
+{l:1,tag:["hot"],q:"政府於民國38年推動，目的是改善農民生活、降低農民租金負擔的政策是？",o:["耕者有其田","三七五減租","公地放領","十大建設"],a:1,ex:"<b>三七五減租</b>（民國38年）降低租金；耕者有其田（42年）是讓農民擁有土地。"},
+{l:1,tag:["mid"],q:"戰後初期的政府決定先從哪裡著手改善臺灣的困境？",o:["提高政府官員待遇","土地收歸國有","監禁地方知識分子","改善農民生活"],a:3,ex:"先讓農民安心耕作、有穩定收入 ➜ <b>改善農民生活</b>。"},
+{l:1,tag:["hard"],q:"（是非）阿富是戰後大地主，土地改革時他的土地與財產全被政府沒收，必須從佃農開始做起。",o:TF,a:1,ex:"錯！政府是<b>收購</b>土地並給<b>補償</b>，不是全部沒收。"},
+{l:1,tag:["hot"],q:"部分地主在「耕者有其田」政策獲得補償金後，轉而投入哪個領域，間接促進產業發展？",o:["教育業","農業","工商業","醫療業"],a:2,ex:"地主拿補償金<b>投入工商業</b>，間接促進工商業發展。"},
+{l:1,tag:["hard"],q:"假設農民一年收成100袋米，實施三七五減租後，交給地主的地租最多是幾袋？",o:["50袋","37.5袋","62.5袋","75袋"],a:1,ex:"100 × 37.5% ＝ <b>37.5袋</b>，農民至少留下62.5袋。"},
+{l:1,tag:["mid"],q:"第二次世界大戰後臺灣基礎建設大多毀損，後來主要是由哪一個國家援助重建？",o:["日本","德國","韓國","美國"],a:3,ex:"民國40～50年代<b>美國</b>提供物資與貸款援助。"},
+{l:1,tag:["hot","hard"],q:"（是非）米食是臺灣民眾重要的糧食來源，也是戰後美國援助臺灣的主要物資之一。",o:TF,a:1,ex:"錯！美援主要物資是<b>麵粉和奶粉</b>，使麵食與乳製品普及。"},
+{l:1,tag:["mid"],q:"戰後初期物資缺乏，臺灣人會把哪一種美援物資當作布料製成家常服？",o:["麵粉袋","奶粉罐","塑膠袋","肥料袋"],a:0,ex:"<b>麵粉袋</b>被做成衣服、內褲。"},
+{l:1,tag:["hard"],q:"美國從民國40年開始援助臺灣，最主要的原因是什麼？",o:["美國奶粉滯銷","擔心共產勢力擴張，希望臺灣成為反共防線","推廣美式飲食文化","想在臺灣設加工出口區"],a:1,ex:"課本小學堂：美國擔心<b>共產勢力擴張</b>，希望臺灣成為亞洲的<b>反共防線</b>。"},
+{l:1,tag:["hot","hard"],q:"（是非）戰後興建的石門水庫，提供了中部地區農業灌溉的水源。",o:TF,a:1,ex:"錯！石門水庫提供<b>北部</b>地區民生、農業、工業用水。"},
+{l:1,tag:["hot"],q:"西螺大橋完工時，最主要的功能是什麼？",o:["連接彰化縣與雲林縣之間的交通","提供北部地區生活用水","提供民生用電","成為人們休閒的好去處"],a:0,ex:"西螺大橋是<b>彰化↔雲林</b>的交通要道。"},
+{l:1,tag:["mid"],q:"下列哪一項「不是」民國40年代政府主要推行的民生工業？",o:["紡織","軍事","塑膠","食品"],a:1,ex:"民生工業＝<b>紡織、塑膠、食品</b>，不包括軍事。"},
+{l:1,tag:["hot"],q:"政府在民國50年代選擇高雄設立第一個加工出口區，主要原因是？",o:["人口最少","鄰近港口，方便進口原料及出口產品","有豐富礦藏","離首都最近"],a:1,ex:"高雄港：<b>方便進口原料、出口產品</b>。"},
+{l:1,tag:["mid"],q:"加工出口區的產品最主要是透過什麼交通方式運送到國外？",o:["海運","陸運","空運","以上皆是"],a:0,ex:"透過<b>海運</b>外銷世界各地。"},
+{l:1,tag:["hot"],q:"「Made in Taiwan」臺灣高品質製造的起點，和哪一項政策最有關？",o:["美國援助","設置加工出口區","耕者有其田","三七五減租"],a:1,ex:"課本：加工出口區開啟「<b>Made in Taiwan</b>」的起點。"},
+{l:1,tag:["hot","hard"],q:"下列哪一項「不是」設立加工出口區帶來的社會變化？",o:["吸引農村人口移入都市","提供大量就業機會","農業人口大幅增加","女性進入工廠推動工業成長"],a:2,ex:"農村人口<b>移出</b>到工廠，所以農業人口不會大幅增加。"},
+{l:1,tag:["mid"],q:"設立加工出口區初期，哪一個群體進入工廠，成為生產線上重要的勞動力，也提升了社會地位？",o:["退休人士","兒童","女性","外籍移工"],a:2,ex:"<b>女性</b>進入工廠，改善家計、提升地位。"},
+{l:2,tag:["hot","hard"],q:"關於民國60年代的能源危機，下列敘述何者正確？",o:["因為臺灣油田枯竭","西亞爆發戰爭，產油國限制石油出口，油價大漲","國際油價大幅下跌","使各國經濟快速復甦"],a:1,ex:"<b>西亞戰爭 ➜ 限制出口 ➜ 油價大漲 ➜ 全球經濟不景氣</b>。"},
+{l:2,tag:["hot"],q:"民國60年代，政府為了提升國家競爭力，推動什麼政策？",o:["耕者有其田","十大建設","國防自主","加工出口區"],a:1,ex:"<b>十大建設</b>：改善交通、強化能源、提升重工業。"},
+{l:2,tag:["hard"],q:"下列哪一項「不屬於」十大建設？",o:["中山高速公路","石門水庫","桃園國際機場","核能發電廠"],a:1,ex:"石門水庫是<b>美援</b>時期的建設，不是十大建設。"},
+{l:2,tag:["hard"],q:"十大建設依類別分，下列組合何者正確？",o:["交通3、重工業6、能源1","交通6、重工業3、能源1","交通5、重工業3、能源2","交通4、重工業4、能源2"],a:1,ex:"口訣：<b>交六、重三、能一</b>。"},
+{l:2,tag:["hot"],q:"臺灣在民國67年通車的中山高速公路，串聯哪兩地的交通？",o:["臺北—花蓮","基隆—臺東","基隆—高雄","高雄—宜蘭"],a:2,ex:"中山高（國道1號）<b>基隆↔高雄</b>。"},
+{l:2,tag:["hard"],q:"（是非）中華民國政府來臺後才著手規劃西部縱貫鐵路，加強南北運輸。",o:TF,a:1,ex:"錯！西部縱貫鐵路是<b>日治時期</b>完成的。"},
+{l:2,tag:["mid"],q:"隨著高速公路與高速鐵路陸續興建，臺灣逐漸形成什麼？",o:["南北一日生活圈","環島一週生活圈","城鄉差距消失","農業區擴大"],a:0,ex:"交通縮短時間 ➜ <b>南北一日生活圈</b>。"},
+{l:2,tag:["hot"],q:"小凡家鄉附近準備設工業區，許多居民不贊成。下列哪一項「較不可能」是反對的原因？",o:["帶來噪音汙染","造成空氣汙染","造成交通壅塞","增加就業機會"],a:3,ex:"增加就業機會是<b>好處</b>，不會是反對理由。"},
+{l:2,tag:["mid"],q:"面對臺中市人口成長造成的壓力，政府採取了什麼行動？",o:["完全沒有作為","限制人口移入","陸續興建其他交通建設與大眾運輸","拆除高速公路"],a:2,ex:"政府<b>陸續興建其他交通建設與大眾運輸</b>舒緩壓力。"},
+{l:2,tag:["hot"],q:"小夏的爸爸在鋼鐵廠擔任作業員，他從事的是哪一種產業？",o:["重工業","服務業","農業","林業"],a:0,ex:"鋼鐵、石化、造船都是<b>重工業</b>。"},
+{l:2,tag:["hot","hard"],q:"下列何者「不是」政府選擇高雄作為重工業中心的原因？",o:["日治時期已發展煉鐵、造船","良好的港口與交通條件","具備擴大工業聚落的基礎","較不容易造成空氣汙染"],a:3,ex:"重工業反而會帶來<b>汙染</b>。口訣「老、港、大」。"},
+{l:2,tag:["mid"],q:"發展重工業需要大量鋼鐵與石油原料，若完全依靠進口會有什麼風險？",o:["成本低且穩定","減少汙染","提升環保意識","成本高，且容易受國際情勢影響"],a:3,ex:"全靠進口 ➜ <b>成本高、受國際情勢影響</b>。"},
+{l:2,tag:["mid"],q:"下列哪一項「不是」今日高雄轉型的例子？",o:["垃圾場變成高雄都會公園","造船廠發展觀光遊艇","舉辦媽祖海巡活動","新建更多石化工廠增加汙染"],a:3,ex:"高雄轉型為<b>觀光與文化的國際港灣都市</b>。"},
+{l:2,tag:["hard"],q:"十大建設與產業集中在少數都市，可能造成什麼隱憂？",o:["農村人口暴增","城鄉差距擴大、區域發展不均","都市人口減少","交通完全不塞車"],a:1,ex:"人口資源向都市聚集 ➜ <b>城鄉差距擴大</b>。"},
+{l:3,tag:["hot"],q:"臺灣第一座科學園區於哪一年、在哪裡設立？",o:["民國55年，高雄","民國67年，臺中","民國69年，新竹","民國76年，臺南"],a:2,ex:"<b>民國69年、新竹</b>科學園區。"},
+{l:3,tag:["hot","hard"],q:"（是非）由於工資低廉與環保意識抬頭，促使政府積極往高科技產業轉型。",o:TF,a:1,ex:"錯！是<b>工資上升、低廉勞動力優勢不再</b>，加上環保意識與國外低價競爭。"},
+{l:3,tag:["hot"],q:"設立科學園區能帶來許多正面效益，下列何者「不屬於」？",o:["提供大量就業機會","排擠其他產業的土地需求","促進周邊區域發展","吸引人口移入"],a:1,ex:"<b>排擠土地需求</b>是負面影響。"},
+{l:3,tag:["mid"],q:"臺北市內湖區聚集許多高科技產業，上下班時間車流量大。這說明發展高科技也可能帶來什麼問題？",o:["製造過多垃圾","人口生育過多","交通壅塞","城鄉差距消失"],a:2,ex:"人口車輛增加 ➜ <b>交通壅塞</b>、通勤時間拉長。"},
+{l:3,tag:["hot"],q:"臺灣高階晶圓的全球市占率約多少，排名世界第一？",o:["約一成","約三成","約五成","超過七成（約76%）"],a:3,ex:"民國114年臺灣高階晶圓市占約<b>76%</b>。"},
+{l:3,tag:["mid"],q:"目前高科技從業人員可能面臨哪一項困境？",o:["薪資過低","缺乏培養的學校","社會地位不高","工時過長"],a:3,ex:"經濟奇蹟背後，從業人員可能面臨<b>高工時</b>壓力。"},
+{l:3,tag:["hard"],q:"台積電被稱為「護國神山」，它創立時提出的創新經營模式是什麼？",o:["自己設計、自己製造","只專心幫別人製造晶片，不自己設計產品","只設計晶片、不製造","只賣手機"],a:1,ex:"<b>專業晶圓製造（代工）</b>：讓輝達、蘋果專心設計，台積電負責製造。"},
+{l:3,tag:["hot","hard"],q:"請將下列發展依先後排序：A 新竹設立科學園區　B 十大建設，中山高通車　C 晶圓領先全球、面臨永續考驗　D 國際能源危機，政府推動公共工程",o:["B→D→A→C","D→B→A→C","D→A→B→C","A→D→B→C"],a:1,ex:"能源危機(60年代) ➜ 十大建設、67年中山高 ➜ 69年科學園區 ➜ 今日晶圓領先：<b>D→B→A→C</b>。"},
+];
+
+/* ---------- 練習題渲染 ---------- */
+const state={};let filter='all';const lastWrong=()=>store.get('u2_lastWrong',[]);
+const tagHtml=t=>t.map(x=>x==='hot'?'<span class="pill hot">⭐ 常考</span>':x==='hard'?'<span class="pill hard">🔥 難題</span>':'<span class="pill mid">🙂 中等</span>').join('');
+function visible(i){const q=Q[i];if(filter==='all')return true;if(['1','2','3'].includes(filter))return q.l==filter;
+ if(filter==='wrong')return lastWrong().includes(i);return q.tag.includes(filter);}
+function renderQ(){const box=document.getElementById('qlist');let html='';
+ Q.forEach((q,i)=>{if(!visible(i))return;const st=state[i];const star=q.tag.includes('hot')||q.tag.includes('hard');
+  html+=`<div class="q ${star?'star':''} ${st!==undefined?'done '+(st===q.a?'ok':'ng'):''}" id="q${i}">
+   <div><span class="no">${i+1}</span><span class="lesson-tag" style="font-size:.8rem">第${q.l}課</span>${tagHtml(q.tag)}</div>
+   <div style="margin-top:6px;font-weight:700">${q.q}</div>
+   <div class="opts">${q.o.map((o,j)=>`<button data-i="${i}" data-j="${j}" ${st!==undefined?'disabled':''} class="${st!==undefined?(j===q.a?'right':(j===st?'wrong':'')):''}">${q.o===TF?'':'('+(j+1)+') '}${o}</button>`).join('')}</div>
+   <div class="ex">${st===q.a?'🎉 答對了！':'💪 沒關係，記起來！'} ${q.ex}</div></div>`;});
+ box.innerHTML=html||'<div class="card">🎉 這裡沒有題目喔！（上次沒有錯題，太棒了）</div>';updLive();}
+document.getElementById('qlist').addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(!b)return;
+ const i=+b.dataset.i;if(state[i]!==undefined)return;state[i]=+b.dataset.j;renderQ();document.getElementById('q'+i).scrollIntoView({block:'nearest'});});
+function updLive(){const n=Object.keys(state).length,c=Object.entries(state).filter(([i,v])=>Q[i].a===v).length;
+ document.getElementById('live').textContent=`已作答 ${n} / ${Q.length} 題，答對 ${c} 題`;document.getElementById('pbar').style.width=(n/Q.length*100)+'%';}
+document.getElementById('filt').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;filter=b.dataset.f;
+ document.querySelectorAll('#filt button').forEach(x=>x.classList.toggle('on',x===b));renderQ();});
+document.getElementById('reset').onclick=()=>{for(const k in state)delete state[k];document.getElementById('saveMsg').textContent='';renderQ();};
+document.getElementById('submit').onclick=()=>{const n=Object.keys(state).length;const msg=document.getElementById('saveMsg');
+ if(!n){msg.textContent='先作答再交卷喔！';return;}
+ const wrong=Object.entries(state).filter(([i,v])=>Q[i].a!==v).map(([i])=>+i);const c=n-wrong.length;
+ const d=new Date();const rec={date:`${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`,n,c,score:Math.round(c/n*100),filter};
+ const h=store.get('u2_hist',[]);h.unshift(rec);const ok=store.set('u2_hist',h.slice(0,30));store.set('u2_lastWrong',wrong);
+ msg.textContent=`${rec.score>=90?'🏆':rec.score>=70?'👍':'💪'} 作答 ${n} 題，答對 ${c} 題，得分 ${rec.score} 分！`+(ok?'（已記錄）':'（這個瀏覽器不能存紀錄）');};
+
+/* ---------- 紀錄 ---------- */
+function renderRec(){const h=store.get('u2_hist',[]);
+ document.getElementById('hist').innerHTML=h.length?h.map(r=>`<li>📅 ${r.date}　作答 ${r.n} 題、答對 ${r.c} 題　<b style="color:${r.score>=80?'#2b8a3e':'#e8590c'}">${r.score} 分</b> ${r.score>=90?'🏆':r.score>=70?'⭐':'💪'}</li>`).join(''):'<li>還沒有紀錄，快去做練習題吧！✏️</li>';
+ const w=lastWrong();document.getElementById('wrongBox').innerHTML=w.length?w.map(i=>`<div class="q ng"><span class="no">${i+1}</span>${Q[i].q}<div style="margin-top:6px">✅ 正解：<b>${Q[i].o[Q[i].a]}</b>｜${Q[i].ex}</div></div>`).join(''):'<p>🎉 沒有錯題！</p>';}
+document.getElementById('clear').onclick=()=>{store.set('u2_hist',[]);store.set('u2_lastWrong',[]);renderRec();};
+renderQ();
+</script>
+</body>
+</html>
