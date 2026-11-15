@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>科科小學堂｜6上社會 第3單元 迎向科技發展新挑戰</title>
+<style>
+:root{
+  --pink:#ff6fae; --orange:#ff9f43; --yellow:#ffd93d; --green:#3ccf91; --blue:#4da3ff; --purple:#a77bff;
+  --ink:#3a2e5c; --soft:#fff8ef; --card:#ffffff;
+  --l1:#4da3ff; --l2:#ff9f43; --l3:#3ccf91;
+}
+*{box-sizing:border-box}
+html{font-size:20px}
+body{margin:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--ink);
+  background:linear-gradient(160deg,#fff3c4 0%,#ffe1ef 45%,#d9f0ff 100%);background-attachment:fixed;line-height:1.7;min-height:100vh}
+header{display:flex;align-items:center;gap:14px;padding:14px 20px;background:linear-gradient(90deg,#ff7eb3,#ffb35c,#ffd93d);box-shadow:0 4px 0 rgba(0,0,0,.08);position:sticky;top:0;z-index:20}
+header h1{margin:0;font-size:1.35rem;color:#fff;text-shadow:2px 2px 0 rgba(160,60,100,.35);line-height:1.3}
+header small{display:block;font-size:.8rem;color:#fff;opacity:.95}
+.mascot{width:62px;height:62px;flex:0 0 auto;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-6px) rotate(3deg)}}
+nav{display:flex;gap:8px;flex-wrap:wrap;padding:12px 14px;justify-content:center;background:rgba(255,255,255,.6);backdrop-filter:blur(6px);position:sticky;top:90px;z-index:19}
+nav button{border:none;border-radius:999px;padding:9px 16px;font-size:.95rem;font-weight:700;cursor:pointer;background:#fff;color:var(--ink);box-shadow:0 3px 0 rgba(0,0,0,.12);font-family:inherit;transition:.15s}
+nav button:hover{transform:translateY(-2px)}
+nav button.on{background:var(--pink);color:#fff}
+main{max-width:1000px;margin:0 auto;padding:18px 16px 80px}
+section.page{display:none;animation:pop .35s ease}
+section.page.on{display:block}
+@keyframes pop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border-radius:24px;padding:20px 22px;margin:16px 0;box-shadow:0 6px 0 rgba(58,46,92,.08),0 10px 24px rgba(58,46,92,.08);border:3px solid #fff}
+.card h2{margin:0 0 10px;font-size:1.4rem}
+.card h3{margin:16px 0 6px;font-size:1.15rem}
+.banner{border-radius:26px;padding:22px;color:#fff;margin:10px 0 6px;position:relative;overflow:hidden}
+.banner h2{margin:0;font-size:1.6rem;text-shadow:2px 2px 0 rgba(0,0,0,.15)}
+.banner p{margin:6px 0 0;font-size:1rem}
+.banner .big{position:absolute;right:16px;top:6px;font-size:4.5rem;opacity:.9}
+.b1{background:linear-gradient(120deg,#4da3ff,#7cc4ff)}
+.b2{background:linear-gradient(120deg,#ff9f43,#ffc56b)}
+.b3{background:linear-gradient(120deg,#2fc488,#7be0b5)}
+.b4{background:linear-gradient(120deg,#a77bff,#ff8fd0)}
+.b5{background:linear-gradient(120deg,#ff6f91,#ffb36b)}
+.hot{background:#ff4f7b;color:#fff;border-radius:8px;padding:1px 8px;font-size:.78rem;font-weight:800;margin:0 3px;white-space:nowrap;vertical-align:middle}
+.tricky{background:#7a4dff;color:#fff;border-radius:8px;padding:1px 8px;font-size:.78rem;font-weight:800;margin:0 3px;white-space:nowrap;vertical-align:middle}
+.gift{background:linear-gradient(90deg,#ffd93d,#ff9f43);color:#5a3200;border-radius:8px;padding:1px 8px;font-size:.78rem;font-weight:800;white-space:nowrap}
+mark{background:linear-gradient(transparent 55%,#ffe76b 55%);color:inherit;padding:0 2px;font-weight:700}
+.key{color:#e8336b;font-weight:800}
+ul.dots{padding-left:1.2em;margin:6px 0}
+ul.dots li{margin:4px 0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.tile{border-radius:20px;padding:14px 16px;background:#f7f9ff;border:3px dashed #d6e2ff}
+.tile h4{margin:0 0 4px;font-size:1.05rem}
+.tile.y{background:#fffbe6;border-color:#ffe08a}.tile.p{background:#fff0f6;border-color:#ffc2da}.tile.g{background:#eafff5;border-color:#a8ebc9}.tile.b{background:#eef6ff;border-color:#b9dbff}.tile.v{background:#f4efff;border-color:#d4c2ff}
+.flow{display:flex;align-items:stretch;gap:6px;flex-wrap:wrap;margin:10px 0}
+.flow .st{flex:1 1 150px;border-radius:18px;padding:12px;text-align:center;color:#fff;font-weight:700;font-size:.95rem}
+.flow .ar{align-self:center;font-size:1.6rem;color:#ff6fae;font-weight:900}
+.s1{background:#ff7aa8}.s2{background:#ffa94d}.s3{background:#4dc38a}.s4{background:#4da3ff}.s5{background:#a77bff}
+table{width:100%;border-collapse:separate;border-spacing:0;border-radius:18px;overflow:hidden;font-size:.92rem;margin:8px 0}
+th{background:#ff8fbd;color:#fff;padding:9px;text-align:left}
+td{padding:9px;border-bottom:2px solid #fbe6f0;background:#fff;vertical-align:top}
+tr:nth-child(even) td{background:#fff8fb}
+.scroll{overflow-x:auto}
+.gifted{border-radius:22px;padding:16px 18px;background:linear-gradient(135deg,#fff7d1,#ffe9f4);border:3px solid #ffd36b;margin:14px 0}
+.gifted h3{margin:0 0 6px}
+.memo{border-radius:22px;padding:16px 18px;background:linear-gradient(135deg,#e7f4ff,#f1eaff);border:3px solid #b9d4ff;margin:14px 0}
+.memo h3{margin:0 0 6px}
+.bigword{font-size:1.5rem;font-weight:900;letter-spacing:2px;color:#e8336b}
+.chk{display:flex;align-items:center;gap:10px;margin-top:14px;background:#eafff5;border-radius:16px;padding:10px 14px;font-weight:700;cursor:pointer}
+.chk input{width:26px;height:26px;accent-color:#3ccf91}
+.home-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.home-btn{border:none;border-radius:24px;padding:20px 14px;color:#fff;font-size:1.1rem;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 6px 0 rgba(0,0,0,.15);transition:.15s;text-align:center}
+.home-btn:hover{transform:translateY(-3px)}
+.home-btn .e{font-size:2.6rem;display:block}
+/* traffic light */
+.light{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:10px 0}
+.light .c{width:150px;border-radius:22px;padding:12px;text-align:center;color:#fff;font-weight:700}
+.light .c b{display:block;font-size:2.2rem;width:70px;height:70px;line-height:70px;border-radius:50%;margin:0 auto 6px;background:rgba(255,255,255,.3)}
+/* bars */
+.stack{display:flex;height:46px;border-radius:14px;overflow:hidden;margin:8px 0;font-weight:800;color:#fff;font-size:.85rem}
+.stack div{display:flex;align-items:center;justify-content:center;white-space:nowrap}
+.pie{width:220px;height:220px;border-radius:50%;margin:8px auto;background:conic-gradient(#ff6f91 0 55.2%,#ffb84d 55.2% 74%,#4da3ff 74% 91.6%,#a77bff 91.6% 98.1%,#3ccf91 98.1% 99.3%,#8d99ae 99.3% 100%);box-shadow:0 6px 0 rgba(0,0,0,.08)}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:4px 12px;font-size:.9rem}
+.legend span{display:inline-block;width:16px;height:16px;border-radius:5px;margin-right:6px;vertical-align:middle}
+/* flash cards */
+.fc-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.fc{perspective:900px;height:170px;cursor:pointer}
+.fc-in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.fc.flip .fc-in{transform:rotateY(180deg)}
+.fc-f,.fc-b{position:absolute;inset:0;border-radius:22px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;backface-visibility:hidden;font-weight:800;box-shadow:0 5px 0 rgba(0,0,0,.1)}
+.fc-f{background:linear-gradient(135deg,#ffcf5c,#ff8fb1);color:#fff;font-size:1.15rem}
+.fc-b{background:#fff;border:3px solid #ffcf5c;transform:rotateY(180deg);font-size:.92rem;font-weight:600}
+/* converter */
+.conv{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:8px 0}
+.conv input{width:120px;font-size:1.1rem;padding:8px 10px;border-radius:14px;border:3px solid #ffc2da;font-family:inherit}
+.conv .out{font-size:1.2rem;font-weight:900;color:#e8336b;background:#fff0f6;border-radius:14px;padding:6px 14px}
+/* quiz */
+.qbar{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.qbar button,.btn{border:none;border-radius:999px;padding:10px 16px;font-size:.95rem;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 3px 0 rgba(0,0,0,.15);background:#fff;color:var(--ink)}
+.qbar button.on{background:#4da3ff;color:#fff}
+.btn.go{background:linear-gradient(90deg,#ff6fae,#ff9f43);color:#fff;font-size:1.1rem;padding:12px 26px}
+.btn.nx{background:#3ccf91;color:#fff}
+.qcard{border-radius:26px;background:#fff;padding:22px;box-shadow:0 8px 0 rgba(58,46,92,.1);border:4px solid #ffe08a}
+.qhead{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;font-size:.88rem;font-weight:800}
+.chip{border-radius:999px;padding:3px 12px;color:#fff}
+.d1{background:#3ccf91}.d2{background:#ff9f43}.d3{background:#ff4f6d}
+.qtext{font-size:1.25rem;font-weight:800;margin:6px 0 14px}
+.opt{display:block;width:100%;text-align:left;border:3px solid #e6e0ff;background:#faf8ff;border-radius:18px;padding:12px 16px;margin:8px 0;font-size:1.08rem;cursor:pointer;font-family:inherit;color:var(--ink);transition:.12s}
+.opt:hover{border-color:#a77bff}
+.opt.ok{background:#dcffe9;border-color:#3ccf91}
+.opt.no{background:#ffe1e6;border-color:#ff4f6d}
+.fb{border-radius:18px;padding:12px 16px;margin-top:10px;font-size:1rem}
+.fb.ok{background:#eafff3}.fb.no{background:#fff0f2}
+.prog{height:16px;background:#fff;border-radius:999px;overflow:hidden;margin:8px 0;border:2px solid #ffe08a}
+.prog div{height:100%;background:linear-gradient(90deg,#ff6fae,#ffd93d);transition:width .3s}
+.stars{font-size:2.4rem;letter-spacing:4px}
+.hist td{font-size:.9rem}
+.badge-row{display:flex;flex-wrap:wrap;gap:10px}
+.bdg{border-radius:18px;padding:10px 14px;background:#f3f3f3;color:#aaa;font-weight:800;text-align:center;min-width:120px}
+.bdg.got{background:linear-gradient(135deg,#ffe36b,#ffb34d);color:#5a3200}
+.bdg .e{font-size:2rem;display:block}
+footer{text-align:center;font-size:.8rem;opacity:.7;padding:20px}
+@media (max-width:700px){html{font-size:18px}nav{top:84px}header h1{font-size:1.1rem}}
+</style>
+</head>
+<body>
+
+<header>
+  <svg class="mascot" viewBox="0 0 100 100" aria-label="科科機器人">
+    <line x1="50" y1="14" x2="50" y2="4" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="50" cy="5" r="5" fill="#ffef5c" stroke="#fff" stroke-width="2"/>
+    <rect x="16" y="14" width="68" height="56" rx="24" fill="#fff"/>
+    <rect x="23" y="22" width="54" height="40" rx="18" fill="#6fc3ff"/>
+    <circle cx="39" cy="40" r="7" fill="#fff"/><circle cx="61" cy="40" r="7" fill="#fff"/>
+    <circle cx="40" cy="41" r="4" fill="#3a2e5c"/><circle cx="62" cy="41" r="4" fill="#3a2e5c"/>
+    <circle cx="41.5" cy="39.5" r="1.4" fill="#fff"/><circle cx="63.5" cy="39.5" r="1.4" fill="#fff"/>
+    <circle cx="31" cy="51" r="4" fill="#ff9ec4"/><circle cx="69" cy="51" r="4" fill="#ff9ec4"/>
+    <path d="M44 52 Q50 57 56 52" stroke="#3a2e5c" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <rect x="30" y="72" width="40" height="22" rx="10" fill="#fff"/>
+    <text x="50" y="88" text-anchor="middle" font-size="13" font-weight="900" fill="#ff6fae">⚡</text>
+    <circle cx="12" cy="44" r="6" fill="#fff"/><circle cx="88" cy="44" r="6" fill="#fff"/>
+  </svg>
+  <div><h1>科科小學堂・第3單元 迎向科技發展新挑戰</h1><small>翰林版 六年級上學期 社會｜自學重點＋超強記憶＋練習題</small></div>
+</header>
+
+<nav id="nav">
+  <button data-p="home" class="on">🏠 首頁</button>
+  <button data-p="l1">💻 第1課</button>
+  <button data-p="l2">⚡ 第2課</button>
+  <button data-p="l3">🧬 第3課</button>
+  <button data-p="city">🏙️ 智慧城鄉</button>
+  <button data-p="mem">🧠 記憶大法</button>
+  <button data-p="calc">🔢 換算教室</button>
+  <button data-p="quiz">✏️ 練習題</button>
+  <button data-p="rec">📊 我的紀錄</button>
+</nav>
+
+<main>
+
+<!-- ================= HOME ================= -->
+<section class="page on" id="home">
+  <div class="banner b5"><span class="big">🚀</span>
+    <h2>嗨！我是科科 🤖</h2>
+    <p>科技讓生活更方便，但也會帶來新問題。這個單元要學：<b>科技帶來什麼改變？出了什麼問題？政府和我們可以怎麼做？</b></p>
+  </div>
+
+  <div class="card">
+    <h2>🗺️ 單元地圖：三種科技・三個挑戰</h2>
+    <svg viewBox="0 0 900 330" width="100%" role="img" aria-label="單元心智圖">
+      <rect x="330" y="125" width="240" height="80" rx="40" fill="#ff6fae"/>
+      <text x="450" y="160" text-anchor="middle" font-size="24" font-weight="900" fill="#fff">迎向科技</text>
+      <text x="450" y="190" text-anchor="middle" font-size="24" font-weight="900" fill="#fff">發展新挑戰</text>
+      <path d="M330 150 C250 120 230 70 200 70" stroke="#4da3ff" stroke-width="6" fill="none"/>
+      <path d="M330 170 C250 170 230 165 200 165" stroke="#ff9f43" stroke-width="6" fill="none"/>
+      <path d="M330 190 C250 220 230 265 200 265" stroke="#3ccf91" stroke-width="6" fill="none"/>
+      <rect x="10" y="30" width="200" height="80" rx="22" fill="#4da3ff"/>
+      <text x="110" y="65" text-anchor="middle" font-size="22" font-weight="900" fill="#fff">💻 資訊科技</text>
+      <text x="110" y="93" text-anchor="middle" font-size="16" fill="#fff">便利 vs 風險</text>
+      <rect x="10" y="125" width="200" height="80" rx="22" fill="#ff9f43"/>
+      <text x="110" y="160" text-anchor="middle" font-size="22" font-weight="900" fill="#fff">⚡ 能源科技</text>
+      <text x="110" y="188" text-anchor="middle" font-size="16" fill="#fff">用電 vs 環保</text>
+      <rect x="10" y="225" width="200" height="80" rx="22" fill="#3ccf91"/>
+      <text x="110" y="260" text-anchor="middle" font-size="22" font-weight="900" fill="#fff">🧬 生物科技</text>
+      <text x="110" y="288" text-anchor="middle" font-size="16" fill="#fff">生命 vs 規範</text>
+      <path d="M570 165 L680 165" stroke="#a77bff" stroke-width="6"/>
+      <rect x="680" y="40" width="210" height="250" rx="26" fill="#f4efff" stroke="#a77bff" stroke-width="4"/>
+      <text x="785" y="78" text-anchor="middle" font-size="20" font-weight="900" fill="#7a4dff">每課都用這招看</text>
+      <rect x="705" y="95" width="160" height="50" rx="16" fill="#ff7aa8"/><text x="785" y="128" text-anchor="middle" font-size="20" font-weight="900" fill="#fff">① 現象</text>
+      <rect x="705" y="160" width="160" height="50" rx="16" fill="#ffa94d"/><text x="785" y="193" text-anchor="middle" font-size="20" font-weight="900" fill="#fff">② 問題</text>
+      <rect x="705" y="225" width="160" height="50" rx="16" fill="#4dc38a"/><text x="785" y="258" text-anchor="middle" font-size="20" font-weight="900" fill="#fff">③ 行動</text>
+    </svg>
+    <p>📌 SDGs 目標：<b>可負擔的潔淨能源</b>、<b>產業創新與基礎設施</b></p>
+  </div>
+
+  <div class="home-grid">
+    <button class="home-btn" style="background:#4da3ff" onclick="go('l1')"><span class="e">💻</span>第1課 資訊科技</button>
+    <button class="home-btn" style="background:#ff9f43" onclick="go('l2')"><span class="e">⚡</span>第2課 能源科技</button>
+    <button class="home-btn" style="background:#3ccf91" onclick="go('l3')"><span class="e">🧬</span>第3課 生物科技</button>
+    <button class="home-btn" style="background:#a77bff" onclick="go('mem')"><span class="e">🧠</span>超強記憶大法</button>
+    <button class="home-btn" style="background:#ff6f91" onclick="go('quiz')"><span class="e">✏️</span>40題練習挑戰</button>
+    <button class="home-btn" style="background:#20b2aa" onclick="go('rec')"><span class="e">🏅</span>我的學習紀錄</button>
+  </div>
+
+  <div class="card">
+    <h2>🎯 怎麼用最有效？</h2>
+    <ul class="dots">
+      <li>1️⃣ 先讀每課的重點，看到 <span class="hot">🔥常考</span> 和 <span class="tricky">⚠️易錯</span> 要特別記！</li>
+      <li>2️⃣ 有餘力就挑戰 <span class="gift">🌟資優加深</span> 的內容，會讓你看得更深、更遠。</li>
+      <li>3️⃣ 到「🧠記憶大法」翻翻記憶卡、背口訣。</li>
+      <li>4️⃣ 到「✏️練習題」作答，錯的題目會自動放進 <b>📕錯題本</b>，可以重練到全對！</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= LESSON 1 ================= -->
+<section class="page" id="l1">
+  <div class="banner b1"><span class="big">💻</span>
+    <h2>第1課 資訊科技如何改變生活帶來挑戰？</h2>
+    <p>課文三大段：改變生活的方式 → 建立資訊安全意識與習慣 → 人工智慧的應用與新挑戰</p>
+  </div>
+
+  <div class="card">
+    <h2>📖 什麼是資訊科技？</h2>
+    <p>資訊科技是利用<mark>電腦、手機、平板</mark>等電子設備，搭配各種<mark>程式（軟體）</mark>，來<b>處理資料、查找資訊、互相傳訊息</b>。</p>
+  </div>
+
+  <div class="card">
+    <h2>⏳ 一、昔 vs 今：生活大不同 <span class="hot">🔥常考</span></h2>
+    <div class="scroll"><table>
+      <tr><th>生活面向</th><th>📜 過去</th><th>📱 現在</th></tr>
+      <tr><td>🧹 家務</td><td>大多靠人力</td><td>用手機<b>遠端控制家電</b>（睡前關燈不用下床）</td></tr>
+      <tr><td>🛒 購物</td><td>親自到市場／商店，付<b>現金</b></td><td><b>網路平臺購物</b>、宅配到家（實體 → 網路）</td></tr>
+      <tr><td>📚 學習查資料</td><td>老師教＋紙本書，去<b>圖書館</b>翻書</td><td>上網查詢、線上閱讀</td></tr>
+      <tr><td>📰 資訊</td><td>傳遞較不便利</td><td>獲取<b>即時新聞</b>、即時乘車資訊（智慧站牌、app）</td></tr>
+      <tr><td>👫 人際</td><td>多靠人與人實際互動</td><td>社群媒體聯繫、<b>跨國交流</b></td></tr>
+    </table></div>
+    <p>⭐ 關鍵句：資訊科技<mark>突破了時間與空間的限制</mark>，讓吸收資訊與互動更便利。</p>
+    <h3>😟 但也帶來新的社會問題</h3>
+    <div class="grid3">
+      <div class="tile p"><h4>🎣 詐騙</h4>習慣上網處理事情，卻<b>忽略資訊正確性</b> → 掉進詐騙陷阱</div>
+      <div class="tile y"><h4>😔 孤獨</h4><b>過度依賴</b>資訊科技 → 減少真實的人際互動</div>
+      <div class="tile b"><h4>🙊 溝通困難</h4>現實生活中不知如何與人交流 <span class="hot">🔥</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🛡️ 二、資訊安全：可能遇到的風險 <span class="hot">🔥常考</span></h2>
+    <div class="grid2">
+      <div class="tile p"><h4>©️ 侵犯著作權</h4>任意擷取、下載網路圖片、音樂、影音並<b>公開使用或圖利</b> → 不尊重他人、可能違法。<br><span class="tricky">⚠️易錯</span> 有些圖片「允許個人下載使用」，但<b>不能公開或從中獲利</b>；只「註明出處」<b>不等於</b>可以任意使用！</div>
+      <div class="tile y"><h4>🎭 網友詐騙</h4>和陌生人交友時輕信對方說法 → 落入詐騙陷阱</div>
+      <div class="tile v"><h4>💬 不當言論</h4>在網路上發布不當留言，可能因違法而<b>須負起法律責任</b></div>
+      <div class="tile b"><h4>🕵️ 惡意入侵</h4>家中網路被不明人士入侵 → 個資被竊取、隱私與安全受威脅</div>
+    </div>
+    <h3>🔗 連鎖反應圖：點一下，後果一大串！</h3>
+    <div class="flow">
+      <div class="st s1">👆 點擊不明連結<br>下載不明檔案</div><div class="ar">➜</div>
+      <div class="st s2">🦠 手機電腦<br>被植入病毒</div><div class="ar">➜</div>
+      <div class="st s5">🪪 個人資料<br>遭到盜用</div><div class="ar">➜</div>
+      <div class="st s4">💸 甚至造成<br>財物損失</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🤝 面對問題：政府 vs 民眾怎麼做？ <span class="hot">🔥常考</span></h2>
+    <div class="grid2">
+      <div class="tile b"><h4>🏛️ 政府</h4>
+        <ul class="dots"><li>制定<mark>著作權法</mark>、<mark>資通安全管理法</mark>等法規</li><li>規範資訊科技的合理使用，<b>嚇阻違法行為</b></li><li>維護<b>創作者的權益</b>、保護<b>個人隱私與資訊安全</b></li></ul></div>
+      <div class="tile g"><h4>🙋 民眾</h4>
+        <ul class="dots"><li>遵守法規、<b>支持正版</b>影音</li><li>不在網路發表不當言論</li><li>未經同意，不下載或轉傳文章、圖片、影音</li><li>先確認<b>資料來源與網站安全</b>再點擊或分享</li><li>不隨意填寫姓名、地址、<b>身分證字號</b></li><li>勿點簡訊或信件中來路不明的網址</li></ul></div>
+    </div>
+    <p>⭐ <span class="tricky">⚠️難題關鍵</span> 為什麼有了法律，還要養成好習慣？因為<mark>法律往往追不上科技變化的速度</mark>！</p>
+  </div>
+
+  <div class="card">
+    <h2>🤖 三、人工智慧（AI）的應用與新挑戰</h2>
+    <p>只要輸入<mark>文字指令、聲音、圖像</mark>等，AI 就能產生<b>文章、圖片或影片</b>，還能整理資料、回答問題。</p>
+    <div class="grid3">
+      <div class="tile b"><h4>🗣️ 學習語言</h4>和 AI 對話練習</div>
+      <div class="tile g"><h4>⌚ 記錄身體狀況</h4>智慧手錶提醒保持健康（個人健康管理）</div>
+      <div class="tile y"><h4>🚇 即時回應問題</h4>大眾運輸的<b>智慧客服</b>（例：雨傘忘在車廂）</div>
+    </div>
+    <h3>⚠️ AI 帶來的新挑戰</h3>
+    <ul class="dots">
+      <li>用 AI 生成的內容參加比賽 → <b>影響比賽公平</b></li>
+      <li>製作<b>假影片、假語音</b>，散播錯誤資訊 → <b>造成社會混亂</b> <span class="hot">🔥常考</span></li>
+    </ul>
+    <h3>✅ 讓 AI 成為助力</h3>
+    <p>政府：<b>制定法律</b>，規範研究與應用。我們：培養<mark>獨立思考與判斷</mark>能力、<b>辨別資訊真偽</b>、<b>負責任地使用科技</b>。</p>
+    <h3>🚦 時代的智慧「停・看・查」 <span class="hot">🔥常考</span></h3>
+    <div class="light">
+      <div class="c" style="background:#ff5c6c"><b>停</b>停下轉傳動作</div>
+      <div class="c" style="background:#ffb300"><b>看</b>細看影像有無破綻</div>
+      <div class="c" style="background:#2fbf71"><b>查</b>向具有公信力的單位查證</div>
+    </div>
+    <p style="text-align:center">🧠 像過馬路看紅綠燈：<b>紅燈「停」→ 黃燈「看」→ 綠燈「查」</b>，查證後才能通行（轉傳）！</p>
+  </div>
+
+  <div class="gifted">
+    <h3>🌟 資優加深：成為「數位小偵探」</h3>
+    <ul class="dots">
+      <li><b>深度偽造（Deepfake）</b>：用 AI 把一個人的臉或聲音「換」到影片上，常有破綻：眨眼怪怪的、嘴型對不上、手指數量不對、光影不自然。</li>
+      <li><b>數位足跡</b>：你在網路上的發文、按讚、照片都會留下紀錄，很難完全刪除，所以發言前要三思。</li>
+      <li><b>同溫層（演算法）</b>：App 會一直推薦你「喜歡看」的內容，讓你只看到單一觀點 → 要主動看不同來源。</li>
+      <li><b>創用 CC 授權</b>：有些作者會標示「CC」，告訴大家在什麼條件下可以使用作品（例如：要標示姓名、不可商業使用）——這是「作者同意」的一種方式。</li>
+      <li><b>相關法律再多知道一點</b>：保護個人資料的《個人資料保護法》；遇到詐騙可撥 <b>165 反詐騙專線</b>。</li>
+      <li>🤔 <b>思考挑戰</b>：AI 幫你寫作文、畫圖，作品算是「誰的」？用在比賽公平嗎？試著說出正反兩方的理由。</li>
+    </ul>
+  </div>
+  <label class="chk"><input type="checkbox" data-done="l1"> 我讀完第1課了！⭐</label>
+</section>
+
+<!-- ================= LESSON 2 ================= -->
+<section class="page" id="l2">
+  <div class="banner b2"><span class="big">⚡</span>
+    <h2>第2課 能源科技如何兼顧用電與環保？</h2>
+    <p>課文三大段：經濟發展下的能源挑戰 → 推動能源轉型減少汙染 → 永續理念下的能源選擇</p>
+  </div>
+
+  <div class="card">
+    <h2>📈 一、經濟發展下的能源挑戰</h2>
+    <p>經濟發展、生活便利 → 臺灣的<mark>用電量逐年攀升</mark> <span class="tricky">⚠️不是下降！</span></p>
+    <h3>📊 讀圖：臺灣的總發電量（民國39～113年）<span class="hot">🔥常考</span></h3>
+    <svg viewBox="0 0 640 300" width="100%" role="img" aria-label="臺灣總發電量趨勢示意圖">
+      <rect x="0" y="0" width="640" height="300" rx="20" fill="#fffaf0"/>
+      <line x1="70" y1="250" x2="610" y2="250" stroke="#3a2e5c" stroke-width="3"/>
+      <line x1="70" y1="250" x2="70" y2="30" stroke="#3a2e5c" stroke-width="3"/>
+      <text x="20" y="40" font-size="14" fill="#3a2e5c">億度</text>
+      <text x="575" y="280" font-size="14" fill="#3a2e5c">民國(年)</text>
+      <g font-size="13" fill="#666">
+        <text x="62" y="270">39</text><text x="135" y="270">49</text><text x="208" y="270">59</text><text x="281" y="270">69</text><text x="354" y="270">79</text><text x="427" y="270">89</text><text x="500" y="270">99</text><text x="573" y="270">113</text>
+      </g>
+      <polyline fill="none" stroke="#ff9f43" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"
+        points="70,248 140,245 210,238 288,222 360,190 430,130 500,85 585,58"/>
+      <line x1="288" y1="222" x2="288" y2="70" stroke="#ff4f7b" stroke-width="3" stroke-dasharray="7 6"/>
+      <rect x="178" y="40" width="220" height="56" rx="14" fill="#ff4f7b"/>
+      <text x="288" y="64" text-anchor="middle" font-size="16" font-weight="900" fill="#fff">民國69年</text>
+      <text x="288" y="86" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">新竹科學園區成立 → 大幅增加</text>
+      <text x="600" y="50" text-anchor="end" font-size="13" fill="#999">（示意圖，約3,000億度）</text>
+    </svg>
+    <p>⭐ 民國69年起大幅增加 ↔ <mark>新竹科學園區成立</mark>，<b>高科技產業</b>發達，製造產品需要大量電力。家裡用電的計量單位是「<b>度</b>」。</p>
+
+    <h3>🥧 讀圖：各部門的用電比例（民國113年）<span class="hot">🔥常考</span></h3>
+    <div class="grid2" style="align-items:center">
+      <div class="pie" aria-label="各部門用電比例圓形圖"></div>
+      <div>
+        <div class="legend">
+          <div><span style="background:#ff6f91"></span><b>工業 55.2%</b> 👑最多</div>
+          <div><span style="background:#ffb84d"></span>住宅 18.8%</div>
+          <div><span style="background:#4da3ff"></span>服務業 17.6%</div>
+          <div><span style="background:#a77bff"></span>能源 6.5%</div>
+          <div><span style="background:#3ccf91"></span>農業 1.2%</div>
+          <div><span style="background:#8d99ae"></span>運輸 0.7%</div>
+        </div>
+        <p>工業代表<b>工廠生產</b>用電；住宅代表<b>日常生活</b>用電。工業超過一半！</p>
+      </div>
+    </div>
+
+    <h3>⚖️ 要不要蓋更多發電廠？兩種看法</h3>
+    <div class="grid2">
+      <div class="tile g"><h4>🌱 減少發電廠</h4>降低對環境的汙染</div>
+      <div class="tile p"><h4>🏭 電力要足夠</h4>電力不足 → <b>影響經濟成長</b>，甚至影響民眾日常生活用電</div>
+    </div>
+    <p>📌 <span class="tricky">⚠️易錯</span> 限制用電<b>不是只影響工廠</b>，也會影響商家與民眾生活！民眾走上街頭要求政府重視能源需求，也是<b>關注國家發展議題</b>的方法。</p>
+  </div>
+
+  <div class="card">
+    <h2>🔄 二、推動能源轉型減少汙染</h2>
+    <h3>🍰 臺灣的主要電力來源（民國113年＝西元2024年）<span class="hot">🔥常考</span></h3>
+    <div class="stack">
+      <div style="width:82%;background:#ff6f61">🔥 火力 82%</div>
+      <div style="width:12%;background:#3ccf91">再生12%</div>
+      <div style="width:5%;background:#a77bff">核5%</div>
+      <div style="width:1%;background:#999"></div>
+    </div>
+    <p style="font-size:.85rem;text-align:right">（其他 1%）</p>
+    <div class="scroll"><table>
+      <tr><th>能源</th><th>👍 優點</th><th>👎 問題</th></tr>
+      <tr><td>🔥 火力<br>（煤、天然氣、石油）</td><td>提供穩定的大量電力</td><td>排放大量汙染物 → <b>空氣汙染</b>、<b>地球暖化</b>、<b>資源耗竭</b></td></tr>
+      <tr><td>☢️ 核能</td><td>只需<b>少量原料</b>就能提供<b>大量電力</b></td><td>電廠損害時<b>核輻射外洩</b> → 生態浩劫；<b>核廢料</b>儲放仍有爭議<br><span class="tricky">⚠️</span>不是「沒有任何風險」</td></tr>
+      <tr><td>☀️🌬️💧 再生能源<br>（太陽能、風力、水力）</td><td>相較傳統能源，<b>汙染較少</b></td><td>部分發電時仍有需克服的技術</td></tr>
+    </table></div>
+    <div class="grid2">
+      <div class="tile b"><h4>🏛️ 政府行動</h4>對發電廠<b>執行環保稽查</b>、規範能源研究與使用、推動<mark>能源轉型</mark>、積極<b>發展再生能源</b></div>
+      <div class="tile g"><h4>🙋 民眾行動</h4>選用<b>節能產品</b>、養成<b>節約能源</b>習慣 → 也能協助改善發電帶來的環境問題 <span class="tricky">⚠️</span></div>
+    </div>
+    <p>⭐ 能源轉型的目的：<mark>減少汙染</mark>並<mark>避免資源耗竭</mark>。</p>
+  </div>
+
+  <div class="card">
+    <h2>🌍 三、永續理念下的能源選擇 <span class="hot">🔥常考</span></h2>
+    <div class="grid2">
+      <div class="tile y"><h4>☀️ 太陽能發電</h4>
+        <b>為什麼臺灣適合？</b>日照充足<br>
+        <b>優點：</b>發電過程不產生廢氣<br>
+        <b>裝在哪？</b>學校、公車站、農田、魚塭、水圳、山坡地<br>
+        <b>挑戰：</b>影響<b>自然景觀、生態環境、農地耕種</b>；使用年限屆滿要<b>回收處理</b>；颱風暴雨可能損壞</div>
+      <div class="tile b"><h4>🌬️ 風力發電</h4>
+        <b>為什麼在西部沿海？</b><mark>風力穩定</mark><br>
+        <b>優點：</b>不會排放廢氣<br>
+        <b>挑戰：</b>龐大的發電機可能<b>影響生物（候鳥）生存</b>；運轉<b>噪音</b>可能干擾居民睡眠與健康</div>
+    </div>
+    <p>🎯 目標：以<b>永續發展</b>為目標，推動再生能源、<b>落實節能減碳</b>、善用新能源科技 → <mark>兼顧經濟發展與環境保護</mark>。</p>
+  </div>
+
+  <div class="gifted">
+    <h3>🌟 資優加深：能源小專家</h3>
+    <ul class="dots">
+      <li><b>再生 vs 非再生</b>：太陽、風、水會<b>不斷自然補充</b>＝再生能源；煤、石油、天然氣要花幾百萬年才形成，用完就沒了＝非再生（化石燃料）。</li>
+      <li><b>為什麼燒煤會讓地球發燒？</b>燃燒產生二氧化碳等溫室氣體，像給地球蓋上厚棉被，熱散不出去 → 地球暖化。</li>
+      <li><b>再生能源的「不穩定」</b>：晚上沒太陽、沒風時就發不了電，所以需要<b>儲能設備</b>（像大型充電電池）和多種能源搭配。</li>
+      <li><b>離岸風電</b>：臺灣海峽風力強又穩定，近年在彰化等外海設置風機，風機蓋在海上可以減少對住家的噪音影響。</li>
+      <li><b>淨零排放</b>：我國訂下目標，希望在西元2050年讓排出的溫室氣體和被吸收的量互相抵消。</li>
+      <li>🤔 <b>思考挑戰</b>：如果你是能源規劃者，面對「供電需求增加」和「環境汙染」，你會怎麼取捨？試著提出「組合方案」而不是只選一種。</li>
+    </ul>
+  </div>
+  <label class="chk"><input type="checkbox" data-done="l2"> 我讀完第2課了！⭐</label>
+</section>
+
+<!-- ================= LESSON 3 ================= -->
+<section class="page" id="l3">
+  <div class="banner b3"><span class="big">🧬</span>
+    <h2>第3課 生物科技為什麼需要規範管理？</h2>
+    <p>課文三大段：基因改造引發食安疑慮 → 把關疫苗安全守護健康 → 生物複製面臨兩難選擇</p>
+  </div>
+
+  <div class="card">
+    <h2>🧪 生物科技的三大應用領域 <span class="hot">🔥常考</span></h2>
+    <div class="grid3">
+      <div class="tile g"><h4>🌽 食品基因改造</h4>農業</div>
+      <div class="tile b"><h4>💉 疫苗研發</h4>醫療</div>
+      <div class="tile v"><h4>🐾 生物複製</h4>保育、寵物</div>
+    </div>
+    <p><span class="tricky">⚠️易錯</span> 「再生能源開發」<b>不屬於</b>生物科技（那是第2課的能源科技）！農業生產方式的改變，主要受<b>生物科技</b>影響，不是資訊科技。</p>
+  </div>
+
+  <div class="card">
+    <h2>🌽 一、基因改造引發食安疑慮</h2>
+    <div class="flow">
+      <div class="st s2">⏪ 過去<br>常噴灑農藥對抗病蟲害<br>→ 農藥殘留問題</div><div class="ar">➜</div>
+      <div class="st s3">⏩ 現在<br>基因改造讓作物<br>具備抗病蟲害特性</div>
+    </div>
+    <h3>👍 好處</h3>
+    <ul class="dots"><li>減少農藥、<b>化學肥料</b>使用 → 降低對環境的影響</li><li>蔬果<b>更加香甜可口</b></li><li><b>提升</b>農產品的<b>產量與品質</b></li></ul>
+    <p>常見基改作物：<mark>玉米、黃豆</mark> <span class="hot">🔥</span>　常見標示基改的食品：<b>豆腐、玉米罐頭</b></p>
+    <h3>👎 疑慮：可能影響<b>人體健康</b>（民間團體曾上街頭要求重視）</h3>
+    <div class="grid2">
+      <div class="tile b"><h4>🏛️ 政府</h4>制定法規、進行<b>食品安全檢驗</b>與管理；規定基改食品<mark>必須清楚標示</mark> → 保障<b>消費者權益</b></div>
+      <div class="tile g"><h4>🙋 民眾</h4>購買前<b>確認食品標示</b>、了解原料是否為基改作物、閱讀相關新聞，確保家人吃得安心</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>💉 二、把關疫苗安全守護健康</h2>
+    <p>各種疾病與傳染病威脅健康與生命 → 生物科技應用在<b>醫療</b>（疫苗與藥物研發）。</p>
+    <p>🤧 <b>流行性感冒</b>：傳播迅速，症狀<mark>比一般感冒更嚴重</mark> <span class="tricky">⚠️不是較輕微</span>，對<b>長者與幼童</b>威脅特別高，嚴重時可能致命。</p>
+    <p>💪 接種疫苗的好處：<b>提升身體免疫力</b>、降低感染風險、降低疾病傳播風險、降低死亡風險。</p>
+    <h3>🔒 疫苗安全的關卡 <span class="hot">🔥常考</span></h3>
+    <div class="flow">
+      <div class="st s4">🔬 研發</div><div class="ar">➜</div>
+      <div class="st s5">⏱️ 長時間<br>試驗與審查</div><div class="ar">➜</div>
+      <div class="st s1">✅ 主管機關許可<br>才能製造或販售</div><div class="ar">➜</div>
+      <div class="st s2">📢 清楚公告<br>對象・年齡・劑量・副作用</div><div class="ar">➜</div>
+      <div class="st s3">🗣️ 宣導施打</div>
+    </div>
+    <p>若缺乏嚴格管理 → 影響健康，也會引發對<b>疫苗安全性或施打政策</b>的疑慮。</p>
+    <h3>🙋 我們可以怎麼做？</h3>
+    <ul class="dots">
+      <li>和家人討論、依<b>身體狀況</b>決定是否施打，並<mark>尊重他人的選擇</mark>（不嘲笑、不強迫、不孤立）</li>
+      <li>落實<b>健康自主管理</b>：勤洗手、戴口罩、正常作息 —— 疫苗不是唯一的保護方式 <span class="tricky">⚠️</span></li>
+      <li>看到疫苗謠言 → 先<b>查證資訊來源</b>，不要立即轉發</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>🐾 三、生物複製面臨兩難選擇</h2>
+    <div class="grid2">
+      <div class="tile g"><h4>✅ 應用</h4>複製<b>瀕臨絕種動物</b> → 協助<mark>物種保育</mark><br>複製寵物服務 → 滿足部分飼主需求</div>
+      <div class="tile p"><h4>❓ 爭議</h4>複製失敗或出現健康問題，<b>風險由誰承擔</b>？<br>生命會不會變成可挑選、量產的<b>商品</b>？（對生命的不重視）</div>
+    </div>
+    <h3>🦦 黑足雪貂的故事 <span class="hot">🔥常考</span></h3>
+    <p>黑足雪貂是<b>美國唯一的原生雪貂</b>，因<b>棲息地被破壞</b>而瀕臨絕種。科學家用複製技術擴大族群：</p>
+    <svg viewBox="0 0 640 120" width="100%" role="img" aria-label="雪貂數量18到650">
+      <rect x="10" y="20" width="18" height="80" rx="6" fill="#ffb84d"/>
+      <text x="40" y="70" font-size="22" font-weight="900" fill="#3a2e5c">18 隻</text>
+      <text x="130" y="70" font-size="34" fill="#ff6fae">➜</text>
+      <rect x="180" y="20" width="440" height="80" rx="14" fill="#3ccf91"/>
+      <text x="400" y="72" text-anchor="middle" font-size="30" font-weight="900" fill="#fff">650 隻（約 36 倍！）</text>
+    </svg>
+    <h3>📝 T表整理：複製寵物</h3>
+    <div class="scroll"><table>
+      <tr><th style="background:#3ccf91">👍 正面影響</th><th style="background:#ff6f91">👎 反面影響</th></tr>
+      <tr><td>讓傷心的家人再次有寵物陪伴</td><td>花費很多金錢，可能<b>減少流浪動物被領養的機會</b>、造成更多棄養</td></tr>
+      <tr><td>優良品種可持續保存</td><td>可能產生<b>未知疾病</b>或<b>破壞生態平衡</b></td></tr>
+    </table></div>
+    <p>⭐ 政府：必須<mark>即時更新法令規範</mark>（不能因為能解決問題就不規範 <span class="tricky">⚠️</span>）；大眾：思考<b>生命的價值</b>，做出負責任的選擇。</p>
+  </div>
+
+  <div class="gifted">
+    <h3>🌟 資優加深：小小生物科學家</h3>
+    <ul class="dots">
+      <li><b>基因是什麼？</b>像每個生物身上的「生命說明書」，決定長相、特性。基因改造就是在說明書裡<b>加入或修改某一段</b>，讓作物有新本領（例如抗蟲）。</li>
+      <li><b>疫苗的原理</b>：像幫身體的免疫軍隊辦一場「防災演習」——先讓身體認識病毒的樣子，真正的病毒來時就能更快打敗它。</li>
+      <li><b>群體保護</b>：當很多人接種，病毒較難傳播，也能間接保護無法接種的人。這就是為什麼疫苗和「守護他人」有關。</li>
+      <li><b>複製羊桃莉</b>：西元1996年在英國誕生，是第一隻用成年動物細胞複製成功的哺乳動物，引起全世界對生命倫理的大討論。</li>
+      <li><b>臺灣的做法</b>（習作補充）：臺灣和日本、德國、法國等國對基改作物規範嚴格，<b>禁止農民種植</b>，但允許進口經審查的作物，且包裝要清楚標示。</li>
+      <li>🤔 <b>思考挑戰</b>：「技術本身不一定是壞事，重點在於如何管理。」你同意嗎？用基改、疫苗、複製各舉一個例子說明。</li>
+    </ul>
+  </div>
+  <label class="chk"><input type="checkbox" data-done="l3"> 我讀完第3課了！⭐</label>
+</section>
+
+<!-- ================= SMART CITY ================= -->
+<section class="page" id="city">
+  <div class="banner b4"><span class="big">🏙️</span>
+    <h2>智慧城鄉在臺灣</h2>
+    <p>政府推動公共服務時，導入資訊科技讓生活更便利，也能預防社會問題！</p>
+  </div>
+  <div class="grid2">
+    <div class="card"><h2>🚇 台北捷運</h2>
+      <ul class="dots">
+        <li>問題：人潮多，車廂常常<b>壅塞</b></li>
+        <li>研發「<b>台北捷運GO</b>」APP：用<mark>綠、黃、橘、紅</mark>表示車廂擁擠程度，引導乘客避開人多的車廂 <span class="hot">🔥</span></li>
+        <li>設置<b>導引光條</b>和「<b>小捷客</b>」智慧告示（節日會變化，例：情人小捷客）</li>
+      </ul>
+      <p>🧠 記法：顏色像<b>紅綠燈＋2</b>：綠（空）→黃→橘→紅（擠）</p>
+    </div>
+    <div class="card"><h2>🚛 花蓮縣環保局</h2>
+      <ul class="dots">
+        <li>問題：偏遠地區有不肖業者<b>違法傾倒或掩埋廢棄物</b></li>
+        <li>在所有廢棄物業者車上加裝<mark>GPS</mark>，建立<b>雙向追蹤系統</b></li>
+        <li>開發APP讓民眾掌握車子位置與抵達時間</li>
+        <li>偏僻地區架設<b>縮時連線攝影</b>，預防隨意丟棄垃圾</li>
+      </ul>
+    </div>
+  </div>
+  <div class="gifted"><h3>🌟 資優思考</h3>
+    <p>為什麼政府要導入資訊科技？① 提升<b>效率</b> ② 提供<b>即時資訊</b> ③ <b>預防</b>違法行為。但也要想想：到處裝攝影機、GPS，會不會影響<b>隱私</b>？怎麼取得平衡？（連結第1課的資訊安全！）</p>
+  </div>
+</section>
+
+<!-- ================= MEMORY ================= -->
+<section class="page" id="mem">
+  <div class="banner b4"><span class="big">🧠</span>
+    <h2>超強記憶大法</h2>
+    <p>口訣＋比較表＋翻翻卡，讓知識點一次分清楚！</p>
+  </div>
+
+  <div class="memo">
+    <h3>🔑 口訣1：三課共通公式「現・問・行」</h3>
+    <p class="bigword">科技來了（現象）→ 出包了（問題）→ 大家動起來（行動）</p>
+    <div class="scroll"><table>
+      <tr><th></th><th>💻 資訊科技</th><th>⚡ 能源科技</th><th>🧬 生物科技</th></tr>
+      <tr><td><b>😊 帶來</b></td><td>突破時空、生活便利</td><td>穩定電力、經濟發展</td><td>增產、防疫、保育</td></tr>
+      <tr><td><b>😟 問題</b></td><td>侵權、詐騙、病毒、個資外洩、AI假訊息</td><td>空汙、暖化、資源耗竭、核廢料</td><td>健康疑慮、副作用、生命價值</td></tr>
+      <tr><td><b>🏛️ 政府</b></td><td>著作權法、資通安全管理法</td><td>環保稽查、能源轉型、發展再生能源</td><td>基改標示、疫苗許可與公告、更新法令</td></tr>
+      <tr><td><b>🙋 民眾</b></td><td>尊重著作權、停看查、保護個資</td><td>節能產品、節約用電</td><td>看標示、尊重選擇、思考生命價值</td></tr>
+    </table></div>
+  </div>
+
+  <div class="memo">
+    <h3>🔑 口訣2：AI 假訊息 →「紅黃綠燈 停・看・查」</h3>
+    <p>🔴 <b>停</b>（停轉傳）→ 🟡 <b>看</b>（找破綻）→ 🟢 <b>查</b>（找公信力單位）</p>
+  </div>
+
+  <div class="memo">
+    <h3>🔑 口訣3：用電部門由多到少 →「公主服能弄雲」</h3>
+    <p class="bigword">公（工業55.2）主（住宅18.8）服（服務業17.6）能（能源6.5）弄（農業1.2）雲（運輸0.7）</p>
+    <p>👸 想像一位公主穿上能弄出雲的衣服！</p>
+  </div>
+
+  <div class="memo">
+    <h3>🔑 口訣4：發電來源「火八二、再十二、核五」</h3>
+    <p>🔥 火力 <b>82%</b>（超過八成）＞ 🌱 再生 <b>12%</b> ＞ ☢️ 核能 <b>5%</b> ＞ 其他 1%（民國113年）</p>
+  </div>
+
+  <div class="memo">
+    <h3>🔑 口訣5：火力發電三宗罪「髒、燒、光」</h3>
+    <p>💨 <b>髒</b>＝空氣汙染　🌡️ <b>燒</b>＝地球暖化（發燒）　🪫 <b>光</b>＝資源耗竭（用光光）</p>
+    <p>☢️ 核能：「<b>小小原料大大電，就怕外洩和廢料</b>」</p>
+  </div>
+
+  <div class="memo">
+    <h3>🔑 口訣6：太陽能板裝哪裡？「學公農、魚水山」</h3>
+    <p>🏫 學校　🚏 公車站　🌾 農田　🐟 魚塭　💧 水圳　⛰️ 山坡地</p>
+    <p>☀️ 太陽能缺點：「<b>景觀生態、搶農地、老了要回收</b>」　🌬️ 風力缺點：「<b>鳥兒怕、居民吵</b>」</p>
+    <p>📍 位置理由別搞混：<b>太陽能→日照充足</b>；<b>風力→西部沿海風力穩定</b></p>
+  </div>
+
+  <div class="memo">
+    <h3>🔑 口訣7：生物科技三兄弟「改・打・複」</h3>
+    <div class="scroll"><table>
+      <tr><th></th><th>🌽 基「改」</th><th>💉 「打」疫苗</th><th>🐾 「複」製</th></tr>
+      <tr><td>領域</td><td>農業</td><td>醫療</td><td>保育／寵物</td></tr>
+      <tr><td>好處</td><td>少農藥化肥、香甜、增產</td><td>提升免疫力、降低感染與傳播</td><td>保育瀕危物種（黑足雪貂）</td></tr>
+      <tr><td>疑慮</td><td>人體健康</td><td>副作用、安全性</td><td>失敗風險、生命商品化、棄養</td></tr>
+      <tr><td>政府關鍵字</td><td><mark>清楚標示</mark></td><td><mark>許可＋公告</mark></td><td><mark>即時更新法令</mark></td></tr>
+      <tr><td>民眾關鍵字</td><td>看標示</td><td>尊重選擇、自主管理</td><td>思考生命價值</td></tr>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h2>🃏 翻翻記憶卡（點一下翻面）</h2>
+    <div class="fc-wrap" id="fcs"></div>
+  </div>
+</section>
+
+<!-- ================= CALC ================= -->
+<section class="page" id="calc">
+  <div class="banner b2"><span class="big">🔢</span>
+    <h2>換算小教室</h2>
+    <p>讀圖題常常需要換算！搞懂這些「同名不同義」和換算方法，考試超有利。</p>
+  </div>
+
+  <div class="card">
+    <h2>⚠️ 同一個「度」，意思不一樣！</h2>
+    <div class="grid3">
+      <div class="tile y"><h4>⚡ 用電的「度」</h4>電量單位<br>1度 = 1千瓦小時（kWh）</div>
+      <div class="tile b"><h4>🥧 圓形圖的「度」</h4>角度單位<br>一整圈 = 360°</div>
+      <div class="tile p"><h4>🌡️ 溫度的「度」</h4>冷熱單位<br>例：28°C</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>⚡ 換算1：電器用了幾「度」電？ <span class="gift">🌟資優</span></h2>
+    <p><b>公式：</b><span class="bigword">度 ＝ 瓦數 ÷ 1000 × 小時</span></p>
+    <p>（1000 瓦 ＝ 1 千瓦；1 千瓦的電器開 1 小時 ＝ 1 度）</p>
+    <div class="scroll"><table>
+      <tr><th>電器</th><th>瓦數</th><th>使用時間</th><th>用電</th></tr>
+      <tr><td>💨 吹風機</td><td>1000 瓦</td><td>30 分鐘（0.5小時）</td><td>1000÷1000×0.5 = <b>0.5 度</b></td></tr>
+      <tr><td>💡 LED 燈</td><td>10 瓦</td><td>10 小時</td><td>10÷1000×10 = <b>0.1 度</b></td></tr>
+      <tr><td>❄️ 冷氣</td><td>1000 瓦</td><td>8 小時</td><td>1×8 = <b>8 度</b></td></tr>
+    </table></div>
+    <div class="conv">🧮 試試看：<input id="w" type="number" value="1500" min="0"> 瓦 × <input id="h" type="number" value="2" min="0"> 小時 ＝ <span class="out" id="kwh">3 度</span></div>
+    <p>💡 想一想：LED 燈和傳統燈泡亮度差不多，但瓦數小很多 → 這就是「<b>選用節能產品</b>」的意義！</p>
+  </div>
+
+  <div class="card">
+    <h2>📅 換算2：民國 ↔ 西元 <span class="hot">🔥常考</span></h2>
+    <p><span class="bigword">西元 ＝ 民國 ＋ 1911</span>　　<span class="bigword">民國 ＝ 西元 － 1911</span></p>
+    <div class="scroll"><table>
+      <tr><th>民國</th><th>西元</th><th>發生什麼事</th></tr>
+      <tr><td>39年</td><td>1950年</td><td>發電量圖表的起點</td></tr>
+      <tr><td>69年</td><td>1980年</td><td>新竹科學園區成立，發電量大幅增加</td></tr>
+      <tr><td>113年</td><td>2024年</td><td>火力發電82%；工業用電55.2%</td></tr>
+    </table></div>
+    <div class="conv">民國 <input id="roc" type="number" value="69"> 年 ＝ 西元 <span class="out" id="ad">1980</span> 年</div>
+  </div>
+
+  <div class="card">
+    <h2>🥧 換算3：百分比 → 圓形圖角度 <span class="gift">🌟資優</span></h2>
+    <p><span class="bigword">角度 ＝ 百分比 × 3.6</span>（因為 360° ÷ 100 = 3.6）</p>
+    <ul class="dots">
+      <li>工業 55.2% → 55.2 × 3.6 ≈ <b>199°</b>（超過半圓 180°！）</li>
+      <li>住宅 18.8% → 18.8 × 3.6 ≈ <b>68°</b></li>
+      <li>火力 82% → 82 × 3.6 ≈ <b>295°</b>（幾乎整個圓）</li>
+    </ul>
+    <div class="conv"><input id="pct" type="number" value="25"> % ＝ <span class="out" id="deg">90°</span></div>
+  </div>
+
+  <div class="card">
+    <h2>✖️ 換算4：增加了多少？變成幾倍？ <span class="gift">🌟資優</span></h2>
+    <p>🦦 黑足雪貂：18 隻 → 650 隻</p>
+    <div class="grid2">
+      <div class="tile g"><h4>➕ 增加多少（用減法）</h4>650 － 18 ＝ <b>632 隻</b></div>
+      <div class="tile v"><h4>✖️ 變成幾倍（用除法）</h4>650 ÷ 18 ≈ <b>36 倍</b></div>
+    </div>
+    <p><span class="tricky">⚠️差異</span>「增加了多少」問的是<b>差</b>，「是原來的幾倍」問的是<b>商</b>，不要混在一起！</p>
+  </div>
+
+  <div class="card">
+    <h2>🔢 換算5：大數字「億度」</h2>
+    <p>1 億 ＝ 100,000,000（1後面8個0）。發電量約 <b>3,000 億度</b> ＝ 300,000,000,000 度！</p>
+    <p>如果一個家庭一個月用 300 度，3,000億度大約可以讓 <b>10億個家庭</b>用一個月（3000億 ÷ 300 ＝ 10億）。可見工業用電量有多驚人！</p>
+  </div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section class="page" id="quiz">
+  <div class="banner b5"><span class="big">✏️</span>
+    <h2>練習題挑戰（共40題）</h2>
+    <p>從單元卷整理＋加強題。<span class="chip d1">易</span> <span class="chip d2">中</span> <span class="chip d3">難</span> <span class="hot">🔥常考</span></p>
+  </div>
+  <div class="card" id="qsetup">
+    <h2>🎮 選擇練習範圍</h2>
+    <div class="qbar" id="qmode">
+      <button data-m="all" class="on">🌈 全部40題</button>
+      <button data-m="1">💻 第1課</button>
+      <button data-m="2">⚡ 第2課</button>
+      <button data-m="3">🧬 第3課</button>
+      <button data-m="hot">🔥 常考題</button>
+      <button data-m="hard">💪 中難題</button>
+      <button data-m="wrong">📕 錯題本</button>
+    </div>
+    <label style="display:flex;align-items:center;gap:8px;margin:8px 0;font-weight:700"><input type="checkbox" id="shuf" checked style="width:22px;height:22px"> 題目隨機排序</label>
+    <p id="qinfo"></p>
+    <button class="btn go" id="qstart">開始挑戰 🚀</button>
+  </div>
+  <div id="qarea"></div>
+</section>
+
+<!-- ================= RECORD ================= -->
+<section class="page" id="rec">
+  <div class="banner b3"><span class="big">📊</span>
+    <h2>我的學習紀錄</h2>
+    <p>紀錄只存在這台平板的瀏覽器裡喔！</p>
+  </div>
+  <div class="card">
+    <h2>🏅 我的徽章</h2>
+    <div class="badge-row" id="badges"></div>
+  </div>
+  <div class="card">
+    <h2>📈 總覽</h2>
+    <div class="grid3" id="sum"></div>
+  </div>
+  <div class="card">
+    <h2>📝 作答歷史</h2>
+    <div class="scroll"><table class="hist" id="hist"></table></div>
+    <button class="btn" id="clr" style="margin-top:10px">🗑️ 清除所有紀錄</button>
+  </div>
+</section>
+
+</main>
+<footer>科科小學堂 🤖 ｜ 內容依翰林版六上社會第三單元課本、習作與單元卷整理，資優內容為延伸補充。</footer>
+
+<script>
+/* ---------- storage (safe) ---------- */
+const KEY='kk_soc6a_u3';
+let mem={};
+function load(){try{const s=localStorage.getItem(KEY);if(s)return JSON.parse(s)}catch(e){}return mem}
+function save(d){mem=d;try{localStorage.setItem(KEY,JSON.stringify(d))}catch(e){}}
+let DB=load(); DB.hist=DB.hist||[]; DB.wrong=DB.wrong||[]; DB.done=DB.done||{}; DB.right=DB.right||[];
+
+/* ---------- nav ---------- */
+function go(p){
+  document.querySelectorAll('section.page').forEach(s=>s.classList.toggle('on',s.id===p));
+  document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(p==='rec')renderRec();
+  if(p==='quiz')updInfo();
+}
+document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>go(b.dataset.p));
+
+/* done checkboxes */
+document.querySelectorAll('[data-done]').forEach(c=>{
+  c.checked=!!DB.done[c.dataset.done];
+  c.onchange=()=>{DB.done[c.dataset.done]=c.checked;save(DB);if(c.checked)confetti();}
+});
+
+/* ---------- flashcards ---------- */
+const FC=[
+ ['資訊科技的最大改變？','突破了<b>時間與空間</b>的限制'],
+ ['過度依賴資訊科技會？','減少真實人際互動 → <b>孤獨、溝通困難</b>'],
+ ['政府規範資訊科技的兩部法？','<b>著作權法</b>、<b>資通安全管理法</b>'],
+ ['為什麼還要養成好上網習慣？','法律往往<b>追不上</b>科技變化的速度'],
+ ['停・看・查','停轉傳 → 看破綻 → 向<b>公信力單位</b>查證'],
+ ['民國69年發生什麼事？','<b>新竹科學園區</b>成立，發電量大幅增加'],
+ ['用電最多的部門？','<b>工業 55.2%</b>（公主服能弄雲）'],
+ ['臺灣主要電力來源？','<b>火力 82%</b>（民國113年）'],
+ ['能源轉型的目的？','<b>減少汙染</b>、<b>避免資源耗竭</b>'],
+ ['風力發電為何在西部沿海？','<b>風力穩定</b>；缺點：影響鳥類、噪音'],
+ ['生物科技三大領域？','<b>基因改造、疫苗研發、生物複製</b>'],
+ ['基改食品政府怎麼管？','規定<b>必須清楚標示</b>，保障消費者權益'],
+ ['疫苗上市前要？','長時間試驗審查，<b>主管機關許可</b>才能製造販售'],
+ ['複製黑足雪貂目的？','協助<b>物種保育</b>（18隻→650隻）'],
+ ['台北捷運GO 的四色？','<b>綠、黃、橘、紅</b>表示車廂擁擠程度'],
+ ['花蓮環保局用什麼科技？','<b>GPS</b>追蹤＋<b>縮時連線攝影</b>，防亂倒廢棄物']
+];
+document.getElementById('fcs').innerHTML=FC.map(f=>`<div class="fc" onclick="this.classList.toggle('flip')"><div class="fc-in"><div class="fc-f">❓ ${f[0]}</div><div class="fc-b">${f[1]}</div></div></div>`).join('');
+
+/* ---------- converters ---------- */
+const $=id=>document.getElementById(id);
+function cv(){
+  const k=(+$('w').value||0)/1000*(+$('h').value||0); $('kwh').textContent=(Math.round(k*100)/100)+' 度';
+  $('ad').textContent=(+$('roc').value||0)+1911;
+  $('deg').textContent=(Math.round((+$('pct').value||0)*3.6*10)/10)+'°';
+}
+['w','h','roc','pct'].forEach(i=>$(i).oninput=cv); cv();
+
+/* ---------- questions ---------- */
+const TF=['⭕ 對','❌ 錯'];
+const Q=[
+/* L1 */
+{l:1,o:TF,a:0,d:1,q:'姐姐使用智慧手錶記錄身體狀況，這屬於人工智慧在個人健康管理上的應用。',e:'課本提到 AI 可以記錄身體狀況，提醒自己保持健康。'},
+{l:1,o:TF,a:1,d:2,h:1,q:'在網路上看到有趣的圖片，可以直接下載並公開分享，不需要經過原作者同意。',e:'網路圖片、影音都有著作權，未經允許不可公開使用或圖利。'},
+{l:1,o:TF,a:1,d:1,h:1,q:'小志的阿公收到中獎簡訊，要求輸入身分證字號領獎，應立刻照辦以免錯失機會。',e:'這很可能是詐騙！不任意填寫姓名、地址或身分證字號，以保護個人資料。'},
+{l:1,o:TF,a:0,d:1,h:1,q:'資訊科技的發展突破了時間與空間的限制，使人際溝通更加便利。',e:'這是第1課最核心的關鍵句。'},
+{l:1,o:['隨意下載分享','尊重著作權','直接修改後當成自己的作品','只要不用來營利就沒關係'],a:1,d:1,h:1,q:'使用網路時看到喜歡的文章或音樂，應該注意什麼？',e:'要尊重著作權，未經同意不下載、轉傳或修改。'},
+{l:1,o:['網路上的東西都是公用的','只要註明出處就能任意使用','保護創作者的權益','影片不受著作權保護'],a:2,d:3,h:1,q:'關於著作權，下列敘述何者正確？',e:'⚠️「註明出處」不等於取得同意！著作權是用來保護創作者權益的。'},
+{l:1,o:['一般的雨傘','普通的掃把','木頭鉛筆','大眾運輸的智慧客服'],a:3,d:1,q:'下列何者屬於人工智慧的應用？',e:'智慧客服可以即時回應乘客問題，是 AI 的應用。'},
+{l:1,o:['減少真實人際互動','容易孤獨','溝通困難','以上皆是'],a:3,d:2,h:1,q:'小文是電子產品的重度使用者，過度依賴資訊科技可能產生什麼問題？',e:'過度依賴會減少真實互動，產生孤獨與溝通困難等問題。'},
+{l:1,o:['保持懷疑並查證','只相信自稱是專家的說法','立即轉傳給親友','相信按讚數最多的'],a:0,d:1,q:'面對網路上的不明資訊，應如何處理比較好？',e:'按讚數多不代表正確，要保持懷疑並查證。'},
+{l:1,o:['上網速度','手機廠商的利潤','個人隱私與資訊安全','遊戲公司的利潤'],a:2,d:2,q:'政府制定法律來規範網路行為，主要是為了保護什麼？',e:'法規用來保護個人隱私與資訊安全、維護創作者權益。'},
+{l:1,o:['停下轉傳動作','細看影像有無破綻','向具有公信力的單位查證','把影片傳給更多人討論'],a:2,d:2,h:1,q:'面對可疑的 AI 影片，「停、看、查」中的「查」是指什麼？',e:'停＝停下轉傳；看＝細看破綻；查＝向具有公信力的單位查證。'},
+{l:1,o:['道路交通管理處罰條例','著作權法、資通安全管理法','食品安全衛生管理法','電業法'],a:1,d:2,q:'為了嚇阻資訊科技的違法行為，政府制定了哪些相關法規？',e:'課本：政府制定著作權法、資通安全管理法等法規。'},
+{l:1,o:['法律往往追不上科技變化的速度','法律太嚴格沒有人遵守','上網習慣比法律更重要，所以不需要法律','政府不想管理網路'],a:0,d:3,h:1,q:'為什麼除了政府制定法規外，我們還需要建立良好的上網習慣？',e:'科技變化太快，法律常跟不上，因此需要大家養成好習慣共同維護安全。'},
+{l:1,o:['讓垃圾車開更快','避免廢棄物被隨意傾倒','增加業者收入','記錄天氣變化'],a:1,d:2,q:'花蓮縣環保局在廢棄物業者車上加裝 GPS，主要目的是什麼？',e:'建立雙向追蹤系統，避免廢棄物被隨意傾倒或掩埋。'},
+/* L2 */
+{l:2,o:TF,a:0,d:1,q:'臺灣因為日照充足，具備發展太陽能發電的良好條件。',e:'日照充足 → 適合太陽能。'},
+{l:2,o:TF,a:1,d:1,h:1,q:'隨著產業發展與生活需求，臺灣的用電量呈現逐年下降的趨勢。',e:'⚠️ 是逐年「攀升」，不是下降！'},
+{l:2,o:TF,a:1,d:2,q:'當電力供應不足而必須限制用電時，只會影響工廠運作，不會影響一般民眾。',e:'限制用電會影響商家與民眾的生活。'},
+{l:2,o:['降低環境汙染','限制民眾的用電量','影響經濟成長','高科技產業更加發達'],a:3,d:3,h:1,q:'減少設置發電廠可能帶來什麼影響？下列哪一項「錯誤」？',e:'⚠️ 反向題！電力不足會影響經濟，高科技產業需要大量電力，不會更發達。'},
+{l:2,o:['農業技術全面機械化','推動全民大造林運動','新竹科學園區的成立','全面普及家用冷氣機'],a:2,d:2,h:1,q:'臺灣總發電量在民國69年是重要轉折點，主要與下列何者有關？',e:'民國69年新竹科學園區成立，高科技產業需要大量電力。'},
+{l:2,o:['地形平坦適合堆放廢棄物','鄰近大都市供電方便','日照時間全臺最長','風力穩定適合發電'],a:3,d:1,h:1,q:'臺灣西部沿海可以看到一排巨大的「白色風車」，主要原因為何？',e:'西部沿海風力穩定，適合風力發電。（日照是太陽能的理由，別搞混！）'},
+{l:2,o:['煤、天然氣','石油、核能','太陽能、風力','煤、核能'],a:2,d:1,q:'政府推動能源轉型以減少汙染，下列哪一組能源較適合作為未來發展方向？',e:'太陽能、風力屬於再生能源，汙染較少。'},
+{l:2,o:['會讓山區的氣溫降低','會破壞當地的自然景觀與生態環境','會導致山區電力過剩','會吸引過多遊客'],a:1,d:2,q:'若廠商想在陡峭山坡地大規模鋪設太陽能板，可能會遇到什麼問題？',e:'課本：廠商在山坡地鋪設太陽能板，破壞當地自然景觀。'},
+{l:2,o:TF,a:1,d:2,h:1,q:'小芸：「核能發電不會產生任何風險，因此是最安全的能源。」',e:'核能有核輻射外洩與核廢料儲放的風險。'},
+{l:2,o:TF,a:1,d:2,h:1,q:'小柔：「石油與天然氣屬於再生能源，可以一直使用不會耗盡。」',e:'石油、天然氣是化石燃料，會有資源耗竭的問題。'},
+{l:2,o:['住宅','服務業','工業','農業'],a:2,d:2,h:1,q:'【讀圖】依民國113年臺灣各部門用電比例，哪一個部門用電最多？',e:'工業 55.2%，超過一半！口訣：公主服能弄雲。'},
+{l:2,o:['核能','火力','風力','太陽能'],a:1,d:1,h:1,q:'民國113年（西元2024年）臺灣的主要電力來源是哪一種？',e:'火力發電約占 82%。'},
+{l:2,o:['0.5 度','2 度','20 度','2000 度'],a:1,d:3,q:'【資優換算】一台 1000 瓦的吹風機連續使用 2 小時，大約用了幾度電？',e:'度＝瓦數÷1000×小時＝1000÷1000×2＝2度。'},
+{l:2,o:['穩定的電力供應是支持經濟與便利生活的關鍵','只要有錢，不需要電力也能發展科技','電力需求僅來自工廠，與日常生活無關','為了保護環境，應完全停止興建發電廠'],a:0,d:2,q:'下列哪一項敘述最能說明能源、經濟與生活之間的關係？',e:'能源供應可以滿足產業發展、經濟活動與日常生活所需。'},
+/* L3 */
+{l:3,o:TF,a:1,d:3,h:1,q:'農業的生產方式改變，主要是受到資訊科技發展的影響。',e:'⚠️ 是「生物科技」（基因改造）改變了農業生產方式。'},
+{l:3,o:TF,a:1,d:2,h:1,q:'流行性感冒傳播迅速，症狀比起一般感冒較為輕微。',e:'流感症狀比一般感冒「更嚴重」，對長者與幼童威脅特別高。'},
+{l:3,o:TF,a:0,d:1,h:1,q:'為了保障消費者權益，政府規定基因改造食品必須清楚標示。',e:'清楚標示讓民眾選購時獲得完整資訊。'},
+{l:3,o:TF,a:1,d:3,q:'生物複製技術目前與人們的身體健康較沒有直接關係，所以政府可以不用規範管理。',e:'生物科技與生命有關，複製也有失敗、健康與生命價值的問題，政府須即時更新法令規範。'},
+{l:3,o:['查證資訊的來源','立即轉發給他人','深信不疑','刪除社群媒體的帳號'],a:0,d:1,q:'小海看到網路上關於疫苗的謠言，他應該怎麼做比較好？',e:'先查證來源，不要立即轉發。'},
+{l:3,o:['提升身體免疫力','降低人們感染疾病的風險','降低疾病傳播的風險','以上皆可能'],a:3,d:2,q:'民眾接種疫苗後可能帶來什麼好處？',e:'三項都是疫苗可能帶來的好處。'},
+{l:3,o:['商業販售','協助物種保育','增加寵物種類','取代自然繁殖'],a:1,d:1,h:1,q:'科學家嘗試複製黑足雪貂等瀕臨絕種動物，主要目的為何？',e:'複製瀕危動物是為了協助物種保育。'},
+{l:3,o:['農產品基因改造','再生能源開發','疫苗研發','生物複製'],a:1,d:3,h:1,q:'科學家將生物科技運用在許多領域，「不包含」下列何者？',e:'⚠️ 再生能源開發屬於能源科技（第2課）。'},
+{l:3,o:['價格昂貴','體型太小','對生命的不重視與健康問題','無法量產'],a:2,d:2,q:'生物複製技術在社會上引發爭議的主要原因是什麼？',e:'失敗風險由誰承擔、生命變成商品等，涉及生命價值與健康。'},
+{l:3,o:['約 18 倍','約 36 倍','約 632 倍','約 650 倍'],a:1,d:3,q:'【資優換算】黑足雪貂從倖存的 18 隻增加到 650 隻，大約是原來的幾倍？',e:'650 ÷ 18 ≈ 36 倍。（650－18＝632 是「增加的數量」，不是倍數！）'},
+{l:3,o:['只要研發公司覺得安全就能販售','須經主管機關許可，才能製造或販售','只要醫生同意就能販售','不需要任何試驗'],a:1,d:2,h:1,q:'為了保障民眾健康，政府對疫苗有什麼規定？',e:'疫苗須經長時間試驗審查，主管機關許可後才能製造或販售，並公告對象、年齡、劑量、副作用。'},
+{l:3,o:['稻米、地瓜','玉米、黃豆','香蕉、鳳梨','茶葉、咖啡'],a:1,d:1,h:1,q:'下列哪一組是常見的基因改造作物？',e:'課本：玉米、黃豆等都是常見的基因改造作物。'}
+];
+Q.forEach((x,i)=>x.id=i);
+
+/* ---------- quiz engine ---------- */
+let mode='all',set=[],cur=0,score=0,answered=false,wrongNow=[];
+document.querySelectorAll('#qmode button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#qmode button').forEach(x=>x.classList.remove('on'));b.classList.add('on');mode=b.dataset.m;updInfo();
+});
+function pick(){
+  if(mode==='all')return Q.slice();
+  if(mode==='hot')return Q.filter(q=>q.h);
+  if(mode==='hard')return Q.filter(q=>q.d>=2);
+  if(mode==='wrong')return Q.filter(q=>DB.wrong.includes(q.id));
+  return Q.filter(q=>q.l==+mode);
+}
+function updInfo(){const n=pick().length;$('qinfo').innerHTML=mode==='wrong'&&!n?'🎉 錯題本是空的！太棒了！':`這次共有 <b>${n}</b> 題，加油！💪`;}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+$('qstart').onclick=()=>{
+  set=pick(); if(!set.length){updInfo();return}
+  if($('shuf').checked)shuffle(set);
+  cur=0;score=0;wrongNow=[];$('qsetup').style.display='none';show();
+};
+const LN={1:'💻 第1課',2:'⚡ 第2課',3:'🧬 第3課'}, DN={1:'易',2:'中',3:'難'};
+function show(){
+  const q=set[cur];answered=false;
+  const tf=q.o===TF;
+  $('qarea').innerHTML=`
+  <div class="prog"><div style="width:${cur/set.length*100}%"></div></div>
+  <div class="qcard">
+    <div class="qhead"><span>第 ${cur+1} / ${set.length} 題</span><span class="chip" style="background:var(--l${q.l})">${LN[q.l]}</span>
+      <span class="chip d${q.d}">${DN[q.d]}</span>${q.h?'<span class="hot">🔥常考</span>':''}${q.d==3?'<span class="tricky">⚠️小心陷阱</span>':''}
+      <span style="margin-left:auto">${tf?'是非題':'選擇題'}｜得分 ${score}</span></div>
+    <div class="qtext">${q.q}</div>
+    ${q.o.map((o,i)=>`<button class="opt" data-i="${i}">${tf?o:['①','②','③','④'][i]+' '+o}</button>`).join('')}
+    <div id="fb"></div>
+  </div>`;
+  document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>ans(+b.dataset.i));
+}
+function ans(i){
+  if(answered)return;answered=true;
+  const q=set[cur],ok=i===q.a,bs=document.querySelectorAll('.opt');
+  bs[q.a].classList.add('ok');if(!ok)bs[i].classList.add('no');
+  if(ok){score++;DB.wrong=DB.wrong.filter(x=>x!==q.id);if(!DB.right.includes(q.id))DB.right.push(q.id);}
+  else{wrongNow.push(q.id);if(!DB.wrong.includes(q.id))DB.wrong.push(q.id);}
+  save(DB);
+  $('fb').innerHTML=`<div class="fb ${ok?'ok':'no'}"><b>${ok?['🎉 答對了！','👏 太厲害了！','🌟 完全正確！'][Math.floor(Math.random()*3)]:'💡 差一點！正確答案是 '+(q.o===TF?q.o[q.a]:['①','②','③','④'][q.a])+'，已放進錯題本'}</b><br>📘 ${q.e}</div>
+  <div style="text-align:right;margin-top:10px"><button class="btn nx" id="nx">${cur+1<set.length?'下一題 ➜':'看成績 🏆'}</button></div>`;
+  $('nx').onclick=()=>{cur++;cur<set.length?show():end()};
+}
+function end(){
+  const pct=Math.round(score/set.length*100);
+  const st=pct>=90?'⭐⭐⭐':pct>=70?'⭐⭐':pct>=50?'⭐':'💪';
+  const names={all:'全部',1:'第1課',2:'第2課',3:'第3課',hot:'常考題',hard:'中難題',wrong:'錯題本'};
+  const d=new Date();
+  DB.hist.unshift({t:`${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`,m:names[mode],s:score,n:set.length,p:pct});
+  DB.hist=DB.hist.slice(0,50);save(DB);
+  if(pct>=80)confetti();
+  $('qarea').innerHTML=`<div class="qcard" style="text-align:center">
+    <div class="stars">${st}</div><h2>${names[mode]}：答對 ${score} / ${set.length} 題（${pct} 分）</h2>
+    <p style="font-size:1.1rem">${pct===100?'🏆 全對！你是科技挑戰王！':pct>=80?'🎉 很棒！再看看錯的題目就完美了！':pct>=60?'👍 不錯喔！到錯題本再練一次吧！':'🌱 別灰心，回去讀一下重點再來挑戰！'}</p>
+    ${wrongNow.length?`<p>這次錯了 <b>${wrongNow.length}</b> 題，已加入 📕錯題本。</p>`:''}
+    <button class="btn go" onclick="again()">再玩一次 🔁</button>
+    ${DB.wrong.length?`<button class="btn" style="margin-left:8px" onclick="toWrong()">📕 練錯題本</button>`:''}
+  </div>`;
+}
+function again(){$('qarea').innerHTML='';$('qsetup').style.display='block';updInfo();}
+function toWrong(){mode='wrong';document.querySelectorAll('#qmode button').forEach(x=>x.classList.toggle('on',x.dataset.m==='wrong'));again();}
+
+/* ---------- record ---------- */
+function renderRec(){
+  const h=DB.hist,best=h.length?Math.max(...h.map(x=>x.p)):0;
+  const doneN=['l1','l2','l3'].filter(k=>DB.done[k]).length;
+  $('sum').innerHTML=`
+   <div class="tile y"><h4>📚 讀完課數</h4><span class="bigword">${doneN} / 3</span></div>
+   <div class="tile b"><h4>✏️ 練習次數</h4><span class="bigword">${h.length}</span></div>
+   <div class="tile g"><h4>🏆 最高分</h4><span class="bigword">${best}</span></div>
+   <div class="tile p"><h4>✅ 曾答對題數</h4><span class="bigword">${DB.right.length} / ${Q.length}</span></div>
+   <div class="tile v"><h4>📕 錯題本</h4><span class="bigword">${DB.wrong.length}</span> 題</div>`;
+  $('hist').innerHTML='<tr><th>時間</th><th>範圍</th><th>成績</th><th>分數</th></tr>'+(h.length?h.map(x=>`<tr><td>${x.t}</td><td>${x.m}</td><td>${x.s}/${x.n}</td><td>${x.p>=90?'⭐⭐⭐':x.p>=70?'⭐⭐':x.p>=50?'⭐':'💪'} ${x.p}</td></tr>`).join(''):'<tr><td colspan="4">還沒有紀錄，快去挑戰吧！</td></tr>');
+  const B=[
+   ['📘','讀完第1課',DB.done.l1],['📙','讀完第2課',DB.done.l2],['📗','讀完第3課',DB.done.l3],
+   ['🚀','第一次挑戰',h.length>0],['🎯','單次80分',best>=80],['🏆','單次滿分',best===100],
+   ['🧠','答對過全部40題',DB.right.length>=Q.length],['📕','清空錯題本',h.length>0&&DB.wrong.length===0]];
+  $('badges').innerHTML=B.map(b=>`<div class="bdg ${b[2]?'got':''}"><span class="e">${b[2]?b[0]:'🔒'}</span>${b[1]}</div>`).join('');
+}
+$('clr').onclick=()=>{if(!$('clr').dataset.c){$('clr').dataset.c=1;$('clr').textContent='⚠️ 再按一次確認清除';return}
+  DB={hist:[],wrong:[],done:{},right:[]};save(DB);$('clr').dataset.c='';$('clr').textContent='🗑️ 清除所有紀錄';
+  document.querySelectorAll('[data-done]').forEach(c=>c.checked=false);renderRec();};
+
+/* ---------- confetti ---------- */
+function confetti(){
+  const em=['🎉','⭐','🌈','💖','✨','🎊'];
+  for(let i=0;i<28;i++){const s=document.createElement('div');s.textContent=em[i%em.length];
+    s.style.cssText=`position:fixed;top:-40px;left:${Math.random()*100}vw;font-size:${20+Math.random()*20}px;z-index:99;pointer-events:none;transition:transform ${1.6+Math.random()}s ease-in,opacity 2.4s`;
+    document.body.appendChild(s);requestAnimationFrame(()=>{s.style.transform=`translateY(${window.innerHeight+80}px) rotate(${Math.random()*720}deg)`;s.style.opacity='.2'});
+    setTimeout(()=>s.remove(),2800);}
+}
+updInfo();
+</script>
+</body>
+</html>
