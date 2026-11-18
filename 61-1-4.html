@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>社會6上 第4單元｜生活中的規範與運作 自學站</title>
+<style>
+:root{
+  --yellow:#FFD93D; --pink:#FF6B9A; --sky:#4CC9F0; --mint:#2ECC8F; --purple:#9B5DE5;
+  --orange:#FF9F1C; --red:#FF4D4D; --blue:#3A86FF; --cream:#FFFBEF; --ink:#2D2A4A;
+  --soft-pink:#FFE3EE; --soft-sky:#DDF6FF; --soft-mint:#DDFBEA; --soft-yel:#FFF5C7; --soft-pur:#EFE4FF; --soft-or:#FFEBD2;
+}
+*{box-sizing:border-box}
+html{font-size:20px}
+body{margin:0;font-family:"Arial Rounded MT Bold","PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif;color:var(--ink);
+  background:var(--cream);background-image:radial-gradient(#FFD6E7 2px,transparent 2px),radial-gradient(#C9F1FF 2px,transparent 2px);
+  background-size:40px 40px;background-position:0 0,20px 20px;line-height:1.7}
+header{background:linear-gradient(90deg,#FF8FB8,#FFC75F,#7BDFF2);padding:14px 18px;display:flex;align-items:center;gap:14px;
+  border-bottom:5px solid #fff;box-shadow:0 4px 0 rgba(0,0,0,.06);position:sticky;top:0;z-index:20}
+header h1{margin:0;font-size:1.35rem;color:#fff;text-shadow:2px 2px 0 rgba(0,0,0,.18)}
+header small{display:block;font-size:.8rem;color:#fff}
+.logo{width:62px;height:62px;flex:none}
+nav{display:flex;flex-wrap:wrap;gap:8px;padding:12px;justify-content:center;background:#fff;border-bottom:3px dashed #FFC2D8;position:sticky;top:90px;z-index:19}
+nav button{font:inherit;font-size:.95rem;border:none;border-radius:999px;padding:8px 16px;cursor:pointer;background:var(--soft-yel);color:var(--ink);
+  box-shadow:0 3px 0 #E8C94A;transition:.15s}
+nav button.on{background:var(--pink);color:#fff;box-shadow:0 3px 0 #D84D7D;transform:translateY(-2px)}
+main{max-width:1050px;margin:0 auto;padding:18px}
+section.page{display:none}
+section.page.show{display:block;animation:pop .35s}
+@keyframes pop{from{opacity:0;transform:translateY(12px)}to{opacity:1}}
+.card{background:#fff;border-radius:26px;padding:20px 22px;margin:16px 0;box-shadow:0 6px 0 rgba(155,93,229,.15);border:3px solid #F3E8FF}
+.card h2{margin:.1rem 0 .6rem;font-size:1.35rem}
+.card h3{margin:.6rem 0 .3rem;font-size:1.15rem}
+.tag{display:inline-block;border-radius:12px;padding:0 10px;font-size:.8rem;font-weight:bold;margin:0 3px;vertical-align:middle}
+.hot{background:#FFE14D;color:#7A4B00;border:2px solid #FFB800}
+.hard{background:#FF5C7A;color:#fff}
+.mid{background:#FFB547;color:#fff}
+.easy{background:#2ECC8F;color:#fff}
+.gift{background:var(--purple);color:#fff}
+mark{background:linear-gradient(transparent 45%,#FFE14D 45%);padding:0 2px;font-weight:bold}
+.red{color:#E8335E;font-weight:bold}
+.blue{color:#2A6FDB;font-weight:bold}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.box{border-radius:20px;padding:14px 16px}
+.bp{background:var(--soft-pink)} .bs{background:var(--soft-sky)} .bm{background:var(--soft-mint)} .by{background:var(--soft-yel)} .bu{background:var(--soft-pur)} .bo{background:var(--soft-or)}
+.big{font-size:2.2rem;line-height:1}
+.memo{background:linear-gradient(135deg,#FFF0A8,#FFD3E6);border:3px dashed #FF6B9A;border-radius:22px;padding:14px 18px;margin:12px 0}
+.memo b.k{font-size:1.45rem;color:#E8335E;letter-spacing:4px}
+.gifted{background:linear-gradient(135deg,#EFE4FF,#DDF6FF);border:3px solid #B794F6;border-radius:22px;padding:14px 18px;margin:12px 0}
+.gifted h3::before{content:"🚀 "}
+.trap{background:#FFF1F1;border-left:10px solid #FF4D4D;border-radius:16px;padding:12px 16px;margin:12px 0}
+.trap b:first-child{color:#E02F4F}
+table{border-collapse:separate;border-spacing:0;width:100%;font-size:.95rem;border-radius:16px;overflow:hidden}
+th{background:var(--purple);color:#fff;padding:8px}
+td{padding:8px;border-bottom:2px solid #F0E6FF;background:#fff;vertical-align:top}
+tr:nth-child(even) td{background:#FBF7FF}
+.done-btn{font:inherit;font-size:.95rem;border:none;background:var(--mint);color:#fff;border-radius:999px;padding:8px 18px;cursor:pointer;box-shadow:0 3px 0 #1E9C6A;margin-top:6px}
+.done-btn.ok{background:#B9C2CC;box-shadow:0 3px 0 #8E99A4}
+.btn{font:inherit;border:none;border-radius:18px;padding:10px 18px;cursor:pointer;font-size:1rem;color:#fff;background:var(--blue);box-shadow:0 4px 0 #2257B8;margin:4px}
+.btn.pink{background:var(--pink);box-shadow:0 4px 0 #D84D7D}
+.btn.green{background:var(--mint);box-shadow:0 4px 0 #1E9C6A}
+.btn.orange{background:var(--orange);box-shadow:0 4px 0 #D47D00}
+.btn:active{transform:translateY(3px);box-shadow:none}
+.prog{height:26px;background:#F1E9FF;border-radius:999px;overflow:hidden;border:3px solid #fff;box-shadow:0 0 0 2px #E3D3FF}
+.prog>div{height:100%;background:linear-gradient(90deg,#FF6B9A,#FFD93D,#2ECC8F);width:0;transition:.6s}
+.hero{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.bubble{position:relative;background:#fff;border:3px solid #FFC2D8;border-radius:24px;padding:12px 18px;flex:1;min-width:240px}
+.bubble::before{content:"";position:absolute;left:-16px;top:30px;border:8px solid transparent;border-right-color:#FFC2D8;border-width:10px 16px 10px 0}
+.menu-tile{border-radius:24px;padding:16px;text-align:center;cursor:pointer;font-weight:bold;border:3px solid #fff;box-shadow:0 5px 0 rgba(0,0,0,.08);transition:.15s}
+.menu-tile:hover{transform:translateY(-4px)}
+.menu-tile .big{display:block;margin-bottom:6px;font-size:2.6rem}
+/* flashcards */
+.fc{perspective:900px;height:190px;cursor:pointer}
+.fc-in{position:relative;width:100%;height:100%;transition:.5s;transform-style:preserve-3d}
+.fc.flip .fc-in{transform:rotateY(180deg)}
+.fc-f,.fc-b{position:absolute;inset:0;border-radius:22px;display:flex;align-items:center;justify-content:center;text-align:center;padding:14px;backface-visibility:hidden;font-weight:bold;-webkit-backface-visibility:hidden}
+.fc-f{background:linear-gradient(135deg,#FFD93D,#FF9F1C);color:#fff;font-size:1.25rem;text-shadow:1px 1px 0 rgba(0,0,0,.2)}
+.fc-b{background:#fff;border:4px solid #4CC9F0;transform:rotateY(180deg);font-size:.95rem;font-weight:normal}
+/* quiz */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.chip{font:inherit;font-size:.9rem;border:3px solid #E3D3FF;background:#fff;border-radius:999px;padding:6px 14px;cursor:pointer}
+.chip.on{background:var(--purple);color:#fff;border-color:var(--purple)}
+.qbox{background:#fff;border-radius:26px;padding:22px;border:4px solid #C9F1FF;box-shadow:0 6px 0 rgba(76,201,240,.25)}
+.qtext{font-size:1.25rem;font-weight:bold;margin:10px 0 14px}
+.opt{display:block;width:100%;text-align:left;font:inherit;font-size:1.08rem;padding:12px 16px;margin:9px 0;border-radius:18px;border:3px solid #E3D3FF;background:#FBF8FF;cursor:pointer}
+.opt:hover{background:#F3EAFF}
+.opt.right{background:#D7FBE8;border-color:#2ECC8F}
+.opt.wrong{background:#FFE0E6;border-color:#FF4D4D}
+.tfrow{display:flex;gap:14px}
+.tfrow .opt{text-align:center;font-size:1.6rem}
+.explain{margin-top:12px;padding:12px 16px;border-radius:18px;background:var(--soft-yel);display:none}
+.score-big{font-size:3rem;font-weight:bold;color:var(--pink);text-align:center}
+/* sort game */
+.sort-item{font-size:1.35rem;font-weight:bold;text-align:center;background:#fff;border:4px dashed #FF9F1C;border-radius:22px;padding:22px;margin:12px 0}
+.sort-btns{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.sort-btns button{font:inherit;font-size:1.05rem;padding:14px;border:none;border-radius:18px;color:#fff;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.15)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#fff;border:4px solid var(--mint);border-radius:22px;padding:10px 22px;font-size:1.2rem;font-weight:bold;display:none;z-index:50;box-shadow:0 6px 18px rgba(0,0,0,.15)}
+svg text{font-family:inherit}
+.center{text-align:center}
+.small{font-size:.85rem}
+footer{text-align:center;padding:24px;color:#9B8FB5;font-size:.8rem}
+@media (max-width:640px){html{font-size:18px} nav{top:84px}}
+</style>
+</head>
+<body>
+
+<header>
+  <svg class="logo" viewBox="0 0 100 100" aria-hidden="true">
+    <circle cx="50" cy="55" r="40" fill="#9B5DE5"/>
+    <ellipse cx="50" cy="68" rx="24" ry="22" fill="#F3E8FF"/>
+    <circle cx="35" cy="48" r="15" fill="#fff"/><circle cx="65" cy="48" r="15" fill="#fff"/>
+    <circle cx="37" cy="49" r="7" fill="#2D2A4A"/><circle cx="63" cy="49" r="7" fill="#2D2A4A"/>
+    <circle cx="39" cy="46" r="2.5" fill="#fff"/><circle cx="65" cy="46" r="2.5" fill="#fff"/>
+    <polygon points="50,58 44,64 56,64" fill="#FF9F1C"/>
+    <circle cx="24" cy="64" r="5" fill="#FF8FB8" opacity=".7"/><circle cx="76" cy="64" r="5" fill="#FF8FB8" opacity=".7"/>
+    <polygon points="20,22 50,8 80,22 50,34" fill="#2D2A4A"/><rect x="47" y="22" width="6" height="10" fill="#2D2A4A"/>
+    <line x1="78" y1="22" x2="80" y2="38" stroke="#FFD93D" stroke-width="3"/><circle cx="80" cy="40" r="4" fill="#FFD93D"/>
+  </svg>
+  <div><h1>規規鴞的社會自學站 🦉</h1><small>翰林版 六上 第四單元｜生活中的規範與運作</small></div>
+</header>
+
+<nav id="nav">
+  <button data-p="home" class="on">🏠 首頁</button>
+  <button data-p="l1">📘 第1課</button>
+  <button data-p="l2">📗 第2課</button>
+  <button data-p="world">🐶 世界看見臺灣</button>
+  <button data-p="memory">🧠 超強記憶</button>
+  <button data-p="game">🎮 分類遊戲</button>
+  <button data-p="quiz">✏️ 練習題</button>
+  <button data-p="wrong">📒 錯題本</button>
+</nav>
+
+<main>
+
+<!-- ================= HOME ================= -->
+<section class="page show" id="home">
+  <div class="card">
+    <div class="hero">
+      <svg width="150" height="150" viewBox="0 0 100 100"><use href="#owl"/></svg>
+      <div class="bubble">
+        <b>嗨！我是「規規鴞」🦉</b><br>
+        這個單元要學：社會為什麼需要<b class="red">規範</b>、<b class="blue">憲法</b>保障我們哪些權利與義務、政府怎麼<b>分工合作</b>，還有我們能怎麼<b>參與民主</b>！<br>
+        讀完一段就按「✅ 我讀懂了」，練習題的成績會自動記在這台平板裡喔！
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🌈 我的學習進度</h2>
+    <div class="prog"><div id="progBar"></div></div>
+    <p id="progText" class="center"></p>
+    <div class="grid g3" id="statBox"></div>
+  </div>
+
+  <div class="card">
+    <h2>🗺️ 單元地圖（一張圖看懂全單元）</h2>
+    <svg viewBox="0 0 900 360" width="100%">
+      <rect x="330" y="10" width="240" height="64" rx="30" fill="#9B5DE5"/>
+      <text x="450" y="50" text-anchor="middle" font-size="24" fill="#fff" font-weight="bold">生活中的規範與運作</text>
+      <path d="M450 74 L220 120 M450 74 L680 120" stroke="#C9B3F5" stroke-width="5" fill="none"/>
+      <rect x="60" y="120" width="320" height="56" rx="26" fill="#FF6B9A"/>
+      <text x="220" y="156" text-anchor="middle" font-size="21" fill="#fff" font-weight="bold">第1課 規範如何維持秩序？</text>
+      <rect x="520" y="120" width="320" height="56" rx="26" fill="#3A86FF"/>
+      <text x="680" y="156" text-anchor="middle" font-size="21" fill="#fff" font-weight="bold">第2課 民主社會如何運作？</text>
+      <g font-size="17" text-anchor="middle">
+        <rect x="20" y="200" width="170" height="44" rx="14" fill="#FFE3EE"/><text x="105" y="228">① 各種社會規範</text>
+        <rect x="200" y="200" width="170" height="44" rx="14" fill="#FFE3EE"/><text x="285" y="228">② 科技影響風俗信仰</text>
+        <rect x="20" y="256" width="170" height="44" rx="14" fill="#FFE3EE"/><text x="105" y="284">③ 道德 vs 法律</text>
+        <rect x="200" y="256" width="170" height="44" rx="14" fill="#FFE3EE"/><text x="285" y="284">④ 守護兒少權益</text>
+        <rect x="480" y="200" width="125" height="44" rx="14" fill="#DDF6FF"/><text x="542" y="228">① 憲法基石</text>
+        <rect x="615" y="200" width="125" height="44" rx="14" fill="#DDF6FF"/><text x="677" y="228">② 平等權</text>
+        <rect x="750" y="200" width="135" height="44" rx="14" fill="#DDF6FF"/><text x="817" y="228">③ 自由・參政</text>
+        <rect x="480" y="256" width="125" height="44" rx="14" fill="#DDF6FF"/><text x="542" y="284">④ 三大義務</text>
+        <rect x="615" y="256" width="125" height="44" rx="14" fill="#DDF6FF"/><text x="677" y="284">⑤ 中央與地方</text>
+        <rect x="750" y="256" width="135" height="44" rx="14" fill="#DDF6FF"/><text x="817" y="284">⑥ 人民參與</text>
+      </g>
+      <rect x="280" y="310" width="340" height="42" rx="20" fill="#FFD93D"/>
+      <text x="450" y="338" text-anchor="middle" font-size="18" font-weight="bold">🐶 世界看見臺灣：《十二夜》與動物保護</text>
+    </svg>
+  </div>
+
+  <div class="card">
+    <h2>🎯 怎麼用這個網站？</h2>
+    <div class="grid g4">
+      <div class="menu-tile bp" onclick="go('l1')"><span class="big">📘</span>讀第1課重點</div>
+      <div class="menu-tile bs" onclick="go('l2')"><span class="big">📗</span>讀第2課重點</div>
+      <div class="menu-tile by" onclick="go('memory')"><span class="big">🧠</span>口訣＋比較卡</div>
+      <div class="menu-tile bm" onclick="go('game')"><span class="big">🎮</span>分類小遊戲</div>
+      <div class="menu-tile bo" onclick="go('quiz')"><span class="big">✏️</span>40題練習</div>
+      <div class="menu-tile bu" onclick="go('wrong')"><span class="big">📒</span>錯題再練</div>
+    </div>
+    <p class="small">標示說明：<span class="tag hot">⭐常考</span> 考試很愛考　<span class="tag hard">🔥難</span> 容易錯　<span class="tag mid">中</span> 中等　<span class="tag easy">易</span> 基本題　<span class="tag gift">🚀資優</span> 課外延伸</p>
+  </div>
+</section>
+
+<!-- ================= LESSON 1 ================= -->
+<section class="page" id="l1">
+  <div class="card" style="background:linear-gradient(135deg,#FFE3EE,#FFF5C7)">
+    <h2>📘 第1課　規範如何維持秩序並守護權益？</h2>
+    <p>🔑 一句話：<mark>為了讓大家和諧相處、減少衝突，社會產生了各種「規範」，作為共同生活的依據，幫助維持社會秩序。</mark></p>
+  </div>
+
+  <div class="card">
+    <h2>① 共同生活需要各種規範 <span class="tag hot">⭐常考</span></h2>
+    <p>隨著時代進步、科技發展，人們的互動、價值觀和生活方式不斷改變，所以需要規範來<b>約束個人行為、減少衝突、維持秩序</b>。</p>
+    <div class="memo">🧠 超強口訣：四種社會規範 ＝ <b class="k">風中刀法</b><br>
+      <b>風</b>＝風俗習慣　<b>中</b>（宗）＝宗教信仰　<b>刀</b>（道）＝道德　<b>法</b>＝法律<br>
+      👉 只有最後一招「<b class="red">法</b>」是真的會「砍」下來的 —— <b class="red">法律是唯一有強制力的規範！</b></div>
+    <svg viewBox="0 0 880 250" width="100%">
+      <text x="440" y="26" text-anchor="middle" font-size="20" font-weight="bold">🌡️ 強制力溫度計（越右邊，約束力越強）</text>
+      <defs><linearGradient id="thermo" x1="0" x2="1"><stop offset="0" stop-color="#7BDFF2"/><stop offset=".7" stop-color="#FFD93D"/><stop offset="1" stop-color="#FF4D4D"/></linearGradient></defs>
+      <rect x="40" y="50" width="800" height="30" rx="15" fill="url(#thermo)"/>
+      <g font-size="18" text-anchor="middle">
+        <circle cx="130" cy="140" r="52" fill="#DDF6FF" stroke="#4CC9F0" stroke-width="4"/><text x="130" y="132" font-size="30">🧧</text><text x="130" y="162" font-weight="bold">風俗習慣</text>
+        <circle cx="330" cy="140" r="52" fill="#EFE4FF" stroke="#9B5DE5" stroke-width="4"/><text x="330" y="132" font-size="30">🙏</text><text x="330" y="162" font-weight="bold">宗教信仰</text>
+        <circle cx="530" cy="140" r="52" fill="#FFF5C7" stroke="#FFB800" stroke-width="4"/><text x="530" y="132" font-size="30">💛</text><text x="530" y="162" font-weight="bold">道德</text>
+        <circle cx="750" cy="140" r="60" fill="#FFE0E6" stroke="#FF4D4D" stroke-width="6"/><text x="750" y="130" font-size="32">⚖️</text><text x="750" y="162" font-weight="bold" fill="#E02F4F">法律</text>
+        <text x="130" y="222" font-size="15">自然環境＋文化，長時間流傳</text>
+        <text x="330" y="222" font-size="15">參與宗教活動要守禮儀</text>
+        <text x="530" y="222" font-size="15">違反→良心、輿論譴責</text>
+        <text x="750" y="222" font-size="15" fill="#E02F4F" font-weight="bold">違反→依法處罰（強制力）</text>
+      </g>
+    </svg>
+    <table>
+      <tr><th>規範</th><th>怎麼來的？</th><th>生活例子</th></tr>
+      <tr><td>🧧 風俗習慣</td><td>受<b>自然環境</b>與<b>文化</b>影響，經<b>長時間流傳</b>形成</td><td>過年發紅包、成年禮、清明祭祖</td></tr>
+      <tr><td>🙏 宗教信仰</td><td>人們依循宗教的規範約束自己</td><td>「舉頭三尺有神明」、「亂丟垃圾，神明在看」</td></tr>
+      <tr><td>💛 道德</td><td>人與人相處的規範，<b>約束或鼓勵</b>行為的標準</td><td>誠實（不說謊）、助人、公德心</td></tr>
+      <tr><td>⚖️ 法律</td><td>由<b>立法機關</b>（民意代表組成）制定</td><td>騎車戴安全帽、禮讓行人、不賣菸酒給兒少</td></tr>
+    </table>
+    <div class="trap"><b>⚠️ 易錯陷阱：</b>「亂丟垃圾，神明在看」不是要強迫人信教，而是<b>提醒人們思考行為是否恰當</b>。<br>
+    ⚠️ 社會規範<b>不能</b>解決所有問題，有規範還是可能發生衝突。</div>
+    <button class="done-btn" data-done="l1a">✅ 我讀懂了</button>
+  </div>
+
+  <div class="card">
+    <h2>② 科技影響風俗與信仰 <span class="tag mid">中</span></h2>
+    <div class="grid g3">
+      <div class="box bs center"><div class="big">💌</div><b>婚禮</b><br>紙本喜帖 ➜ 電子喜帖</div>
+      <div class="box bm center"><div class="big">💻</div><b>掃墓</b><br>上山祭祖 ➜ 網路祭拜／線上祭祖</div>
+      <div class="box bu center"><div class="big">🛕</div><b>宗教</b><br>到廟裡 ➜ 線上參加宗教法會</div>
+    </div>
+    <div class="grid g2" style="margin-top:12px">
+      <div class="box by">👍 <b>好處</b>：方便、省時間、不用長途跋涉塞車</div>
+      <div class="box bp">👎 <b>可能的問題</b>：減少人際間的<b>實體互動</b>，親自參與的意義變淡</div>
+    </div>
+    <p>👉 我們要在 <mark>便利</mark> 與 <mark>尊重傳統</mark> 之間取得<b>平衡</b>，逐步建立合宜的<b>新規範</b>。</p>
+    <div class="trap"><b>⚠️ 考試愛問：</b>出現新型態網路詐騙這種「科技帶來的社會變遷」，政府應該 <b>適時修正法律或建立新標準</b>，不是關閉網路，也不是只靠道德勸說。</div>
+    <button class="done-btn" data-done="l1b">✅ 我讀懂了</button>
+  </div>
+
+  <div class="card">
+    <h2>③ 道德的標準與法律約束 <span class="tag hot">⭐常考</span> <span class="tag hard">🔥易錯</span></h2>
+    <p>在現代社會中，道德與法律<b>缺一不可、相輔相成</b>！</p>
+    <svg viewBox="0 0 880 330" width="100%">
+      <circle cx="320" cy="170" r="150" fill="#FFD93D" opacity=".55"/>
+      <circle cx="560" cy="170" r="150" fill="#FF6B9A" opacity=".45"/>
+      <text x="230" y="60" font-size="26" font-weight="bold" text-anchor="middle">💛 道德</text>
+      <text x="650" y="60" font-size="26" font-weight="bold" text-anchor="middle">⚖️ 法律</text>
+      <g font-size="17" text-anchor="middle">
+        <text x="235" y="115">人與人相處</text><text x="235" y="140">自然形成的指引</text>
+        <text x="235" y="180">約束 ＋ <tspan font-weight="bold">鼓勵</tspan>行為</text>
+        <text x="235" y="220">違反 ➜ 良心或</text><text x="235" y="244">社會輿論譴責</text>
+        <text x="440" y="150" font-weight="bold">共同點</text><text x="440" y="178">約束個人行為</text><text x="440" y="204">穩定社會秩序</text>
+        <text x="650" y="115">立法機關制定</text><text x="650" y="140">（民意代表組成）</text>
+        <text x="650" y="180" font-weight="bold" fill="#C4123F">具有強制力</text>
+        <text x="650" y="220">違反 ➜ 法院依法</text><text x="650" y="244">做出公平正義的判決</text>
+      </g>
+    </svg>
+    <div class="grid g2">
+      <div class="box bp"><b>🚗 課本案例：家門前的公有地停車</b><br>停在白線上「沒有違規」（合法），但擋到鄰居家人進出，不夠體貼（不合道德）。<br>👉 <mark>合法的事，不一定合乎道德！</mark></div>
+      <div class="box bs"><b>🚶 課本案例：安全回家的路</b><br>根據《道路交通管理處罰條例》，斑馬線上有行人，汽車駕駛人不禮讓，<b class="red">最高可罰 6,000 元</b>。<br>👉 這是法律發揮<b>強制力</b>的表現。騎腳踏車也不能闖紅燈！</div>
+    </div>
+    <div class="trap"><b>⚠️ 超級易錯：</b>「道德也有強制力」✖！　<b class="red">法律是唯一具有強制力的社會規範</b>，道德只會帶來良心或輿論的譴責。</div>
+    <div class="gifted"><h3>資優挑戰站：自律 vs 他律</h3>
+      道德是靠「<b>自己</b>」管自己（自律）；法律是靠「<b>國家的力量</b>」來管（他律）。<br>
+      想一想：如果大家都很有道德，是不是就不需要法律？➜ 不是！因為每個人的道德標準不同，遇到衝突時，需要法律做出<b>公平、一致</b>的裁決。這就是「相輔相成」的意思：道德讓人<b>主動做好事</b>，法律<b>守住最低底線</b>。<br>
+      🔍 再進一步：國家的法也有大小 ➜ <b>憲法 ＞ 法律 ＞ 命令</b>，法律不能違背憲法（第2課會學到憲法是「根本大法」）。</div>
+    <button class="done-btn" data-done="l1c">✅ 我讀懂了</button>
+  </div>
+
+  <div class="card">
+    <h2>④ 守護兒童及少年的權益 <span class="tag hot">⭐常考</span></h2>
+    <p>社會中有些族群<b>較缺乏保護自己的力量</b>，政府會制定<b>專屬的法律</b>來保障他們 ➜ 《<mark>兒童及少年福利與權益保障法</mark>》。</p>
+    <div class="grid g2">
+      <div class="box bp"><div class="big">🚫🍺🚬</div><b>限制（保護你）</b><br>法律規定，店家<b>不得販售菸酒</b>給兒童與少年 ➜ 保護健康、安全的成長。</div>
+      <div class="box bm"><div class="big">🎟️🚌🏛️</div><b>保障（照顧你）</b><br>大眾運輸、博物館、遊樂園等，應以 <b class="red">年齡</b> 為標準提供優惠（兒童優待票、半價或免費）。</div>
+    </div>
+    <div class="trap"><b>⚠️ 陷阱題兩個：</b><br>1. 優惠是看「<b>年齡</b>」不是看「身高」！<br>2. 兒少法的目的是「<b>保護</b>」，不是「限制兒少的自由」。</div>
+    <div class="memo">🧠 記憶法：兒少法像一把 <b class="k">雨傘☂️</b>　—　上面擋住「菸酒」（限制），下面給你「優待票」（保障），為的是讓你<b>健康安全長大</b>。</div>
+    <button class="done-btn" data-done="l1d">✅ 我讀懂了</button>
+  </div>
+</section>
+
+<!-- ================= LESSON 2 ================= -->
+<section class="page" id="l2">
+  <div class="card" style="background:linear-gradient(135deg,#DDF6FF,#EFE4FF)">
+    <h2>📗 第2課　民主社會是如何運作與維繫？</h2>
+    <p>🔑 一句話：<mark>憲法是國家的根本大法，規範人民的權利與義務、政府的組織與職權；政府與人民共同遵守憲法，民主社會才能穩定運作。</mark></p>
+  </div>
+
+  <div class="card">
+    <h2>📜 先看課本開頭：投票權的「昔」與「今」 <span class="tag mid">中</span></h2>
+    <div class="grid g2">
+      <div class="box by"><b>昔：日治時期</b>（限制很多）<br>① 男性　② 年滿 25 歲　③ 繳交足夠的稅金<br>➜ 只有<b>經濟能力符合標準的男性</b>才能投票</div>
+      <div class="box bm"><b>今：民主社會</b><br>不論男女、貧富，達到法定年齡都能投票<br>➜ 展現<b>平等</b>與<b>人民參與</b>的精神</div>
+    </div>
+    <div class="gifted"><h3>資優補充</h3>目前我國公職人員選舉的投票年齡是 <b>年滿 20 歲</b>；公民投票是 <b>年滿 18 歲</b>。民國111年（2022年）曾舉辦「18歲公民權」修憲複決投票，但<b>未通過</b>。這告訴我們：修改憲法的門檻很高，因為憲法是國家最重要的根本大法。</div>
+  </div>
+
+  <div class="card">
+    <h2>① 憲法是民主社會的基石 <span class="tag hot">⭐常考</span></h2>
+    <svg viewBox="0 0 880 330" width="100%">
+      <polygon points="440,10 120,110 760,110" fill="#FF6B9A"/>
+      <text x="440" y="85" text-anchor="middle" font-size="26" fill="#fff" font-weight="bold">🏠 民主社會</text>
+      <g font-size="19" text-anchor="middle" font-weight="bold">
+        <rect x="160" y="115" width="140" height="130" rx="10" fill="#4CC9F0"/><text x="230" y="170" fill="#fff">人民的</text><text x="230" y="198" fill="#fff">權利</text>
+        <rect x="370" y="115" width="140" height="130" rx="10" fill="#2ECC8F"/><text x="440" y="170" fill="#fff">人民的</text><text x="440" y="198" fill="#fff">義務</text>
+        <rect x="580" y="115" width="140" height="130" rx="10" fill="#FF9F1C"/><text x="650" y="170" fill="#fff">政府的</text><text x="650" y="198" fill="#fff">組織與職權</text>
+      </g>
+      <rect x="90" y="248" width="700" height="70" rx="14" fill="#9B5DE5"/>
+      <text x="440" y="292" text-anchor="middle" font-size="24" fill="#fff" font-weight="bold">📜 地基：中華民國憲法（根本大法・各種法律的依據）</text>
+    </svg>
+    <ul>
+      <li>憲法 ＝ 國家的<b>根本大法</b>、各種法律的<b>依據</b>、民主社會運作的<b>重要基石</b>。</li>
+      <li>政府<b>依據憲法</b>行使權力；人民以<b>選舉、表達意見</b>等方式參與公共事務，並<b>監督政府</b>施政。</li>
+      <li>憲法第二章：說明人民的權利與義務（第7～11條是平等、自由等權利）。</li>
+    </ul>
+    <div class="trap"><b>⚠️ 易錯：</b>憲法保障的自由<b>不是</b>「想做什麼就做什麼」！</div>
+    <div class="gifted"><h3>資優補充</h3>中華民國憲法除前言外，全文共 <b>175 條、14 章</b>。民國以來為了因應時代需要，又制定了「憲法增修條文」。</div>
+    <button class="done-btn" data-done="l2a">✅ 我讀懂了</button>
+  </div>
+
+  <div class="card">
+    <h2>② ③ 憲法保障的三大類權利 <span class="tag hot">⭐常考</span> <span class="tag hard">🔥易錯</span></h2>
+    <div class="grid g3">
+      <div class="box bs"><div class="big">⚖️</div><h3>平等權</h3>不論<b>性別、族群、信仰</b>，在法律面前一律平等。<br><span class="small">🏫 校園例子：<br>・新住民學生「華語補救教學」<br>・為不同族群開語言課程<br>・行動不便同學的<b>無障礙設施</b></span></div>
+      <div class="box bu"><div class="big">🕊️</div><h3>自由權</h3>選擇居住地、信仰宗教、發表言論、通訊、集會<br><span class="small">⚠️ 原則：<br><b>不侵犯他人</b>＋<b>不違背社會公共利益</b><br>不能散播不實內容、不能誹謗侮辱、宗教活動不能製造噪音或汙染</span></div>
+      <div class="box bm"><div class="big">🗳️</div><h3>參政權</h3>直接參與國家政治事務：<br><b>選舉、罷免、參加公務人員考試、擔任公職</b><br><span class="small">✨ 擔任我國公職要具備<b>我國國籍</b></span></div>
+    </div>
+    <div class="memo">🧠 參政權口訣：<b class="k">選霸烤公雞</b> 🐔<br>選（選舉）・霸（罷免）・烤（考試）・公（公職）<br>
+      ❌ 不是參政權的混淆項：信仰宗教、選擇居住地（＝自由權）；服兵役、受國民教育、納稅（＝義務）</div>
+    <table>
+      <tr><th>參政權</th><th>白話解釋</th></tr>
+      <tr><td>🗳️ 選舉</td><td>投票選出符合期待的政策或政治人物，積極投票是<b>善盡公民責任</b></td></tr>
+      <tr><td>✋ 罷免</td><td>對<b>不適任的地方首長與民選代表</b>，罷免通過後結束其職務，督促民選代表盡責</td></tr>
+      <tr><td>📝 公務人員考試</td><td>國家定期辦理國家考試、招聘人才</td></tr>
+      <tr><td>👔 擔任公職</td><td>通過考試成為公職人員，為國民服務</td></tr>
+    </table>
+    <div class="trap"><b>⚠️ 超級陷阱：</b>縣市長、村里長是「<b>選舉</b>」選出來的，<b>不是</b>考公務人員考試當上的！</div>
+    <div class="trap"><b>⚠️ 陷阱：</b>不同宗教信仰的人，受到的權利保障<b>完全相同</b>（平等權）。</div>
+    <button class="done-btn" data-done="l2b">✅ 我讀懂了</button>
+  </div>
+
+  <div class="card">
+    <h2>④ 履行義務支持國家運作 <span class="tag hot">⭐常考</span></h2>
+    <div class="memo">🧠 三大義務口訣：<b class="k">叫兵睡</b> 😴<br>叫（<b>教</b>＝接受國民教育）・兵（服兵役）・睡（<b>稅</b>＝納稅）<br>👉 想像：「班長<b>叫兵</b>去<b>睡</b>覺！」</div>
+    <div class="grid g3">
+      <div class="box by center"><div class="big">🎒</div><b>接受國民教育</b><br><span class="red">既是權利，也是義務！</span><br><span class="small">增長知識，未來才有能力參與民主社會</span></div>
+      <div class="box bs center"><div class="big">🪖</div><b>服兵役</b><br>男性<b>年滿18歲</b>後依法服兵役；<b>女性可依個人意願</b>選擇<br><span class="small">保護民眾生命與財產安全</span></div>
+      <div class="box bm center"><div class="big">💰</div><b>納稅</b><br>政府用稅金興建學校、醫療照護、改善交通<br><span class="small">🧾 統一發票＝消費憑證＋商家繳稅證明</span></div>
+    </div>
+    <svg viewBox="0 0 880 170" width="100%" style="margin-top:10px">
+      <text x="440" y="24" text-anchor="middle" font-size="19" font-weight="bold">💰 稅金的旅行</text>
+      <g font-size="17" text-anchor="middle">
+        <rect x="20" y="45" width="190" height="90" rx="18" fill="#FFF5C7"/><text x="115" y="80">👨‍👩‍👧 國民繳稅</text><text x="115" y="108" font-size="14">工作收入、汽車、房屋</text>
+        <rect x="20" y="140" width="190" height="0"/>
+        <rect x="240" y="45" width="190" height="90" rx="18" fill="#FFEBD2"/><text x="335" y="80">🏪 商家繳稅</text><text x="335" y="108" font-size="14">統一發票為證明</text>
+        <path d="M440 90 L500 90" stroke="#FF9F1C" stroke-width="6" marker-end="url(#ar)"/>
+        <rect x="510" y="45" width="140" height="90" rx="18" fill="#9B5DE5"/><text x="580" y="98" fill="#fff" font-weight="bold">🏛️ 政府</text>
+        <path d="M655 90 L700 90" stroke="#FF9F1C" stroke-width="6" marker-end="url(#ar)"/>
+        <rect x="710" y="40" width="160" height="100" rx="18" fill="#DDFBEA"/><text x="790" y="70">🏫 學校</text><text x="790" y="96">🌳 公園</text><text x="790" y="122">🚇 大眾運輸</text>
+      </g>
+      <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF9F1C"/></marker></defs>
+    </svg>
+    <p>👉 權利行使<b>不能妨害社會秩序</b>，必要時國家可<b>依法限制</b>。享有權利的同時也要盡義務，社會才能正常運作。</p>
+    <div class="trap"><b>⚠️ 易錯：</b>服兵役、納稅是<b>義務</b>，不是權利；也不是「刑法」的規範。男性是<b>18歲</b>（不是20歲）。</div>
+    <button class="done-btn" data-done="l2c">✅ 我讀懂了</button>
+  </div>
+
+  <div class="card">
+    <h2>⑤ 中央與地方的分工合作 <span class="tag hot">⭐常考</span> <span class="tag hard">🔥難</span></h2>
+    <svg viewBox="0 0 900 420" width="100%">
+      <rect x="40" y="10" width="520" height="52" rx="24" fill="#3A86FF"/><text x="300" y="44" text-anchor="middle" font-size="22" fill="#fff" font-weight="bold">🏛️ 中央政府：總統府 ＋ 五院（全國性事務）</text>
+      <g font-size="17" text-anchor="middle">
+        <rect x="20" y="80" width="105" height="120" rx="16" fill="#FF6B9A"/><text x="72" y="112" fill="#fff" font-weight="bold">行政院</text><text x="72" y="145" font-size="26">🛠️</text><text x="72" y="182" fill="#fff" font-size="15">做事・提政策</text>
+        <rect x="133" y="80" width="105" height="120" rx="16" fill="#FF9F1C"/><text x="185" y="112" fill="#fff" font-weight="bold">立法院</text><text x="185" y="145" font-size="26">📖</text><text x="185" y="182" fill="#fff" font-size="15">訂法律</text>
+        <rect x="246" y="80" width="105" height="120" rx="16" fill="#9B5DE5"/><text x="298" y="112" fill="#fff" font-weight="bold">司法院</text><text x="298" y="145" font-size="26">⚖️</text><text x="298" y="182" fill="#fff" font-size="15">審判案件</text>
+        <rect x="359" y="80" width="105" height="120" rx="16" fill="#2ECC8F"/><text x="411" y="112" fill="#fff" font-weight="bold">考試院</text><text x="411" y="145" font-size="26">📝</text><text x="411" y="182" fill="#fff" font-size="15">考選人才</text>
+        <rect x="472" y="80" width="105" height="120" rx="16" fill="#4CC9F0"/><text x="524" y="112" fill="#fff" font-weight="bold">監察院</text><text x="524" y="145" font-size="26">🔍</text><text x="524" y="182" fill="#fff" font-size="15">監督糾錯</text>
+      </g>
+      <rect x="620" y="10" width="260" height="52" rx="24" fill="#2ECC8F"/><text x="750" y="44" text-anchor="middle" font-size="22" fill="#fff" font-weight="bold">🏘️ 地方政府</text>
+      <g font-size="17" text-anchor="middle">
+        <rect x="620" y="80" width="260" height="56" rx="16" fill="#DDFBEA" stroke="#2ECC8F" stroke-width="3"/><text x="750" y="105" font-weight="bold">縣市政府（行政機關）</text><text x="750" y="127" font-size="14">縣市長領導・執行中央政策</text>
+        <rect x="620" y="146" width="260" height="56" rx="16" fill="#FFF5C7" stroke="#FFB800" stroke-width="3"/><text x="750" y="171" font-weight="bold">縣市議會（立法機關）</text><text x="750" y="193" font-size="14">民意代表組成・監督縣市政府</text>
+      </g>
+      <text x="450" y="245" text-anchor="middle" font-size="20" font-weight="bold">🚶 案例：中央與地方合作維護「行人路權」</text>
+      <g font-size="16">
+        <rect x="20" y="260" width="420" height="34" rx="12" fill="#FFE3EE"/><text x="32" y="283">行政院：召集各部會研究，提出「行人優先交通安全」政策</text>
+        <rect x="20" y="300" width="420" height="34" rx="12" fill="#FFEBD2"/><text x="32" y="323">立法院：通過行人交通安全相關法規</text>
+        <rect x="20" y="340" width="420" height="34" rx="12" fill="#EFE4FF"/><text x="32" y="363">司法院：所屬各地法院，對撞傷行人案件依法審判</text>
+        <rect x="460" y="260" width="420" height="34" rx="12" fill="#DDFBEA"/><text x="472" y="283">縣市政府：配合政策，設置行人優先區、改善人行道</text>
+        <rect x="460" y="300" width="420" height="34" rx="12" fill="#FFF5C7"/><text x="472" y="323">縣市議會：監督縣市政府推動行人路權的執行狀況</text>
+        <rect x="460" y="340" width="420" height="34" rx="12" fill="#DDF6FF"/><text x="472" y="363">行人路權＝走路的人有優先通過馬路的權利</text>
+      </g>
+      <text x="450" y="405" text-anchor="middle" font-size="16" fill="#E02F4F" font-weight="bold">⚠️「稽查攔檢、取締酒駕」是行政機關（警察）的工作，不是司法院！</text>
+    </svg>
+    <div class="memo">🧠 五院口訣（伸出一隻手 ✋ 從大拇指數）：<br><b class="k">行做事、立訂法、司判案、考選才、監抓錯</b></div>
+    <div class="trap"><b>⚠️ 最常混淆：</b><br>
+      ・<b>立法院</b>（中央）vs <b>縣市議會</b>（地方）：都由<b>民意代表</b>組成，都負責<b>制定法規＋監督行政機關</b>，只是一個管全國、一個管地方。<br>
+      ・題目說「由民意代表組成、監督<b>市政府</b>」➜ 答案是 <b class="red">市議會</b>，不是立法院！<br>
+      ・「地方行政機關根據法律進行審判」✖ ➜ 審判是<b>法院</b>（司法院）的工作。</div>
+    <div class="gifted"><h3>資優挑戰站：為什麼我們是「五權」？</h3>
+      許多民主國家（例如美國）是 <b>三權分立</b>：行政、立法、司法。<br>
+      我國憲法依據 <b>孫中山先生</b> 的五權憲法理念，再加上中國傳統的「<b>考試</b>」（科舉選才）與「<b>監察</b>」（御史監督官員），成為 <b>五權分立</b>。<br>
+      分權的目的：讓權力<b>互相制衡</b>，避免某個機關權力太大而濫權。<br>
+      🔎 進階比較：<b>罷免</b>是「人民」讓民選公職人員下台；<b>彈劾</b>是「監察院」對違法失職的公務人員提出追究。</div>
+    <button class="done-btn" data-done="l2d">✅ 我讀懂了</button>
+  </div>
+
+  <div class="card">
+    <h2>⑥ 人民參與促進民主運作 <span class="tag mid">中</span></h2>
+    <svg viewBox="0 0 880 170" width="100%">
+      <g font-size="17" text-anchor="middle">
+        <rect x="10" y="20" width="270" height="130" rx="22" fill="#FFE3EE"/><text x="145" y="55" font-weight="bold" font-size="20">① 政策形成前</text><text x="145" y="90">💡 向政府提出</text><text x="145" y="116">建議或修正意見</text>
+        <path d="M285 85 L310 85" stroke="#FF6B9A" stroke-width="6" marker-end="url(#ar2)"/>
+        <rect x="315" y="20" width="250" height="130" rx="22" fill="#DDF6FF"/><text x="440" y="55" font-weight="bold" font-size="20">② 政策實施中</text><text x="440" y="90">👀 監督政策</text><text x="440" y="116">執行情況</text>
+        <path d="M570 85 L595 85" stroke="#FF6B9A" stroke-width="6" marker-end="url(#ar2)"/>
+        <rect x="600" y="20" width="270" height="130" rx="22" fill="#DDFBEA"/><text x="735" y="55" font-weight="bold" font-size="20">③ 政策推動後</text><text x="735" y="88">📣 集會遊行表達訴求</text><text x="735" y="114">🧑‍💼 透過民意代表</text><text x="735" y="138">與其他合法管道反映</text>
+      </g>
+      <defs><marker id="ar2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF6B9A"/></marker></defs>
+    </svg>
+    <h3>🍺🚗 課本案例：酒駕問題（現象 ➜ 問題 ➜ 行動）</h3>
+    <table>
+      <tr><th>項目</th><th>民國108年前</th><th>民國108年後</th></tr>
+      <tr><td>酒駕罰款</td><td>汽、機車最高 9 萬元</td><td>汽車最高 <b class="red">12 萬元</b></td></tr>
+      <tr><td>拒絕酒測</td><td>9 萬元</td><td><b class="red">18 萬元</b></td></tr>
+      <tr><td>同行乘客罰款</td><td>無</td><td>最高 3 千元</td></tr>
+    </table>
+    <p>➜ 加重處罰後仍難以完全抑制酒駕，所以：<b>民間團體與政府合作宣導「酒後不開車」</b>、政府調整法規並<b>加強酒測稽查</b>。我們也可以提醒長輩不可酒後開車！</p>
+    <p>👉 政府施政需要人民的<b>支持與監督</b>，政府也能<b>傾聽民意、調整政策</b>。</p>
+    <button class="done-btn" data-done="l2e">✅ 我讀懂了</button>
+  </div>
+</section>
+
+<!-- ================= WORLD ================= -->
+<section class="page" id="world">
+  <div class="card" style="background:linear-gradient(135deg,#FFF5C7,#DDFBEA)">
+    <h2>🐶 世界看見臺灣：《十二夜》悲歌不再 —— 幫毛小孩找到幸福的家</h2>
+    <p>這是一個「<b>人民參與 ➜ 政府修法 ➜ 解決新問題</b>」的完整案例，可以把第2課學的都串起來！</p>
+  </div>
+  <div class="card">
+    <h2>📅 時間軸 <span class="tag mid">中</span></h2>
+    <svg viewBox="0 0 880 220" width="100%">
+      <line x1="40" y1="100" x2="840" y2="100" stroke="#FFB800" stroke-width="8" stroke-linecap="round"/>
+      <g text-anchor="middle" font-size="17">
+        <circle cx="140" cy="100" r="22" fill="#FF6B9A"/><text x="140" y="106" fill="#fff" font-weight="bold">1</text>
+        <text x="140" y="55" font-weight="bold" font-size="20">2013年</text><text x="140" y="150">電影《十二夜》上映</text><text x="140" y="174">引起熱烈討論</text>
+        <circle cx="440" cy="100" r="22" fill="#3A86FF"/><text x="440" y="106" fill="#fff" font-weight="bold">2</text>
+        <text x="440" y="55" font-weight="bold" font-size="20">2015年</text><text x="440" y="150">立法院修正《動物保護法》</text><text x="440" y="174">刪除撲殺條款</text>
+        <circle cx="740" cy="100" r="22" fill="#2ECC8F"/><text x="740" y="106" fill="#fff" font-weight="bold">3</text>
+        <text x="740" y="55" font-weight="bold" font-size="20">2017年</text><text x="740" y="150">收容所全面停止安樂死</text><text x="740" y="174">亞洲第二個零撲殺國家</text>
+      </g>
+    </svg>
+    <div class="memo">🧠 記憶法：<b class="k">13 演、15 修、17 停</b>　（「一三演電影、一五改法律、一七停撲殺」）<br>「十二夜」＝流浪動物進收容所後，若無人認養，生命只剩 <b>12 天</b>。</div>
+    <div class="grid g2">
+      <div class="box bs"><b>📝 2015修法內容</b><br>・刪除撲殺條款<br>・加重虐待動物罰責<br>・加強飼主責任<br>・增建、改善收容所<br>・鼓勵「<b>以領養代替購買</b>」</div>
+      <div class="box bp"><b>⚠️ 新問題：收容所「爆籠」</b><br>不受喜愛的動物長期留在收容所 ➜ 收容所爆滿<br><b>因應方法：</b><br>・調整入所條件（優先捕捉追車、咬人、有攻擊性或傷病的）<br>・推動<b>飼主教育</b>、<b>植入晶片</b>、<b>寵物登記</b> ➜ 減少棄養</div>
+    </div>
+    <div class="gifted"><h3>資優思考</h3>一個好的政策，也可能帶來「<b>新的問題</b>」，所以政策需要不斷<b>檢討與調整</b>。這正是第2課說的：人民持續監督、政府傾聽民意，政策才會越來越完善。<br>想一想：你覺得「零撲殺」與「收容所空間有限」之間，還能怎麼取得平衡？</div>
+    <button class="done-btn" data-done="w1">✅ 我讀懂了</button>
+  </div>
+</section>
+
+<!-- ================= MEMORY ================= -->
+<section class="page" id="memory">
+  <div class="card">
+    <h2>🧠 口訣總整理（大聲唸三遍！）</h2>
+    <div class="grid g2">
+      <div class="memo">📘 四種社會規範<br><b class="k">風中刀法</b><br>風俗・宗教・道德・法律（只有法有強制力）</div>
+      <div class="memo">🗳️ 參政權<br><b class="k">選霸烤公雞</b><br>選舉・罷免・考試・公職</div>
+      <div class="memo">😴 三大義務<br><b class="k">叫兵睡</b><br>國民教育・服兵役・納稅</div>
+      <div class="memo">✋ 五院<br><b class="k">行做事 立訂法 司判案 考選才 監抓錯</b></div>
+      <div class="memo">⚖️ 三大權利<br><b class="k">平・自・參</b><br>平等權・自由權・參政權（像「瓶子餐」🍱）</div>
+      <div class="memo">🐶 動保時間軸<br><b class="k">13演 15修 17停</b></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🆚 易混淆比較表（差異一次看懂）<span class="tag hot">⭐常考</span></h2>
+    <table>
+      <tr><th>比較</th><th>A</th><th>B</th><th>差在哪？</th></tr>
+      <tr><td><b>道德 vs 法律</b></td><td>違反 ➜ 良心、輿論譴責</td><td>違反 ➜ 依法處罰</td><td class="red">只有法律有強制力</td></tr>
+      <tr><td><b>合法 vs 合理</b></td><td>停白線（合法）</td><td>擋鄰居進出（不體貼）</td><td>合法≠合乎道德</td></tr>
+      <tr><td><b>兒少法 限制 vs 保障</b></td><td>不賣菸酒給兒少</td><td>依<b>年齡</b>給優惠票</td><td>目的都是保護兒少</td></tr>
+      <tr><td><b>權利 vs 義務</b></td><td>選舉、罷免、自由、平等</td><td>服兵役、納稅</td><td class="red">國民教育＝兩者都是</td></tr>
+      <tr><td><b>自由權 vs 參政權</b></td><td>宗教、居住、言論、集會</td><td>選舉、罷免、考試、公職</td><td>參政權＝參與政治事務</td></tr>
+      <tr><td><b>選舉 vs 罷免</b></td><td>選人上台</td><td>讓不適任民選者下台</td><td>都是人民的參政權</td></tr>
+      <tr><td><b>罷免 vs 彈劾</b> <span class="tag gift">🚀</span></td><td>人民發動</td><td>監察院發動</td><td>發動者不同</td></tr>
+      <tr><td><b>考試 vs 選舉</b></td><td>考試 ➜ 公務人員</td><td>選舉 ➜ 縣市長、村里長、議員</td><td class="red">縣市長不是考出來的</td></tr>
+      <tr><td><b>立法院 vs 縣市議會</b></td><td>中央立法機關</td><td>地方立法機關</td><td>都由民意代表組成、都監督行政</td></tr>
+      <tr><td><b>行政院 vs 縣市政府</b></td><td>中央：提出全國政策</td><td>地方：執行、設行人優先區</td><td>全國 vs 地方</td></tr>
+      <tr><td><b>司法院 vs 警察</b></td><td>法院審判</td><td>稽查攔檢、取締酒駕</td><td class="red">取締不是司法院</td></tr>
+      <tr><td><b>日治 vs 今日投票</b></td><td>男性、25歲、繳足稅金</td><td>男女平等，20歲可選舉投票</td><td>限制變少、更平等</td></tr>
+      <tr><td><b>三權 vs 五權</b> <span class="tag gift">🚀</span></td><td>行政・立法・司法</td><td>再加 考試・監察</td><td>我國是五權</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>🃏 翻翻記憶卡（點卡片翻面）</h2>
+    <div class="grid g3" id="fcGrid"></div>
+  </div>
+</section>
+
+<!-- ================= GAME ================= -->
+<section class="page" id="game">
+  <div class="card">
+    <h2>🎮 分類小遊戲</h2>
+    <p>選一個遊戲，把題目丟進正確的籃子裡！</p>
+    <div class="chips" id="gameChips"></div>
+    <div id="gameArea"></div>
+  </div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section class="page" id="quiz">
+  <div class="card">
+    <h2>✏️ 練習題（共 40 題）</h2>
+    <p class="small">題目整理自第1課、第2課單元卷，並加入補充題。<span class="tag hot">⭐常考</span> <span class="tag hard">🔥難</span> 一定要多練！</p>
+    <div class="chips" id="quizChips"></div>
+    <button class="btn pink" onclick="startQuiz()">🚀 開始練習</button>
+    <span id="quizCount" class="small"></span>
+  </div>
+  <div id="quizArea"></div>
+</section>
+
+<!-- ================= WRONG ================= -->
+<section class="page" id="wrong">
+  <div class="card">
+    <h2>📒 我的錯題本</h2>
+    <p>答錯的題目會自動收進這裡；再練一次答對，就會從錯題本畢業 🎓</p>
+    <div id="wrongList"></div>
+    <button class="btn orange" onclick="startQuiz(true)">🔁 錯題再練一次</button>
+    <button class="btn" style="background:#B9C2CC;box-shadow:0 4px 0 #8E99A4" onclick="resetAll()">🗑️ 清除所有學習紀錄</button>
+  </div>
+</section>
+
+</main>
+<div class="toast" id="toast"></div>
+<footer>規規鴞社會自學站｜學習紀錄只存在這台平板的瀏覽器中 🦉</footer>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="owl" viewBox="0 0 100 100">
+    <circle cx="50" cy="55" r="40" fill="#9B5DE5"/>
+    <ellipse cx="50" cy="68" rx="24" ry="22" fill="#F3E8FF"/>
+    <circle cx="35" cy="48" r="15" fill="#fff"/><circle cx="65" cy="48" r="15" fill="#fff"/>
+    <circle cx="37" cy="49" r="7" fill="#2D2A4A"/><circle cx="63" cy="49" r="7" fill="#2D2A4A"/>
+    <circle cx="39" cy="46" r="2.5" fill="#fff"/><circle cx="65" cy="46" r="2.5" fill="#fff"/>
+    <polygon points="50,58 44,64 56,64" fill="#FF9F1C"/>
+    <circle cx="24" cy="64" r="5" fill="#FF8FB8" opacity=".7"/><circle cx="76" cy="64" r="5" fill="#FF8FB8" opacity=".7"/>
+    <polygon points="20,22 50,8 80,22 50,34" fill="#2D2A4A"/><rect x="47" y="22" width="6" height="10" fill="#2D2A4A"/>
+    <line x1="78" y1="22" x2="80" y2="38" stroke="#FFD93D" stroke-width="3"/><circle cx="80" cy="40" r="4" fill="#FFD93D"/>
+  </symbol>
+</svg>
+
+<script>
+/* ---------- storage ---------- */
+const KEY='soc6u4_v1';
+let S={done:{},best:0,tries:0,wrong:[],games:{}};
+try{const t=JSON.parse(localStorage.getItem(KEY));if(t)S=Object.assign(S,t);}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.style.display='block';clearTimeout(t._h);t._h=setTimeout(()=>t.style.display='none',1600);}
+
+/* ---------- nav ---------- */
+function go(p){document.querySelectorAll('.page').forEach(s=>s.classList.toggle('show',s.id===p));
+  document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  if(p==='home')renderHome(); if(p==='wrong')renderWrong(); window.scrollTo({top:0,behavior:'smooth'});}
+document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>go(b.dataset.p));
+
+/* ---------- done buttons ---------- */
+const SECTIONS=['l1a','l1b','l1c','l1d','l2a','l2b','l2c','l2d','l2e','w1'];
+function paintDone(){document.querySelectorAll('[data-done]').forEach(b=>{const k=b.dataset.done;
+  b.classList.toggle('ok',!!S.done[k]);b.textContent=S.done[k]?'🎉 已讀懂（再點一下取消）':'✅ 我讀懂了';});}
+document.querySelectorAll('[data-done]').forEach(b=>b.onclick=()=>{const k=b.dataset.done;S.done[k]=!S.done[k];save();paintDone();if(S.done[k])toast('太棒了！+1 ⭐');});
+paintDone();
+
+/* ---------- home ---------- */
+function renderHome(){
+  const d=SECTIONS.filter(k=>S.done[k]).length;
+  const quizPart=Math.min(S.best/40,1);
+  const gameN=Object.keys(S.games).length;
+  const pct=Math.round((d/SECTIONS.length)*60+quizPart*30+Math.min(gameN/3,1)*10);
+  document.getElementById('progBar').style.width=pct+'%';
+  document.getElementById('progText').innerHTML=`總進度 <b style="font-size:1.4rem;color:#FF6B9A">${pct}%</b> ${pct>=100?'🏆 完全制霸！':pct>=60?'💪 快完成了！':'🌱 加油！'}`;
+  document.getElementById('statBox').innerHTML=`
+   <div class="box bp center"><div class="big">📖</div>重點讀懂<br><b style="font-size:1.4rem">${d} / ${SECTIONS.length}</b></div>
+   <div class="box bs center"><div class="big">🏅</div>練習題最佳成績<br><b style="font-size:1.4rem">${S.best} 題答對</b><br><span class="small">已練習 ${S.tries} 次</span></div>
+   <div class="box bm center"><div class="big">📒</div>錯題本<br><b style="font-size:1.4rem">${S.wrong.length} 題</b></div>`;
+}
+renderHome();
+
+/* ---------- flashcards ---------- */
+const FC=[
+ ['法律和道德最大的差別？','<b>法律有強制力</b>（違反會被依法處罰）；道德違反只會受良心或輿論譴責。'],
+ ['風俗習慣怎麼形成？','受<b>自然環境與文化</b>影響，經<b>長時間流傳</b>而形成。'],
+ ['道德與法律的關係？','<b>缺一不可、相輔相成</b>'],
+ ['不禮讓斑馬線行人最高罰多少？','依《道路交通管理處罰條例》，最高 <b>6,000 元</b>'],
+ ['禁止賣菸酒給兒少的法律？','《<b>兒童及少年福利與權益保障法</b>》'],
+ ['兒少優待票依什麼標準？','依<b>年齡</b>（不是身高！）'],
+ ['憲法是什麼？','國家的<b>根本大法</b>、各種法律的依據、民主社會的基石'],
+ ['自由的兩個原則？','<b>不侵犯他人</b>、<b>不違背社會公共利益</b>'],
+ ['參政權有哪四種？','選舉、罷免、參加公務人員考試、擔任公職（選霸烤公雞）'],
+ ['人民三大義務？','接受國民教育、服兵役、納稅（叫兵睡）'],
+ ['哪一項既是權利也是義務？','<b>接受國民教育</b>'],
+ ['統一發票的意義？','消費的憑證，也是<b>商家向政府繳稅</b>的證明'],
+ ['中央政府包含？','<b>總統府＋五院</b>（行政、立法、司法、考試、監察）'],
+ ['監督市政府的地方機關？','<b>市議會</b>（由民意代表組成）'],
+ ['審判撞傷行人案件？','<b>司法院</b>所屬的各地法院'],
+ ['十二夜指的是？','流浪動物進收容所後若沒人認養，只剩 <b>12 天</b>生命'],
+ ['零撲殺後的新問題？','收容所<b>爆籠</b> ➜ 調整入所條件、飼主教育、晶片、寵物登記'],
+ ['日治時期投票限制？','<b>男性、年滿25歲、繳足夠稅金</b>']
+];
+document.getElementById('fcGrid').innerHTML=FC.map(c=>`<div class="fc" onclick="this.classList.toggle('flip')"><div class="fc-in"><div class="fc-f">❓ ${c[0]}</div><div class="fc-b"><div>${c[1]}</div></div></div></div>`).join('');
+
+/* ---------- sort games ---------- */
+const GAMES={
+ norm:{name:'📘 四種社會規範',cats:[['風俗習慣','#4CC9F0'],['宗教信仰','#9B5DE5'],['道德','#FFB800'],['法律','#FF4D4D']],items:[
+  ['過年發紅包',0],['舉辦成年禮',0],['清明節返鄉祭祖',0],['婚禮改用電子喜帖',0],
+  ['進廟宇參拜要遵守禮儀',1],['「舉頭三尺有神明」',1],['線上參加宗教法會',1],
+  ['不說謊、要誠實',2],['主動幫助有困難的同學',2],['愛護公物有公德心',2],
+  ['騎機車戴安全帽',3],['汽車要禮讓斑馬線上的行人',3],['店家不能賣菸酒給兒少',3]]},
+ right:{name:'⚖️ 權利？義務？',cats:[['權利','#3A86FF'],['義務','#2ECC8F'],['既是權利也是義務','#FF6B9A']],items:[
+  ['選舉投票',0],['罷免不適任的議員',0],['參加公務人員考試',0],['自由選擇宗教信仰',0],['發表言論',0],['新住民學生公平受教育（平等權）',0],
+  ['服兵役',1],['依法納稅',1],['接受國民教育',2]]},
+ gov:{name:'🏛️ 這是誰的工作？',cats:[['行政院','#FF6B9A'],['立法院','#FF9F1C'],['司法院','#9B5DE5'],['考試院','#2ECC8F'],['監察院','#4CC9F0'],['縣市政府','#3A86FF'],['縣市議會','#E0A800']],items:[
+  ['召集各部會研究，提出行人安全政策',0],['通過行人交通安全相關法規',1],['法院審判撞傷行人的案件',2],
+  ['舉辦國家考試、招聘人才',3],['監督、糾正違法失職的公務人員',4],['在行人多的區域設置行人優先區',5],
+  ['由民意代表組成，監督縣市政府施政',6],['因應酒駕問題修訂相關法規',1]]}
+};
+let G=null;
+document.getElementById('gameChips').innerHTML=Object.entries(GAMES).map(([k,g])=>`<button class="chip" onclick="startGame('${k}')">${g.name}</button>`).join('');
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function startGame(k){G={k,items:shuffle(GAMES[k].items),i:0,ok:0};
+  document.querySelectorAll('#gameChips .chip').forEach(c=>c.classList.toggle('on',c.textContent===GAMES[k].name));drawGame();}
+function drawGame(){const g=GAMES[G.k],A=document.getElementById('gameArea');
+  if(G.i>=G.items.length){const full=G.ok===G.items.length;S.games[G.k]=Math.max(S.games[G.k]||0,G.ok);save();
+    A.innerHTML=`<div class="center"><svg width="120" height="120" viewBox="0 0 100 100"><use href="#owl"/></svg><div class="score-big">${G.ok} / ${G.items.length}</div><p>${full?'🎉 全對！你是分類大師！':'再玩一次就會更熟喔！'}</p><button class="btn pink" onclick="startGame('${G.k}')">🔁 再玩一次</button></div>`;return;}
+  const it=G.items[G.i];
+  A.innerHTML=`<p class="center small">第 ${G.i+1} / ${G.items.length} 題　答對 ${G.ok}</p><div class="sort-item">${it[0]}</div>
+   <div class="sort-btns">${g.cats.map((c,ci)=>`<button style="background:${c[1]}" onclick="pick(${ci})">${c[0]}</button>`).join('')}</div><p id="gfb" class="center" style="font-weight:bold;min-height:1.6em"></p>`;}
+function pick(ci){const it=G.items[G.i],g=GAMES[G.k],fb=document.getElementById('gfb');
+  document.querySelectorAll('.sort-btns button').forEach(b=>b.disabled=true);
+  if(ci===it[1]){G.ok++;fb.innerHTML='⭕ 答對了！';fb.style.color='#1E9C6A';}
+  else{fb.innerHTML=`❌ 正確答案是「${g.cats[it[1]][0]}」`;fb.style.color='#E02F4F';}
+  setTimeout(()=>{G.i++;drawGame();},ci===it[1]?700:1600);}
+
+/* ---------- questions ---------- */
+// t:'tf'|'mc'  a: true/false or index ; lv:1易 2中 3難 ; hot ; l:1/2/3
+const Q=[
+{l:1,t:'tf',q:'道德是現代社會中人與人相處的規範，作為約束或鼓勵行為的標準。',a:true,lv:1,ex:'道德可以約束，也可以「鼓勵」良善行為，例如誠實、助人、公德心。'},
+{l:1,t:'tf',q:'小華的家鄉有舉辦成年禮的傳統，這屬於社會規範中的風俗習慣。',a:true,lv:1,ex:'成年禮是經長時間流傳形成的風俗習慣。'},
+{l:1,t:'tf',q:'《兒童及少年福利與權益保障法》主要是為了限制兒童與少年的自由。',a:false,lv:2,hot:1,ex:'目的是「保護」兒少健康、安全地成長，不是限制自由。'},
+{l:1,t:'tf',q:'汽車駕駛人若未禮讓斑馬線上的行人，最高可罰6,000元，這是法律發揮強制力的表現。',a:true,lv:2,hot:1,ex:'依《道路交通管理處罰條例》，最高可罰6,000元，展現法律的強制力。'},
+{l:1,t:'tf',q:'法律不是唯一具有強制力的社會規範，道德標準也同樣具有強制力。',a:false,lv:3,hot:1,ex:'法律是「唯一」具有強制力的社會規範；違反道德只會受到良心或社會輿論的譴責。'},
+{l:1,t:'tf',q:'社會規範能解決所有問題，有了規範，社會就不會發生任何衝突。',a:false,lv:1,ex:'規範能「減少」衝突，但無法解決所有問題。'},
+{l:1,t:'tf',q:'政府規定大眾運輸工具、博物館或遊樂園等，應以「身高」為標準提供兒童及少年優惠措施。',a:false,lv:3,hot:1,ex:'陷阱！課本寫的是以「年齡」為標準，例如兒童優待票。'},
+{l:1,t:'tf',q:'政府不會制定專屬的法律保障社會中較缺乏保護自己力量的族群。',a:false,lv:2,ex:'政府「會」制定專屬法律，例如《兒童及少年福利與權益保障法》。'},
+{l:1,t:'tf',q:'近年來，宗教信仰隨科技發展改變活動形式，例如：線上參加宗教法會。',a:true,lv:1,ex:'科技改變了活動形式：電子喜帖、網路祭拜、線上法會。'},
+{l:1,t:'mc',q:'俗諺：「亂丟垃圾，神明在看。」這句話在社會中主要能發揮什麼功能？',o:['強迫人們信仰宗教','提醒人們思考行為是否恰當','要求人們捐錢給廟宇','讓警察方便抓壞人'],a:1,lv:2,ex:'宗教規範能提醒人們自我約束、思考行為是否恰當。'},
+{l:1,t:'mc',q:'現代社會中「道德」與「法律」的關係，下列哪一種說法正確？',o:['只需法律，不需道德','只要遵守道德，就可以不理會法律','兩者相輔相成','兩者沒有關聯'],a:2,lv:1,hot:1,ex:'道德與法律「缺一不可，且相輔相成」。'},
+{l:1,t:'mc',q:'關於現代社會中各種社會規範的運作，下列敘述何者正確？',o:['科技發展會使社會規範完全失去約束力','社會規範作為共同生活的依據，有助於維持社會秩序','合法的事情也一定合乎道德','強迫少數人接受多數人的習慣能解決價值觀差異'],a:1,lv:2,ex:'「合法不一定合乎道德」，例如停在白線上卻擋住鄰居進出。'},
+{l:1,t:'mc',q:'禁止店家販賣菸酒給兒童與少年，是依據哪一條法律？',o:['廢棄物清理法','道路交通管理處罰條例','國民教育法','兒童及少年福利與權益保障法'],a:3,lv:2,hot:1,ex:'兒少法保障兒少健康、安全地成長。'},
+{l:1,t:'mc',q:'近年來出現許多新型態網路詐騙。針對這種因科技發展帶來的社會變遷，政府怎麼做較適當？',o:['關閉全國網路，恢復傳統生活','僅透過道德勸說，不修改法規','適時修正法律或確立新標準，以保障人民權益','視為風俗習慣的改變，不予理會'],a:2,lv:2,ex:'社會變遷時，政府應適時修正法律、建立新規範。'},
+{l:1,t:'mc',q:'某地舉辦宗教遶境活動造成道路壅塞，駕駛與參與民眾發生口角。下列哪種態度最符合社會規範的精神？',o:['彼此尊重，透過溝通減少衝突','影響交通的民俗活動都應全面禁止','駕駛人應無條件配合','駕駛人可以用言語辱罵表達不滿'],a:0,lv:1,ex:'價值觀與生活方式不同時，要彼此尊重、溝通。'},
+{l:1,t:'mc',q:'小亮發現：「過年發紅包」、「不說謊」、「騎車戴安全帽」，依序分別屬於哪種社會規範？',o:['道德、風俗習慣、法律','風俗習慣、道德、法律','風俗習慣、法律、道德','宗教信仰、道德、法律'],a:1,lv:3,hot:1,ex:'發紅包＝風俗、不說謊＝道德、戴安全帽＝法律。口訣「風中刀法」！'},
+{l:1,t:'mc',q:'如果一個人違反「道德」，最可能會受到什麼結果？',o:['被法院判刑','被開罰單','受到良心或社會輿論的譴責','被取消國籍'],a:2,lv:2,hot:1,ex:'道德沒有強制力，違反時是受到良心或社會輿論的譴責。'},
+{l:1,t:'mc',q:'鄰居把車停在你家門口的白線上（沒有違規），卻擋住你家人進出。這個例子最能說明什麼？',o:['合法的行為一定合乎道德','合法的事情，不一定合乎道德','法律沒有任何用處','停車問題只能報警處理'],a:1,lv:3,hot:1,ex:'停白線合法，但不體貼他人，不合道德 ➜ 道德與法律要相輔相成。'},
+{l:1,t:'mc',q:'關於「法律」的敘述，何者正確？',o:['由寺廟制定','由立法機關（民意代表組成）制定，違反時由法院依法判決','是自然形成、長時間流傳的指引','違反時只會被大家討厭'],a:1,lv:3,ex:'法律由立法機關制定；道德才是自然形成的指引。'},
+{l:2,t:'tf',q:'人民享有憲法保障各種基本權利的同時，也必須負起接受國民教育、服兵役與納稅的義務。',a:true,lv:1,hot:1,ex:'三大義務口訣「叫兵睡」：教育、兵役、納稅。'},
+{l:2,t:'tf',q:'王阿姨對居住地的施政很不滿意，她可以透過民意代表或集會遊行向市政府反映意見。',a:true,lv:1,ex:'人民可透過民意代表、集會遊行等合法管道反映意見。'},
+{l:2,t:'tf',q:'政府興建學校、提供醫療照護或改善交通設施等，經費來自人民依法繳納的稅金。',a:true,lv:1,ex:'稅金是政府推動公共建設與服務的重要經費來源。'},
+{l:2,t:'tf',q:'小權家信仰基督教、筱華家信仰佛教、小東家信仰伊斯蘭教，因為信仰不同，他們受到的權利保障也不同。',a:false,lv:2,hot:1,ex:'不論性別、族群或信仰，在法律面前一律平等，權利保障相同。'},
+{l:2,t:'tf',q:'小安長大後想透過參加國家辦理的公務人員考試，成為縣市長或村里長。',a:false,lv:3,hot:1,ex:'超級陷阱！縣市長、村里長是人民「選舉」選出來的，不是考試考上的。'},
+{l:2,t:'tf',q:'針對酒駕問題，地方行政機關會根據法律進行審判。',a:false,lv:2,hot:1,ex:'審判是司法院所屬「法院」的工作，不是行政機關。'},
+{l:2,t:'tf',q:'針對酒駕問題，司法院會配合政策，加強稽查攔檢並取締酒後駕車。',a:false,lv:3,hot:1,ex:'稽查攔檢、取締是行政機關（警察）的工作；司法院負責審判。'},
+{l:2,t:'tf',q:'針對酒駕問題，縣市議會可以監督縣市政府的執行狀況。',a:true,lv:2,ex:'縣市議會（地方立法機關）由民意代表組成，負責監督縣市政府。'},
+{l:2,t:'mc',q:'下列關於憲法的敘述哪些正確？ A 是各種法律的依據　B 明確規範人民的基本權利與義務　C 保障人民想做什麼就做什麼的權利　D 民主社會運作的重要基石',o:['ABC','BCD','ABD','ACD'],a:2,lv:3,hot:1,ex:'C錯！自由以「不侵犯他人、不違背社會公共利益」為原則。'},
+{l:2,t:'mc',q:'小東說他住的地方有個機關由民意代表組成，主要監督「市政府」的施政，確保符合民意與法律。這是什麼機關？',o:['司法院','市議會','立法院','行政院'],a:1,lv:2,hot:1,ex:'監督「市政府」的是地方立法機關 ➜ 市議會。立法院是中央的。'},
+{l:2,t:'mc',q:'下列哪一個是我們消費的憑證，也是商家向政府繳納稅金的證明？',o:['說明書','保證卡','信用卡','統一發票'],a:3,lv:1,ex:'統一發票＝消費憑證＋商家繳稅證明。'},
+{l:2,t:'mc',q:'爸爸說：「在臺灣，男性成年後需要服兵役。」下列看法何者正確？',o:['是刑法的規範','男性年滿20歲後依法須服兵役','服兵役屬於人民的權利','女性可依個人意願選擇是否當兵'],a:3,lv:2,hot:1,ex:'服兵役是「義務」；男性年滿「18歲」後依法服兵役；女性可依個人意願。'},
+{l:2,t:'mc',q:'下列哪一項不符合憲法規定的自由原則？',o:['不侵犯他人','不違背社會公共利益','能隨意謾罵同學與老師以表達不滿','不能散播不實的內容'],a:2,lv:1,ex:'言論自由不能用來謾罵、誹謗或侮辱他人。'},
+{l:2,t:'mc',q:'小芳小時候住在印尼，後來到臺灣念小學，在學校跟每位學生一樣享有公平的受教育權利。這是憲法保障的哪一項？',o:['平等權','集會自由','參政權','宗教自由'],a:0,lv:2,hot:1,ex:'不論族群都受到公平對待 ➜ 平等權（例如華語補救教學）。'},
+{l:2,t:'mc',q:'民主國家的人民可以參與政治事務的權利，下列哪一組「全部」正確？',o:['信仰宗教、選擇居住地點','服兵役、接受國民教育','選舉、罷免、參加公務人員考試、擔任公職','依法繳納稅金、選舉'],a:2,lv:2,hot:1,ex:'參政權口訣「選霸烤公雞」：選舉、罷免、考試、公職。'},
+{l:2,t:'mc',q:'下列哪一項「既是權利，也是義務」？',o:['服兵役','納稅','接受國民教育','罷免'],a:2,lv:3,hot:1,ex:'兒童到學校上課，是受教育的權利，也是義務。'},
+{l:2,t:'mc',q:'日治時期的投票有許多限制，下列哪一項「不是」當時的限制？',o:['必須是男性','必須年滿25歲','必須繳交足夠的稅金','必須大學畢業'],a:3,lv:3,ex:'日治時期限制：男性、年滿25歲、繳交足夠稅金。'},
+{l:2,t:'mc',q:'中央與地方合作維護行人路權時，「行政院」負責做什麼？',o:['審判撞傷行人的案件','召集各部會研究，提出行人優先交通安全政策','監督縣市政府','舉辦公務人員考試'],a:1,lv:2,ex:'行政院做事、提政策；司法院審判；議會監督；考試院考選人才。'},
+{l:2,t:'mc',q:'人民可以「罷免」的對象是誰？',o:['所有的公務人員','不適任的地方首長與民選代表','法院的法官','學校的老師'],a:1,lv:3,ex:'罷免是針對「民選」的地方首長與民意代表，罷免通過後結束其職務。'},
+{l:3,t:'mc',q:'立法院在哪一年通過修正《動物保護法》，刪除撲殺條款？',o:['2013年','2015年','2017年','2019年'],a:1,lv:2,hot:1,ex:'口訣「13演、15修、17停」。'},
+{l:3,t:'mc',q:'流浪動物零安樂死政策上路後，衍生了什麼新問題？政府如何因應？',o:['流浪動物消失了，不用處理','收容所爆籠；調整入所條件、推動飼主教育與寵物登記','寵物店倒閉；政府補助寵物店','收容所空空的；政府關閉收容所'],a:1,lv:2,ex:'收容所爆滿 ➜ 優先收容具攻擊性或傷病動物，並推動飼主教育、植入晶片、寵物登記。'}
+];
+
+/* ---------- quiz engine ---------- */
+const FIL=[['all','全部'],['l1','第1課'],['l2','第2課'],['l3','世界看見臺灣'],['hot','⭐常考'],['hard','🔥難題'],['tf','是非題'],['mc','選擇題']];
+let fil='all';
+document.getElementById('quizChips').innerHTML=FIL.map(f=>`<button class="chip ${f[0]==='all'?'on':''}" data-f="${f[0]}">${f[1]}</button>`).join('');
+document.querySelectorAll('#quizChips .chip').forEach(c=>c.onclick=()=>{fil=c.dataset.f;document.querySelectorAll('#quizChips .chip').forEach(x=>x.classList.toggle('on',x===c));countQ();});
+function pool(){return Q.map((q,i)=>Object.assign({id:i},q)).filter(q=>fil==='all'||(fil==='l1'&&q.l===1)||(fil==='l2'&&q.l===2)||(fil==='l3'&&q.l===3)||(fil==='hot'&&q.hot)||(fil==='hard'&&q.lv===3)||fil===q.t);}
+function countQ(){document.getElementById('quizCount').textContent=`　這一組有 ${pool().length} 題`;}
+countQ();
+let QZ=null;
+function startQuiz(wrongMode){
+  let list=wrongMode?S.wrong.map(i=>Object.assign({id:i},Q[i])):pool();
+  if(!list.length){toast(wrongMode?'錯題本是空的，太厲害了！🎉':'沒有題目喔');return;}
+  if(wrongMode)go('quiz');
+  QZ={list:shuffle(list),i:0,ok:0,wrongMode,full:!wrongMode&&fil==='all'};drawQ();
+  document.getElementById('quizArea').scrollIntoView({behavior:'smooth'});}
+function lvTag(q){return (q.lv===3?'<span class="tag hard">🔥難</span>':q.lv===2?'<span class="tag mid">中</span>':'<span class="tag easy">易</span>')+(q.hot?'<span class="tag hot">⭐常考</span>':'');}
+function drawQ(){const A=document.getElementById('quizArea');
+  if(QZ.i>=QZ.list.length){const n=QZ.list.length;S.tries++;
+    if(QZ.full)S.best=Math.max(S.best,QZ.ok);save();
+    const r=QZ.ok/n;const stars=r===1?'⭐⭐⭐':r>=.8?'⭐⭐':r>=.6?'⭐':'💪';
+    A.innerHTML=`<div class="qbox center"><svg width="130" height="130" viewBox="0 0 100 100"><use href="#owl"/></svg><div class="score-big">${QZ.ok} / ${n}</div><div style="font-size:2.4rem">${stars}</div>
+      <p>${r===1?'全對！你是規範與民主小專家！🏆':r>=.8?'好棒！再複習錯題就完美了！':'沒關係～去「錯題本」再練一次吧！'}</p>
+      ${QZ.full?'':'<p class="small">（選「全部」40題練習，成績才會記錄為最佳成績喔）</p>'}
+      <button class="btn pink" onclick="startQuiz(${QZ.wrongMode})">🔁 再練一次</button><button class="btn orange" onclick="go('wrong')">📒 看錯題本</button></div>`;return;}
+  const q=QZ.list[QZ.i];
+  const opts=q.t==='tf'?`<div class="tfrow"><button class="opt" data-v="1">⭕ 對</button><button class="opt" data-v="0">❌ 錯</button></div>`
+    :q.o.map((o,k)=>`<button class="opt" data-v="${k}">${'①②③④'[k]} ${o}</button>`).join('');
+  A.innerHTML=`<div class="qbox"><div class="small">第 ${QZ.i+1} / ${QZ.list.length} 題　｜　答對 ${QZ.ok} 題　｜　${q.t==='tf'?'是非題':'選擇題'} ${lvTag(q)}</div>
+    <div class="prog" style="height:14px;margin:6px 0"><div style="width:${QZ.i/QZ.list.length*100}%"></div></div>
+    <div class="qtext">${q.q}</div>${opts}<div class="explain" id="exp"></div>
+    <div class="center" id="nextW" style="display:none"><button class="btn green" onclick="QZ.i++;drawQ()">下一題 ➜</button></div></div>`;
+  A.querySelectorAll('.opt').forEach(b=>b.onclick=()=>answer(b,q));}
+function answer(b,q){const A=document.getElementById('quizArea');
+  const v=+b.dataset.v;const correct=q.t==='tf'?(v===1)===q.a:v===q.a;
+  A.querySelectorAll('.opt').forEach(x=>{x.disabled=true;const xv=+x.dataset.v;
+    if(q.t==='tf'?((xv===1)===q.a):xv===q.a)x.classList.add('right');});
+  if(!correct)b.classList.add('wrong');
+  if(correct){QZ.ok++;S.wrong=S.wrong.filter(i=>i!==q.id);}
+  else if(!S.wrong.includes(q.id))S.wrong.push(q.id);
+  save();
+  const e=document.getElementById('exp');e.style.display='block';
+  e.innerHTML=(correct?'<b style="color:#1E9C6A">⭕ 答對了！</b> ':'<b style="color:#E02F4F">❌ 再想想！</b> ')+'💡 '+q.ex;
+  document.getElementById('nextW').style.display='block';}
+
+/* ---------- wrong book ---------- */
+function renderWrong(){const W=document.getElementById('wrongList');
+  if(!S.wrong.length){W.innerHTML='<div class="box bm center"><div class="big">🎉</div>目前沒有錯題，繼續保持！</div>';return;}
+  W.innerHTML=S.wrong.map(i=>{const q=Q[i];const ans=q.t==='tf'?(q.a?'⭕ 對':'❌ 錯'):'①②③④'[q.a]+' '+q.o[q.a];
+    return `<div class="box by" style="margin:8px 0">${lvTag(q)} <b>${q.q}</b><br><span class="small">✅ 正解：${ans}　💡 ${q.ex}</span></div>`;}).join('');}
+function resetAll(){if(confirm('確定要清除所有學習紀錄嗎？')){S={done:{},best:0,tries:0,wrong:[],games:{}};save();paintDone();renderWrong();toast('已清除，重新出發！');}}
+</script>
+</body>
+</html>
